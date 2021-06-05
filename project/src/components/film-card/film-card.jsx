@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function filmCard() {
+export default function FilmCard() {
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">

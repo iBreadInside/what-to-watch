@@ -1,21 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import filmCard from '../film-card/film-card';
+import FilmCard from '../film-card/film-card';
 
 const FILMLIST_LENGTH = 20;
-const filmCards = new Array(FILMLIST_LENGTH).fill().map(filmCard);
-
-ReactDOM.render(
-  {filmCards},
-  document.querySelector('.catalog__films-list'),
-);
+const filmCards = new Array(FILMLIST_LENGTH).fill().map(FilmCard);
 
 export default function Main() {
   return (
-    <body>
-      <div classNameName="visually-hidden">
+    <>
+      <div className="visually-hidden">
         {/* inject:svg */}
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
           <symbol id="add" viewBox="0 0 19 20">
             {/* Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch */}
             <title>+</title>
@@ -146,7 +140,9 @@ export default function Main() {
             </li>
           </ul>
 
-          <div className="catalog__films-list"></div>
+          <div className="catalog__films-list">
+            {filmCards}
+          </div>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -167,6 +163,6 @@ export default function Main() {
           </div>
         </footer>
       </div>
-    </body>
+    </>
   );
 }
