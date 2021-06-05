@@ -1,7 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Main from '../main/main';
 
-function App() {
-  return <p>Hello, world!</p>;
+App.propTypes = {
+  promo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+  }),
+};
+
+export default function App(props) {
+  const {promo} = props;
+
+  return (
+    <Main promo={promo} />
+  );
 }
-
-export default App;
