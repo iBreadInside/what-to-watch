@@ -1,10 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FilmCard from '../film-card/film-card';
 
 const FILMLIST_LENGTH = 20;
 const filmCards = new Array(FILMLIST_LENGTH).fill().map(FilmCard);
 
-export default function Main() {
+Main.propTypes = {
+  promo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+  }),
+};
+
+export default function Main(props) {
+  const {promo} = props;
+
   return (
     <>
       <div className="visually-hidden">
@@ -45,7 +56,7 @@ export default function Main() {
 
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -74,14 +85,14 @@ export default function Main() {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={promo.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{promo.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{promo.genre}</span>
+                <span className="film-card__year">{promo.released}</span>
               </p>
 
               <div className="film-card__buttons">
