@@ -13,9 +13,7 @@ Main.propTypes = {
   }),
 };
 
-export default function Main(props) {
-  const {promo} = props;
-
+export default function Main({promo}) {
   return (
     <>
       <div className="visually-hidden">

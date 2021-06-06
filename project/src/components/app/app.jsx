@@ -10,9 +10,7 @@ App.propTypes = {
   }),
 };
 
-export default function App(props) {
-  const {promo} = props;
-
+export default function App({promo}) {
   return (
     <Main promo={promo} />
   );
