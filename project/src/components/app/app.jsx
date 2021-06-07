@@ -6,10 +6,12 @@ import Main from '../pages/main/main';
 import NotFound from '../pages/not-found/not-found';
 import SignIn from '../pages/sign-in/sign-in';
 import MyList from '../pages/my-list/my-list';
+import Film from '../pages/film/film';
 
 App.propTypes = {
   promo: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
   }),
@@ -27,6 +29,9 @@ export default function App({promo}) {
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
           <MyList />
+        </Route>
+        <Route exact path={AppRoute.FILM}>
+          <Film promo={promo} />
         </Route>
         <Route>
           <NotFound />

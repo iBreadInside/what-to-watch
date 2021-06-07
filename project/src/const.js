@@ -10,4 +10,5 @@ export const AppRoute = {
 export const FilmListLenght = {
   MAIN: 20,
   MY_LIST: 9,
+  SIMILAR: 4,
 };

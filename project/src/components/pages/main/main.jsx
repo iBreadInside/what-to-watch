@@ -13,6 +13,7 @@ const filmCards = generateFilmCards(FilmListLenght.MAIN, FilmCard);
 Main.propTypes = {
   promo: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
   }),
@@ -38,7 +39,7 @@ export default function Main({promo}) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={promo.name} width="218" height="327" />
+              <img src={promo.posterImage} alt={promo.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
