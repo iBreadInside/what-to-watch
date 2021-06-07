@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../../const';
 
 AddReview.propTypes = {
   promo: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
   }),
@@ -30,7 +33,7 @@ export default function AddReview({promo}) {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="film-page.html" className="breadcrumbs__link">{promo.name}</a>
+                  <Link to={AppRoute.FILM} href="film-page.html" className="breadcrumbs__link">{promo.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FilmListLenght } from '../../../const';
+import {Link} from 'react-router-dom';
+import { AppRoute, FilmListLenght } from '../../../const';
 import { generateFilmCards } from '../../../utils';
 import FilmCard from '../../elements/film-card/film-card';
 import HeaderLogo from '../../elements/header-logo/header-logo';
@@ -59,7 +60,7 @@ export default function Film({promo}) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to={AppRoute.ADD_REVIEW} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
