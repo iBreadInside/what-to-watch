@@ -4,6 +4,7 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../pages/main/main';
 import NotFound from '../pages/not-found/not-found';
+import SignIn from '../pages/sign-in/sign-in';
 
 App.propTypes = {
   promo: PropTypes.shape({
@@ -19,6 +20,9 @@ export default function App({promo}) {
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main promo={promo} />
+        </Route>
+        <Route exact path={AppRoute.SIGN_IN}>
+          <SignIn />
         </Route>
         <Route>
           <NotFound />
