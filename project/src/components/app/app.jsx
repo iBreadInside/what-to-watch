@@ -8,6 +8,7 @@ import SignIn from '../pages/sign-in/sign-in';
 import MyList from '../pages/my-list/my-list';
 import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
+import Player from '../pages/player/player';
 
 App.propTypes = {
   promo: PropTypes.shape({
@@ -36,6 +37,9 @@ export default function App({promo}) {
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
           <AddReview promo={promo} />
+        </Route>
+        <Route exact path={AppRoute.PLAYER}>
+          <Player />
         </Route>
         <Route>
           <NotFound />
