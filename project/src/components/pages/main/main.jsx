@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilmCard from '../../elements/film-card/film-card';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import UserBlock from '../../elements/user-block/user-block';
-import {generateFilmCards} from '../../../utils';
-import {FilmListLenght} from '../../../const';
-
-const filmCards = generateFilmCards(FilmListLenght.MAIN, FilmCard);
+import {filmCards} from '../../../utils';
 
 Main.propTypes = {
   promo: PropTypes.shape({

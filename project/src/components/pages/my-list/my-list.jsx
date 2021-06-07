@@ -1,13 +1,12 @@
 import React from 'react';
 import {FilmListLenght} from '../../../const';
-import {generateFilmCards} from '../../../utils';
-import FilmCard from '../../elements/film-card/film-card';
+import {filmCards} from '../../../utils';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import UserBlock from '../../elements/user-block/user-block';
 
-const filmCards = generateFilmCards(FilmListLenght.MY_LIST, FilmCard);
+const myFilms = filmCards.slice(0, FilmListLenght.MY_LIST);
 
 export default function MyList() {
   return (
@@ -27,7 +26,7 @@ export default function MyList() {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__films-list">
-            {filmCards}
+            {myFilms}
           </div>
         </section>
 
