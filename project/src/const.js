@@ -6,3 +6,8 @@ export const AppRoute = {
   ADD_REVIEW: '/films/:id/review',
   PLAYER:'/player/:id',
 };
+
+export const FilmListLenght = {
+  MAIN: 20,
+  MY_LIST: 9,
+};

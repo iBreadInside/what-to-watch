@@ -4,9 +4,11 @@ import FilmCard from '../../elements/film-card/film-card';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import HeaderLogo from '../../elements/header-logo/header-logo';
+import UserBlock from '../../elements/user-block/user-block';
+import { generateFilmCards } from '../../../utils';
+import { FilmListLenght } from '../../../const';
 
-const FILMLIST_LENGTH = 20;
-const filmCards = new Array(FILMLIST_LENGTH).fill().map(FilmCard);
+const filmCards = generateFilmCards(FilmListLenght.MAIN, FilmCard);
 
 Main.propTypes = {
   promo: PropTypes.shape({
@@ -30,16 +32,7 @@ export default function Main({promo}) {
         <header className="page-header film-card__head">
           <HeaderLogo />
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__wrap">

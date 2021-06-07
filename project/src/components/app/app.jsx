@@ -5,6 +5,7 @@ import {AppRoute} from '../../const';
 import Main from '../pages/main/main';
 import NotFound from '../pages/not-found/not-found';
 import SignIn from '../pages/sign-in/sign-in';
+import MyList from '../pages/my-list/my-list';
 
 App.propTypes = {
   promo: PropTypes.shape({
@@ -23,6 +24,9 @@ export default function App({promo}) {
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SignIn />
+        </Route>
+        <Route exact path={AppRoute.MY_LIST}>
+          <MyList />
         </Route>
         <Route>
           <NotFound />
