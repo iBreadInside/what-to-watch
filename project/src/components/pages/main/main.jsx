@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilmCard from '../film-card/film-card';
+import FilmCard from '../../elements/film-card/film-card';
 
 const FILMLIST_LENGTH = 20;
 const filmCards = new Array(FILMLIST_LENGTH).fill().map(FilmCard);

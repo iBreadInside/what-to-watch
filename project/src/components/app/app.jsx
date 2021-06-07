@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Main from '../main/main';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import Main from '../pages/main/main';
+import NotFound from '../pages/not-found/not-found';
 
 App.propTypes = {
   promo: PropTypes.shape({
@@ -12,6 +15,15 @@ App.propTypes = {
 
 export default function App({promo}) {
   return (
-    <Main promo={promo} />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={AppRoute.MAIN}>
+          <Main promo={promo} />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
