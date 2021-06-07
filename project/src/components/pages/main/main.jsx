@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../../elements/film-card/film-card';
+import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
+import PageFooter from '../../elements/page-footer/page-footer';
+import HeaderLogo from '../../elements/header-logo/header-logo';
 
 const FILMLIST_LENGTH = 20;
 const filmCards = new Array(FILMLIST_LENGTH).fill().map(FilmCard);
@@ -16,6 +19,7 @@ Main.propTypes = {
 export default function Main({promo}) {
   return (
     <>
+      <HiddenSVG />
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
@@ -24,13 +28,7 @@ export default function Main({promo}) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <HeaderLogo />
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -122,19 +120,7 @@ export default function Main({promo}) {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <PageFooter />
       </div>
     </>
   );
