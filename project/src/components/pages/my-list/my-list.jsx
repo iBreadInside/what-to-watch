@@ -1,6 +1,6 @@
 import React from 'react';
-import { FilmListLenght } from '../../../const';
-import { generateFilmCards } from '../../../utils';
+import {FilmListLenght} from '../../../const';
+import {generateFilmCards} from '../../../utils';
 import FilmCard from '../../elements/film-card/film-card';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
