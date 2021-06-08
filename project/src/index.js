@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 const PROMO = {
+  id: 1,
   name: 'The Grand Budapest Hotel',
+  posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
   genre: 'Drama',
   released: 2014,
 };
