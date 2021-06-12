@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../pages/main/main';
@@ -12,7 +13,7 @@ import filmProp from '../pages/film/film.prop';
 
 App.propTypes = {
   promo: filmProp,
-  films: filmProp,
+  films: PropTypes.arrayOf(filmProp),
 };
 
 export default function App({promo, films}) {
@@ -38,7 +39,7 @@ export default function App({promo, films}) {
           <AddReview promo={promo} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player />
+          <Player films={films} />
         </Route>
         <Route>
           <NotFound />
