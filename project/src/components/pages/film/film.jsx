@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AppRoute, FilmListLenght} from '../../../const';
-import {filmCards} from '../../../utils';
+import {AppRoute} from '../../../const';
+// import {filmCards} from '../../../utils';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import UserBlock from '../../elements/user-block/user-block';
 
-const similarFilms = filmCards.slice(0, FilmListLenght.SIMILAR);
+// const similarFilms = filmCards.slice(0, FilmListLenght.SIMILAR);
 
 Film.propTypes = {
   promo: PropTypes.shape({
@@ -113,7 +113,7 @@ export default function Film({promo}) {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            {similarFilms}
+            {/* {similarFilms} */}
           </div>
         </section>
 
