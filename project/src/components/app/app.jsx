@@ -29,7 +29,7 @@ export default function App({promo, films}) {
           <SignIn />
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
+          <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
           <Film promo={promo} />

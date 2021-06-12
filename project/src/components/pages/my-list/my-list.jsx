@@ -1,14 +1,17 @@
 import React from 'react';
-// import {FilmListLenght} from '../../../const';
-// import {filmCards} from '../../../utils';
+import PropTypes from 'prop-types';
+import FilmList from '../../elements/film-list/film-list';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import UserBlock from '../../elements/user-block/user-block';
+import filmProp from '../film/film.prop';
 
-// const myFilms = filmCards.slice(0, FilmListLenght.MY_LIST);
+MyList.propTypes = {
+  films: PropTypes.arrayOf(filmProp),
+};
 
-export default function MyList() {
+export default function MyList({films}) {
   return (
     <>
       <HiddenSVG />
@@ -25,9 +28,7 @@ export default function MyList() {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <div className="catalog__films-list">
-            {/* {myFilms} */}
-          </div>
+          <FilmList films={films} />
         </section>
 
         <PageFooter />
