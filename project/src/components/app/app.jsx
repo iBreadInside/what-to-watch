@@ -36,7 +36,7 @@ export default function App({promo, films}) {
           <Film promo={promo} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview promo={promo} />
+          <AddReview films={films} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
           <Player films={films} />
