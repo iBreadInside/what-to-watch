@@ -28,6 +28,7 @@ export default function Film({films}) {
 
   const [currentFilm] = films.filter((film) => film.id === +params.id);
   const {
+    id,
     name,
     description,
     director,
@@ -74,7 +75,7 @@ export default function Film({films}) {
               <div className="film-card__buttons">
                 <PlayBtn film={currentFilm} />
                 <MyListBtn />
-                <Link className="btn film-card__button" to={`/films/${currentFilm.id}/review`}>Add review</Link>
+                <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link>
               </div>
             </div>
           </div>

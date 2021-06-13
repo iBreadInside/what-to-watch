@@ -8,6 +8,7 @@ PlayBtn.propTypes = {
 
 export default function PlayBtn({film}) {
   const history = useHistory();
+
   return (
     <button
       className="btn btn--play film-card__button"

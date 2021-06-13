@@ -18,7 +18,7 @@ const films = [{
   isFavorite: false,
 },{
   id: 2,
-  name: 'What we do in the shadows.jpg',
+  name: 'What we do in the shadows',
   posterImage: 'img/what-we-do-in-the-shadows.jpg',
   previewImage: 'img/what-we-do-in-the-shadows.jpg',
   backgroundImage: 'img/bg-what-we-do-in-the-shadows.jpg',

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
-import {AppRoute} from '../../../const';
 import filmProp from '../film/film.prop';
 import ReviewForm from '../../elements/review-form/review-form';
 
@@ -16,6 +15,7 @@ export default function AddReview({films}) {
   const params = useParams();
 
   const [{
+    id,
     name,
     backgroundImage,
     posterImage,
@@ -39,7 +39,7 @@ export default function AddReview({films}) {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={AppRoute.FILM} className="breadcrumbs__link">{name}</Link>
+                  <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
