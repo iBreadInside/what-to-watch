@@ -91,7 +91,7 @@ const films = [{
 },{
   id: 6,
   name: 'Pulp Fiction',
-  posterImage: 'img/pulp-fiction-poster.jpg',
+  posterImage: 'img/pulp-fiction.jpg',
   previewImage: 'img/pulp-fiction.jpg',
   backgroundImage: 'img/bg-pulp-fiction.jpg',
   backgroundColor: '#ffffff',
@@ -109,7 +109,7 @@ const films = [{
 },{
   id: 7,
   name: 'Macbeth',
-  posterImage: 'img/macbeth-poster.jpg',
+  posterImage: 'img/macbeth.jpg',
   previewImage: 'img/macbeth.jpg',
   backgroundImage: 'img/bg-macbeth.jpg',
   backgroundColor: '#ffffff',
@@ -127,7 +127,7 @@ const films = [{
 },{
   id: 8,
   name: 'Mindhunter',
-  posterImage: 'img/mindhunter-poster.jpg',
+  posterImage: 'img/mindhunter.jpg',
   previewImage: 'img/mindhunter.jpg',
   backgroundImage: 'img/bg-mindhunter.jpg',
   backgroundColor: '#ffffff',

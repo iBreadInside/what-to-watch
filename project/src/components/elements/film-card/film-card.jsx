@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../../const';
 import filmProp from '../../pages/film/film.prop';
 
 FilmCard.propTypes = {
@@ -20,7 +19,7 @@ export default function FilmCard({film, setActiveFilm}) {
         <img src={film.previewImage} alt={film.name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={AppRoute.FILM}>{film.name}</Link>
+        <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>
       </h3>
     </article>
   );

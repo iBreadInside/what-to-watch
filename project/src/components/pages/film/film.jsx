@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, useParams} from 'react-router-dom';
-import {AppRoute, FilmListLenght} from '../../../const';
+import {FilmListLenght} from '../../../const';
 import filmProp from './film.prop';
 import FilmList from '../../elements/film-list/film-list';
 import HeaderLogo from '../../elements/header-logo/header-logo';
@@ -74,7 +74,7 @@ export default function Film({films}) {
               <div className="film-card__buttons">
                 <PlayBtn film={currentFilm} />
                 <MyListBtn />
-                <Link to={AppRoute.ADD_REVIEW} className="btn film-card__button">Add review</Link>
+                <Link className="btn film-card__button" to={`/films/${currentFilm.id}/review`}>Add review</Link>
               </div>
             </div>
           </div>
