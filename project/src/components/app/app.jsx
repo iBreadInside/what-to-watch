@@ -33,7 +33,7 @@ export default function App({promo, films}) {
           <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film promo={promo} />
+          <Film films={films} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
           <AddReview films={films} />

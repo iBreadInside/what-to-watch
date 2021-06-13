@@ -1,25 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../../const';
-// import {filmCards} from '../../../utils';
+import {Link, useParams} from 'react-router-dom';
+import {AppRoute, FilmListLenght} from '../../../const';
+import filmProp from './film.prop';
+import FilmList from '../../elements/film-list/film-list';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
+import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
+import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 
-// const similarFilms = filmCards.slice(0, FilmListLenght.SIMILAR);
+const FILM_GRADES = [
+  ['Bad', [0, 3]],
+  ['Normal', [3, 5]],
+  ['Good', [5, 8]],
+  ['Very good', [8, 10]],
+  ['Awesome', [10, Infinity]],
+];
 
 Film.propTypes = {
-  promo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  }),
+  films: PropTypes.arrayOf(filmProp),
 };
 
-export default function Film({promo}) {
+export default function Film({films}) {
+  const params = useParams();
+
+  const [currentFilm] = films.filter((film) => film.id === +params.id);
+  const {
+    name,
+    description,
+    director,
+    starring,
+    genre,
+    posterImage,
+    backgroundImage,
+    released,
+    rating,
+    scoresCount,
+  } = currentFilm;
+  const [filmLevel] = FILM_GRADES.find(([, grade]) => (rating >= grade[0] && rating < grade[1]));
+  const starringText = starring.length > 4
+    ? `${starring.slice(0, 4).join(', ')} and others`
+    : starring.join(', ');
+  const similarFilms = films.slice(0, FilmListLenght.SIMILAR);
+
   return (
     <>
       <HiddenSVG />
@@ -27,7 +52,7 @@ export default function Film({promo}) {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
+            <img src={backgroundImage} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -40,25 +65,15 @@ export default function Film({promo}) {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promo.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promo.genre}</span>
-                <span className="film-card__year">{promo.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <PlayBtn film={currentFilm} />
+                <MyListBtn />
                 <Link to={AppRoute.ADD_REVIEW} className="btn film-card__button">Add review</Link>
               </div>
             </div>
@@ -68,7 +83,7 @@ export default function Film({promo}) {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={promo.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -87,21 +102,19 @@ export default function Film({promo}) {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
+                  <span className="film-rating__level">{filmLevel}</span>
+                  <span className="film-rating__count">{scoresCount}</span>
                 </p>
               </div>
 
               <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.</p>
+                <p>{description}</p>
 
-                <p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+                <p className="film-card__director"><strong>Director: {director}</strong></p>
 
-                <p className="film-card__director"><strong>Director: Wes Andreson</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+                <p className="film-card__starring"><strong>Starring: {starringText}</strong></p>
               </div>
             </div>
           </div>
@@ -112,9 +125,7 @@ export default function Film({promo}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            {/* {similarFilms} */}
-          </div>
+          <FilmList films={similarFilms} />
         </section>
 
         <PageFooter />
