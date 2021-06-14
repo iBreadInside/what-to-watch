@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
+import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
+import PlayBtn from '../../elements/play-btn/play-btn';
 import HeaderLogo from '../../elements/header-logo/header-logo';
 import UserBlock from '../../elements/user-block/user-block';
-import {filmCards} from '../../../utils';
+import filmProp from '../../pages/film/film.prop';
 
 Main.propTypes = {
-  promo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  }),
+  promo: filmProp,
+  films: PropTypes.arrayOf(filmProp),
 };
 
-export default function Main({promo}) {
+export default function Main({promo, films}) {
   return (
     <>
       <HiddenSVG />
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
+          <img src={promo.backgroundImage} alt={promo.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -46,18 +45,8 @@ export default function Main({promo}) {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <PlayBtn film={promo}/>
+                <MyListBtn />
               </div>
             </div>
           </div>
@@ -101,9 +90,7 @@ export default function Main({promo}) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmCards}
-          </div>
+          <FilmList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

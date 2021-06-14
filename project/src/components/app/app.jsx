@@ -9,37 +9,37 @@ import MyList from '../pages/my-list/my-list';
 import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
+import filmProp from '../pages/film/film.prop';
 
 App.propTypes = {
-  promo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  }),
+  promo: filmProp,
+  films: PropTypes.arrayOf(filmProp),
 };
 
-export default function App({promo}) {
+export default function App({promo, films}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main promo={promo} />
+          <Main
+            promo={promo}
+            films={films}
+          />
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SignIn />
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
+          <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film promo={promo} />
+          <Film films={films} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview promo={promo} />
+          <AddReview films={films} />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player />
+          <Player films={films} />
         </Route>
         <Route>
           <NotFound />

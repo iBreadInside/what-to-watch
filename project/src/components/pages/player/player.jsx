@@ -1,15 +1,38 @@
 import React from 'react';
+import {useParams, useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
+import filmProp from '../film/film.prop';
+import { AppRoute } from '../../../const';
 
-export default function Player() {
+Player.propTypes = {
+  films: PropTypes.arrayOf(filmProp),
+};
+
+export default function Player({films}) {
+  const params = useParams();
+  const history = useHistory();
+
+  const [watchingFilm] = films.filter((film) => film.id === +params.id);
+
+  const handleExitBtn = () => {
+    if (history.action !== 'POP') {
+      return history.goBack();
+    }
+
+    history.push(AppRoute.MAIN);
+  };
+
   return (
     <>
       <HiddenSVG />
 
       <div className="player">
-        <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+        <video src={watchingFilm.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
-        <button type="button" className="player__exit">Exit</button>
+        <button type="button" className="player__exit" onClick={handleExitBtn}>
+          Exit
+        </button>
 
         <div className="player__controls">
           <div className="player__controls-row">
