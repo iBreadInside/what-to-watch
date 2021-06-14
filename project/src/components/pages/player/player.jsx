@@ -15,6 +15,14 @@ export default function Player({films}) {
 
   const [watchingFilm] = films.filter((film) => film.id === +params.id);
 
+  const handleExitBtn = () => {
+    if (history.action !== 'POP') {
+      return history.goBack();
+    }
+
+    history.push(AppRoute.MAIN);
+  };
+
   return (
     <>
       <HiddenSVG />
@@ -22,14 +30,8 @@ export default function Player({films}) {
       <div className="player">
         <video src={watchingFilm.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
-        <button type="button" className="player__exit" onClick={() => {
-          if (history.action !== 'POP') {
-            return history.goBack();
-          }
-
-          history.push(AppRoute.MAIN);
-        }}
-        >Exit
+        <button type="button" className="player__exit" onClick={handleExitBtn}>
+          Exit
         </button>
 
         <div className="player__controls">

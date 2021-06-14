@@ -5,15 +5,23 @@ import filmProp from '../../pages/film/film.prop';
 
 FilmCard.propTypes = {
   film: filmProp,
-  setActiveFilm: PropTypes.func.isRequired,
+  onActiveFilm: PropTypes.func.isRequired,
 };
 
-export default function FilmCard({film, setActiveFilm}) {
+export default function FilmCard({film, onActiveFilm}) {
+  const handleFilmCardEnter = () => {
+    onActiveFilm(film);
+  };
+
+  const handleFilmCardLeave = () => {
+    onActiveFilm(null);
+  };
+
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => setActiveFilm(film)}
-      onMouseLeave={() => setActiveFilm({})}
+      onMouseEnter={handleFilmCardEnter}
+      onMouseLeave={handleFilmCardLeave}
     >
       <div className="small-film-card__image">
         <img src={film.previewImage} alt={film.name} width="280" height="175" />

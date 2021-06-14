@@ -10,13 +10,13 @@ FilmList.propTypes = {
 export default function FilmList({films}) {
   const [, setActiveFilm] = useState({});
 
-  const activeFilmHandler = (film) => {
+  const handleActiveFilm = (film) => {
     setActiveFilm(film);
   };
 
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <FilmCard key={film.id} film={film} setActiveFilm={activeFilmHandler} />)}
+      {films.map((film) => <FilmCard key={film.id} film={film} onActiveFilm={handleActiveFilm} />)}
     </div>
   );
 }
