@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderLogo from '../../elements/header-logo/header-logo';
+import HeaderLogo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 

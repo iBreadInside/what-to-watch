@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import HeaderLogo from '../../elements/header-logo/header-logo';
+import HeaderLogo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../film/film.prop';
