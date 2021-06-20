@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderLogo from '../../elements/logo/logo';
+import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 
@@ -10,7 +10,7 @@ export default function SignIn() {
 
       <div className="user-page">
         <header className="page-header user-page__head">
-          <HeaderLogo />
+          <Logo />
 
           <h1 className="page-title user-page__title">Sign in</h1>
         </header>

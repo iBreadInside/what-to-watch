@@ -4,7 +4,7 @@ import {Link, useParams} from 'react-router-dom';
 import {FilmListLenght} from '../../../const';
 import filmProp from './film.prop';
 import FilmList from '../../elements/film-list/film-list';
-import HeaderLogo from '../../elements/logo/logo';
+import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
@@ -59,7 +59,7 @@ export default function Film({films}) {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <HeaderLogo />
+            <Logo />
 
             <UserBlock />
           </header>
