@@ -10,13 +10,15 @@ import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import filmProp from '../pages/film/film.prop';
+import commentProp from '../elements/comment/comment.prop';
 
 App.propTypes = {
   promo: filmProp,
   films: PropTypes.arrayOf(filmProp),
+  comments: PropTypes.arrayOf(commentProp),
 };
 
-export default function App({promo, films}) {
+export default function App({promo, films, comments}) {
   return (
     <BrowserRouter>
       <Switch>
@@ -33,7 +35,10 @@ export default function App({promo, films}) {
           <MyList films={films} />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film films={films} />
+          <Film
+            films={films}
+            comments={comments}
+          />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
           <AddReview films={films} />

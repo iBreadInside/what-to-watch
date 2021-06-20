@@ -11,13 +11,16 @@ import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 // import Overview from '../../elements/film-overview/film-overview';
-import Details from '../../elements/film-details/film-details';
+// import Details from '../../elements/film-details/film-details';
+import Reviews from '../../elements/film-reviews/film-reviews';
+import commentProp from '../../elements/comment/comment.prop';
 
 Film.propTypes = {
   films: PropTypes.arrayOf(filmProp),
+  comments: PropTypes.arrayOf(commentProp),
 };
 
-export default function Film({films}) {
+export default function Film({films, comments}) {
   const params = useParams();
 
   const [currentFilm] = films.filter((film) => film.id === +params.id);
@@ -89,7 +92,8 @@ export default function Film({films}) {
               </nav>
 
               {/* <Overview film={currentFilm} /> */}
-              <Details film={currentFilm} />
+              {/* <Details film={currentFilm} /> */}
+              <Reviews comments={comments} />
 
             </div>
           </div>

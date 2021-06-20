@@ -28,7 +28,6 @@ export default function Overview({film}) {
 
   const [filmLevel] = FILM_GRADES.find(([, grade]) => (rating >= grade[0] && rating < grade[1]));
 
-
   return (
     <>
       <div className="film-rating">
