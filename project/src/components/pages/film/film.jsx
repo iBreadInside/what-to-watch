@@ -10,14 +10,8 @@ import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
-
-const FILM_GRADES = [
-  ['Bad', [0, 3]],
-  ['Normal', [3, 5]],
-  ['Good', [5, 8]],
-  ['Very good', [8, 10]],
-  ['Awesome', [10, Infinity]],
-];
+// import Overview from '../../elements/film-overview/film-overview';
+import Details from '../../elements/film-details/film-details';
 
 Film.propTypes = {
   films: PropTypes.arrayOf(filmProp),
@@ -30,20 +24,12 @@ export default function Film({films}) {
   const {
     id,
     name,
-    description,
-    director,
-    starring,
     genre,
     posterImage,
     backgroundImage,
     released,
-    rating,
-    scoresCount,
   } = currentFilm;
-  const [filmLevel] = FILM_GRADES.find(([, grade]) => (rating >= grade[0] && rating < grade[1]));
-  const starringText = starring.length > 4
-    ? `${starring.slice(0, 4).join(', ')} and others`
-    : starring.join(', ');
+
   const similarFilms = films.slice(0, FilmListLenght.SIMILAR);
 
   return (
@@ -102,21 +88,9 @@ export default function Film({films}) {
                 </ul>
               </nav>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{filmLevel}</span>
-                  <span className="film-rating__count">{scoresCount}</span>
-                </p>
-              </div>
+              {/* <Overview film={currentFilm} /> */}
+              <Details film={currentFilm} />
 
-              <div className="film-card__text">
-                <p>{description}</p>
-
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {starringText}</strong></p>
-              </div>
             </div>
           </div>
         </div>
