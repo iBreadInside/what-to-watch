@@ -3,7 +3,7 @@ import {useParams, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import filmProp from '../film/film.prop';
-import { AppRoute } from '../../../const';
+import {AppRoute} from '../../../const';
 
 Player.propTypes = {
   films: PropTypes.arrayOf(filmProp),
@@ -15,13 +15,13 @@ export default function Player({films}) {
 
   const [watchingFilm] = films.filter((film) => film.id === +params.id);
 
-  const handleExitBtn = () => {
+  function handleExitBtn() {
     if (history.action !== 'POP') {
       return history.goBack();
     }
 
     history.push(AppRoute.MAIN);
-  };
+  }
 
   return (
     <>
