@@ -31,7 +31,10 @@ export default function Film({films, comments}) {
     released,
   } = currentFilm;
 
-  const similarFilms = films.slice(0, FilmListLenght.SIMILAR);
+  const similarFilms = films
+    .slice()
+    .filter((film) => film.genre === currentFilm.genre && film.id !== currentFilm.id)
+    .slice(0, FilmListLenght.SIMILAR);
 
   return (
     <>
