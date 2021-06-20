@@ -1,4 +1,5 @@
 import React from 'react';
+import {getReviewRating} from '../../../common';
 import filmProp from '../../pages/film/film.prop';
 
 const FILM_GRADES = [
@@ -31,7 +32,7 @@ export default function Overview({film}) {
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{rating}</div>
+        <div className="film-rating__score">{getReviewRating(rating)}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{filmLevel}</span>
           <span className="film-rating__count">{scoresCount}</span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import commentProp from './comment.prop';
 import dayjs from 'dayjs';
+import {getReviewRating} from '../../../common';
 
 Comment.propTypes = {
   review: commentProp,
@@ -14,9 +15,6 @@ export default function Comment({review}) {
     rating,
   } = review;
 
-  const reviewRating = Number.isInteger(rating)
-    ? `${rating},0`
-    : rating.toString().split('.').join();
   const datetime = dayjs(date).format('YYYY-MM-DD');
   const dateText = dayjs(date).format('MMMM DD, YYYY');
 
@@ -31,7 +29,7 @@ export default function Comment({review}) {
         </footer>
       </blockquote>
 
-      <div className="review__rating">{reviewRating}</div>
+      <div className="review__rating">{getReviewRating(rating)}</div>
     </div>
   );
 }
