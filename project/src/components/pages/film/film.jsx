@@ -10,9 +10,7 @@ import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
-// import Overview from '../../elements/film-overview/film-overview';
-// import Details from '../../elements/film-details/film-details';
-import Reviews from '../../elements/film-reviews/film-reviews';
+import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
 
 Film.propTypes = {
@@ -76,26 +74,7 @@ export default function Film({films, comments}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              {/* <Overview film={currentFilm} /> */}
-              {/* <Details film={currentFilm} /> */}
-              <Reviews comments={comments} />
-
-            </div>
+            <Tabs film={currentFilm} comments={comments} />
           </div>
         </div>
       </section>

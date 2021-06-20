@@ -14,7 +14,9 @@ export default function Comment({review}) {
     rating,
   } = review;
 
-  const reviewRating = rating.toString().split('.').join();
+  const reviewRating = Number.isInteger(rating)
+    ? `${rating},0`
+    : rating.toString().split('.').join();
   const datetime = dayjs(date).format('YYYY-MM-DD');
   const dateText = dayjs(date).format('MMMM DD, YYYY');
 
