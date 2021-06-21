@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Overview from '../../elements/film-overview/film-overview';
 import Details from '../../elements/film-details/film-details';
@@ -14,12 +14,12 @@ const TabType = {
 
 function getTabByType(type, film, comments) {
   switch (type) {
-    case TabType.OVERVIEW:
-      return <Overview film={film} />;
     case TabType.DETAILS:
       return <Details film={film} />;
     case TabType.REVIEWS:
       return <Reviews comments={comments} />;
+    default:
+      return <Overview film={film} />;
   }
 }
 
@@ -48,6 +48,12 @@ export default function Tabs({film, comments}) {
       </a>
     </li>
   ));
+
+  function setDefaultTab() {
+    setActiveTab(TabType.OVERVIEW);
+  }
+
+  useEffect(setDefaultTab, [film]);
 
   return (
     <div className="film-card__desc">
