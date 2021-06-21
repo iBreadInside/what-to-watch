@@ -8,7 +8,7 @@ Reviews.propTypes = {
 };
 
 export default function Reviews({comments}) {
-  const rowCount = Math.floor(comments.length / 2);
+  const rowCount = Math.ceil(comments.length / 2);
   const sortedComments = comments.sort((a, b) => b.rating - a.rating);
 
   function showCommentsColumn(columnComments) {

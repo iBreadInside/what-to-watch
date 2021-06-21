@@ -33,7 +33,16 @@ const comments = [{
   },
   rating: 1.0,
   comment: 'Just a trash',
-  date: '2019-06-08T14:13:56.569Z',
+  date: '2019-03-08T14:13:56.569Z',
+},{
+  id: 5,
+  user: {
+    id: 6,
+    name: 'Max Peterson',
+  },
+  rating: 6.5,
+  comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
+  date: '2019-02-08T14:13:56.569Z',
 }];
 
 export default comments;
