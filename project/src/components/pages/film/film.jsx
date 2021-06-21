@@ -32,7 +32,6 @@ export default function Film({films, comments}) {
   } = currentFilm;
 
   const similarFilms = films
-    .slice()
     .filter((film) => film.genre === currentFilm.genre && film.id !== currentFilm.id)
     .slice(0, FilmListLenght.SIMILAR);
 
