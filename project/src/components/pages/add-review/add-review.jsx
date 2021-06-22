@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import HeaderLogo from '../../elements/header-logo/header-logo';
+import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../film/film.prop';
@@ -34,7 +34,7 @@ export default function AddReview({films}) {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header">
-            <HeaderLogo />
+            <Logo />
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">

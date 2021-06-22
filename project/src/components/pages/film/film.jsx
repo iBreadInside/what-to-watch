@@ -4,47 +4,36 @@ import {Link, useParams} from 'react-router-dom';
 import {FilmListLenght} from '../../../const';
 import filmProp from './film.prop';
 import FilmList from '../../elements/film-list/film-list';
-import HeaderLogo from '../../elements/header-logo/header-logo';
+import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
-
-const FILM_GRADES = [
-  ['Bad', [0, 3]],
-  ['Normal', [3, 5]],
-  ['Good', [5, 8]],
-  ['Very good', [8, 10]],
-  ['Awesome', [10, Infinity]],
-];
+import Tabs from '../../elements/tabs/tabs';
+import commentProp from '../../elements/comment/comment.prop';
 
 Film.propTypes = {
   films: PropTypes.arrayOf(filmProp),
+  comments: PropTypes.arrayOf(commentProp),
 };
 
-export default function Film({films}) {
+export default function Film({films, comments}) {
   const params = useParams();
 
   const [currentFilm] = films.filter((film) => film.id === +params.id);
   const {
     id,
     name,
-    description,
-    director,
-    starring,
     genre,
     posterImage,
     backgroundImage,
     released,
-    rating,
-    scoresCount,
   } = currentFilm;
-  const [filmLevel] = FILM_GRADES.find(([, grade]) => (rating >= grade[0] && rating < grade[1]));
-  const starringText = starring.length > 4
-    ? `${starring.slice(0, 4).join(', ')} and others`
-    : starring.join(', ');
-  const similarFilms = films.slice(0, FilmListLenght.SIMILAR);
+
+  const similarFilms = films
+    .filter((film) => film.genre === currentFilm.genre && film.id !== currentFilm.id)
+    .slice(0, FilmListLenght.SIMILAR);
 
   return (
     <>
@@ -59,7 +48,7 @@ export default function Film({films}) {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <HeaderLogo />
+            <Logo />
 
             <UserBlock />
           </header>
@@ -87,37 +76,7 @@ export default function Film({films}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{filmLevel}</span>
-                  <span className="film-rating__count">{scoresCount}</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{description}</p>
-
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {starringText}</strong></p>
-              </div>
-            </div>
+            <Tabs film={currentFilm} comments={comments} />
           </div>
         </div>
       </section>

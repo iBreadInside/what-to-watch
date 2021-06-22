@@ -5,7 +5,7 @@ import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
 import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
-import HeaderLogo from '../../elements/header-logo/header-logo';
+import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../../pages/film/film.prop';
 
@@ -26,7 +26,7 @@ export default function Main({promo, films}) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <HeaderLogo />
+          <Logo />
 
           <UserBlock />
         </header>
