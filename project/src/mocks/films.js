@@ -31,7 +31,7 @@ const films = [{
   director: 'James Cameron',
   starring: ['Arnold Schwarzenegger', 'Michael Biehn', 'Linda Hamilton'],
   runtime: 120,
-  genre: 'Action',
+  genre: 'Comedy',
   released: 1991,
   isFavorite: true,
 },{
@@ -67,7 +67,7 @@ const films = [{
   director: 'John McTiernan',
   starring: ['Jack Nicholson', 'Marlon Brando', 'Robert De Niro'],
   runtime: 125,
-  genre: 'Fantasy',
+  genre: 'Romance',
   released: 1993,
   isFavorite: false,
 },{
@@ -103,7 +103,7 @@ const films = [{
   director: 'Ivan Reitman',
   starring: ['Dustin Hoffman', 'Tom Hanks', 'Anthony Hopkins', 'Paul Newman'],
   runtime: 90,
-  genre: 'Criminal',
+  genre: 'Crime',
   released: 1990,
   isFavorite: false,
 },{
