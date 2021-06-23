@@ -10,7 +10,9 @@ FilmList.propTypes = {
 export default function FilmList({films}) {
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <FilmCard key={film.id} film={film} />)}
+      {films.length !== 0
+        ? films.map((film) => <FilmCard key={film.id} film={film} />)
+        : <p>Sorry, there is no films of that genre :(</p>}
     </div>
   );
 }
