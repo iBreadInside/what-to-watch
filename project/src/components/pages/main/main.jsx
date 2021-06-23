@@ -10,6 +10,7 @@ import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
+import ShowMoreBtn from '../../elements/show-more-btn/show-more-btn';
 
 const mapStateToProps = (state) => ({
   filmList: state.filmList,
@@ -69,9 +70,7 @@ export function Main({promo, filmList}) {
 
           <FilmList films={filmList} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMoreBtn films={filmList} />
         </section>
 
         <PageFooter />
