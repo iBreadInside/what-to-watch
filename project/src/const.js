@@ -13,7 +13,7 @@ export const FilmListLenght = {
   SIMILAR: 4,
 };
 
-export const Genre = {
+export const FilterType = {
   ALL_GENRES: 'All genres',
   COMEDIES: 'Comedies',
   CRIME: 'Crime',
