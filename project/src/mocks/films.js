@@ -13,7 +13,7 @@ const films = [{
   director: 'Wes Andreson',
   starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
   runtime: 99,
-  genre: 'Comedy',
+  genre: 'Dramas',
   released: 2014,
   isFavorite: false,
 },{
@@ -31,7 +31,7 @@ const films = [{
   director: 'James Cameron',
   starring: ['Arnold Schwarzenegger', 'Michael Biehn', 'Linda Hamilton'],
   runtime: 120,
-  genre: 'Comedy',
+  genre: 'Horror',
   released: 1991,
   isFavorite: true,
 },{
@@ -49,7 +49,7 @@ const films = [{
   director: 'Mark L. Lester',
   starring: ['Jamie Lee Curtis', 'Penelope Ann Miller', 'Carl Weathers'],
   runtime: 109,
-  genre: 'Drama',
+  genre: 'Dramas',
   released: 1988,
   isFavorite: true,
 },{
@@ -139,7 +139,7 @@ const films = [{
   director: 'Mark L. Lester',
   starring: ['Michael Caine', 'James Stewart', 'Robin Williams'],
   runtime: 123,
-  genre: 'Comedy',
+  genre: 'Horror',
   released: 2003,
   isFavorite: false,
 }];

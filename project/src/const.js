@@ -25,3 +25,16 @@ export const FilterType = {
   SCI_FI: 'Sci-Fi',
   THRILLERS: 'Thrillers',
 };
+
+export const Genre = {
+  ALL_GENRES: 'All genres',
+  COMEDY: 'Comedy',
+  CRIME: 'Crime',
+  DOCUMENTARY: 'Documentary',
+  DRAMA: 'Drama',
+  HORROR: 'Horror',
+  FAMILY: 'Kids & Family',
+  ROMANCE: 'Romance',
+  SCI_FI: 'Sci-Fi',
+  THRILLER: 'Thriller',
+};
