@@ -1,23 +1,21 @@
-import {Genre} from '../const';
+import {FilterType} from '../const';
 import films from '../mocks/films';
 import {ActionType} from './action';
 
 const initialState = {
-  genre: Genre.ALL_GENRES,
+  filterType: FilterType.ALL_GENRES,
   filmList: films,
 };
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
-    case ActionType.CHANGE_GENRE:
+    case ActionType.SET_FILTER:
       return {
         ...state,
-        genre: state.genre = action.payload,
-      };
-    case ActionType.GET_FILM_BY_GENRE:
-      return {
-        ...state,
-        filmList: state.filmList = action.payload,
+        filterType: action.payload,
+        filmList: (action.payload === initialState.filterType)
+          ? initialState.filmList
+          : initialState.filmList.filter((film) => film.genre === action.payload),
       };
     default:
       return state;

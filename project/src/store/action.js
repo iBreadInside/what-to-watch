@@ -1,4 +1,10 @@
 export const ActionType = {
-  CHANGE_GENRE: '/changeGenre',
-  GET_FILM_BY_GENRE: '/getFilmByGenre',
+  SET_FILTER: 'set-filter',
+};
+
+export const ActionCreator = {
+  setFilter: (FilterType) => ({
+    type: ActionType.SET_FILTER,
+    payload: FilterType,
+  }),
 };
