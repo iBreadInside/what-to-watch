@@ -8,8 +8,6 @@ import comments from './mocks/comments';
 import films from './mocks/films';
 import {reducer} from './store/reducer';
 
-const promo = films[0];
-
 const store = createStore(
   reducer,
   composeWithDevTools(),
@@ -19,7 +17,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        promo={promo}
         films={films}
         comments={comments}
       />

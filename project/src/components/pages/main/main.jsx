@@ -13,15 +13,17 @@ import GenreList from '../../elements/genre-list/genre-list';
 import ShowMoreBtn from '../../elements/show-more-btn/show-more-btn';
 
 const mapStateToProps = (state) => ({
+  promo: state.promo,
   filmList: state.filmList,
+  isShowBtn: state.isShowBtn,
 });
 
 Main.propTypes = {
   promo: filmProp,
-  filmList: PropTypes.arrayOf(filmProp),
+  isShowBtn: PropTypes.bool.isRequired,
 };
 
-export function Main({promo, filmList}) {
+export function Main({promo, isShowBtn}) {
   return (
     <>
       <HiddenSVG />
@@ -68,9 +70,9 @@ export function Main({promo, filmList}) {
             <GenreList />
           </ul>
 
-          <FilmList films={filmList} />
+          <FilmList />
 
-          <ShowMoreBtn films={filmList} />
+          {isShowBtn && <ShowMoreBtn />}
         </section>
 
         <PageFooter />
@@ -79,4 +81,4 @@ export function Main({promo, filmList}) {
   );
 }
 
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps)(Main);

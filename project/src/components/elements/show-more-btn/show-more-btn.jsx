@@ -1,16 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import filmProp from '../../pages/film/film.prop';
+import {ActionCreator} from '../../../store/action';
+import {connect} from 'react-redux';
+
+const mapDispatchToProps = (dispatch) => ({
+  onBtnClick() {
+    dispatch(ActionCreator.showMoreFilms());
+  },
+});
 
 ShowMoreBtn.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
+  onBtnClick: PropTypes.func.isRequired,
 };
 
-export default function ShowMoreBtn({films}) {
-  // const showMoreBtnElement =
+export function ShowMoreBtn({onBtnClick}) {
+  function handleBtnClick(evt) {
+    evt.preventDefault();
+    onBtnClick();
+  }
+
   return (
-    films.length !== 0
-      ? <div className="catalog__more"><button className="catalog__button" type="button">Show more</button></div>
-      : null
+    <div className="catalog__more">
+      <button
+        className="catalog__button"
+        type="button"
+        onClick={(evt) => {
+          evt.preventDefault();
+          onBtnClick(handleBtnClick);
+        }}
+      >
+        Show more
+      </button>
+    </div>
   );
 }
+
+export default connect(null, mapDispatchToProps)(ShowMoreBtn);

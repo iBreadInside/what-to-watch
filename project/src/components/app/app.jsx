@@ -13,20 +13,17 @@ import filmProp from '../pages/film/film.prop';
 import commentProp from '../elements/comment/comment.prop';
 
 App.propTypes = {
-  promo: filmProp,
+  // promo: filmProp,
   films: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
 };
 
-export default function App({promo, films, comments}) {
+export default function App({films, comments}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main
-            promo={promo}
-            films={films}
-          />
+          <Main />
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SignIn />

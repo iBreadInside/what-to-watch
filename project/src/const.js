@@ -38,3 +38,5 @@ export const Genre = {
   SCI_FI: 'Sci-Fi',
   THRILLER: 'Thriller',
 };
+
+export const FILMS_PER_STEP = 8;
