@@ -1,13 +1,15 @@
-import {FILMS_PER_STEP, FilterType, Genre} from '../const';
+import {FilmsShown, FilterType, Genre} from '../const';
+import comments from '../mocks/comments';
 import films from '../mocks/films';
 import {ActionType} from './action';
 
 const initialState = {
   genre: Genre.ALL_GENRES,
   filterType: FilterType.ALL_GENRES,
-  filmList: films,
+  allFilmList: films,
+  comments: comments,
   promo: films[0],
-  isShowBtn: false,
+  filmsCount: Math.min(FilmsShown.MAIN, films.length),
 };
 
 export function reducer(state = initialState, action) {
@@ -20,19 +22,27 @@ export function reducer(state = initialState, action) {
     case ActionType.SET_GENRE:
       return {
         ...state,
-        filmList: (action.payload === initialState.genre)
-          ? initialState.filmList
-          : initialState.filmList.filter((film) => film.genre === action.payload),
+        genre: action.payload,
+        filmsCount: initialState.filmsCount,
       };
     case ActionType.SHOW_MORE_FILMS: {
-      const newCount = state.filmList.length + FILMS_PER_STEP;
-      const currentFilmList = state.filmList;
-
       return {
         ...state,
-        count: newCount,
-        filmList: state.filmList.slice(0, newCount),
-        isShowBtn: currentFilmList.length > newCount,
+        filmsCount: Math.min(state.allFilmList.length, state.filmsCount + action.payload),
+      };
+    }
+    case ActionType.GET_SIMILAR_FILMS: {
+      return {
+        ...state,
+        filmsCount: action.payload,
+      };
+    }
+    case ActionType.RESET_PAGE: {
+      return {
+        ...state,
+        filmsCount: initialState.filmsCount,
+        genre: initialState.genre,
+        filterType: initialState.filterType,
       };
     }
     default:

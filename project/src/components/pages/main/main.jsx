@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
@@ -10,20 +9,27 @@ import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
-import ShowMoreBtn from '../../elements/show-more-btn/show-more-btn';
+import {ActionCreator} from '../../../store/action';
+import PropTypes from 'prop-types';
 
 const mapStateToProps = (state) => ({
   promo: state.promo,
-  filmList: state.filmList,
-  isShowBtn: state.isShowBtn,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetCount() {
+    dispatch(ActionCreator.resetCount());
+  },
 });
 
 Main.propTypes = {
   promo: filmProp,
-  isShowBtn: PropTypes.bool.isRequired,
+  resetCount: PropTypes.func.isRequired,
 };
 
-export function Main({promo, isShowBtn}) {
+export function Main({promo, resetCount}) {
+  useEffect(() => resetCount());
+
   return (
     <>
       <HiddenSVG />
@@ -71,8 +77,6 @@ export function Main({promo, isShowBtn}) {
           </ul>
 
           <FilmList />
-
-          {isShowBtn && <ShowMoreBtn />}
         </section>
 
         <PageFooter />
@@ -81,4 +85,4 @@ export function Main({promo, isShowBtn}) {
   );
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

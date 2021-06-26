@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import filmProp from '../../pages/film/film.prop';
 import VideoPlayer from '../../elements/video-player/video-player';
+import {ActionCreator} from '../../../store/action';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
+const mapDispatchToProps = (dispatch) => ({
+  onNameClick(genre) {
+    dispatch(ActionCreator.setGenre(genre));
+    dispatch(ActionCreator.getSimilarFilms());
+  },
+});
 
 FilmCard.propTypes = {
   film: filmProp,
+  onNameClick: PropTypes.func.isRequired,
 };
 
-export default function FilmCard({film}) {
+export function FilmCard({film, onNameClick}) {
   const [isActive, setActive] = useState(false);
 
   function handleFilmCardEnter() {
@@ -16,6 +27,10 @@ export default function FilmCard({film}) {
 
   function handleFilmCardLeave() {
     setActive(false);
+  }
+
+  function handleFilmClick() {
+    onNameClick(film.genre);
   }
 
   return (
@@ -29,8 +44,16 @@ export default function FilmCard({film}) {
       </div>
 
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>
+        <Link
+          className="small-film-card__link"
+          to={`/films/${film.id}`}
+          onClick={handleFilmClick}
+        >
+          {film.name}
+        </Link>
       </h3>
     </article>
   );
 }
+
+export default connect(null, mapDispatchToProps)(FilmCard);

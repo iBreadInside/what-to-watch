@@ -14,11 +14,6 @@ ShowMoreBtn.propTypes = {
 };
 
 export function ShowMoreBtn({onBtnClick}) {
-  function handleBtnClick(evt) {
-    evt.preventDefault();
-    onBtnClick();
-  }
-
   return (
     <div className="catalog__more">
       <button
@@ -26,7 +21,7 @@ export function ShowMoreBtn({onBtnClick}) {
         type="button"
         onClick={(evt) => {
           evt.preventDefault();
-          onBtnClick(handleBtnClick);
+          onBtnClick();
         }}
       >
         Show more

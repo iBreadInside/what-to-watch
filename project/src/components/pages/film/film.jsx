@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, useParams} from 'react-router-dom';
-import {FilmListLenght} from '../../../const';
 import filmProp from './film.prop';
 import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
@@ -12,16 +11,25 @@ import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
+import {connect} from 'react-redux';
+
+const IS_SIMILAR = true;
+
+const mapStateToProps = (state) => ({
+  films: state.allFilmList,
+  comments: state.comments,
+});
 
 Film.propTypes = {
   films: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
 };
 
-export default function Film({films, comments}) {
+export function Film({films, comments}) {
   const params = useParams();
 
   const [currentFilm] = films.filter((film) => film.id === +params.id);
+
   const {
     id,
     name,
@@ -30,10 +38,6 @@ export default function Film({films, comments}) {
     backgroundImage,
     released,
   } = currentFilm;
-
-  const similarFilms = films
-    .filter((film) => film.genre === currentFilm.genre && film.id !== currentFilm.id)
-    .slice(0, FilmListLenght.SIMILAR);
 
   return (
     <>
@@ -85,7 +89,7 @@ export default function Film({films, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms} />
+          <FilmList isSimilar={IS_SIMILAR} />
         </section>
 
         <PageFooter />
@@ -93,3 +97,5 @@ export default function Film({films, comments}) {
     </>
   );
 }
+
+export default connect(mapStateToProps)(Film);

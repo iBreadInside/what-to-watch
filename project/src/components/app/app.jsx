@@ -13,7 +13,6 @@ import filmProp from '../pages/film/film.prop';
 import commentProp from '../elements/comment/comment.prop';
 
 App.propTypes = {
-  // promo: filmProp,
   films: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
 };
