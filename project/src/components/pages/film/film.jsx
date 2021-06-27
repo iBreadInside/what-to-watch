@@ -12,23 +12,22 @@ import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
 import {connect} from 'react-redux';
-
-const IS_SIMILAR = true;
+import {FilmsShown} from '../../../const';
 
 const mapStateToProps = (state) => ({
-  films: state.allFilmList,
+  allFilmList: state.allFilmList,
   comments: state.comments,
 });
 
 Film.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
+  allFilmList: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
 };
 
-export function Film({films, comments}) {
+export function Film({allFilmList, comments}) {
   const params = useParams();
 
-  const [currentFilm] = films.filter((film) => film.id === +params.id);
+  const [currentFilm] = allFilmList.filter((film) => film.id === +params.id);
 
   const {
     id,
@@ -38,6 +37,8 @@ export function Film({films, comments}) {
     backgroundImage,
     released,
   } = currentFilm;
+
+  const similarFilms = allFilmList.filter((film) => film.genre === genre && film.id !== +params.id);
 
   return (
     <>
@@ -89,7 +90,7 @@ export function Film({films, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList isSimilar={IS_SIMILAR} />
+          <FilmList filmList={similarFilms.slice(0, FilmsShown.SIMILAR)} />
         </section>
 
         <PageFooter />

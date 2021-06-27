@@ -1,5 +1,3 @@
-// import {FILMS_PER_STEP} from '../const';
-
 import {FilmsShown} from '../const';
 
 export const ActionType = {
@@ -7,7 +5,6 @@ export const ActionType = {
   SET_GENRE: 'set-genre',
   SHOW_MORE_FILMS: 'show-more',
   RESET_PAGE: 'reset-page',
-  GET_SIMILAR_FILMS: 'film/get=similar-films',
 };
 
 export const ActionCreator = {
@@ -23,11 +20,7 @@ export const ActionCreator = {
     type: ActionType.SHOW_MORE_FILMS,
     payload: FilmsShown.MAIN,
   }),
-  getSimilarFilms: () => ({
-    type: ActionType.GET_SIMILAR_FILMS,
-    payload: FilmsShown.SIMILAR,
-  }),
-  resetCount: () => ({
+  resetPage: () => ({
     type: ActionType.RESET_PAGE,
   }),
 };

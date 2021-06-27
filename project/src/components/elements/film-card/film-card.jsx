@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 const mapDispatchToProps = (dispatch) => ({
   onNameClick(genre) {
     dispatch(ActionCreator.setGenre(genre));
-    dispatch(ActionCreator.getSimilarFilms());
   },
 });
 

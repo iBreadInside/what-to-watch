@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
@@ -11,24 +11,33 @@ import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
 import {ActionCreator} from '../../../store/action';
 import PropTypes from 'prop-types';
+import {Genre} from '../../../const';
 
 const mapStateToProps = (state) => ({
   promo: state.promo,
+  allFilmList: state.allFilmList,
+  genre: state.genre,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetCount() {
-    dispatch(ActionCreator.resetCount());
+  resetPage() {
+    dispatch(ActionCreator.resetPage());
   },
 });
 
 Main.propTypes = {
   promo: filmProp,
-  resetCount: PropTypes.func.isRequired,
+  // resetPage: PropTypes.func.isRequired,
+  allFilmList: PropTypes.arrayOf(filmProp),
+  genre: PropTypes.string.isRequired,
 };
 
-export function Main({promo, resetCount}) {
-  useEffect(() => resetCount());
+export function Main({promo, allFilmList, genre}) {
+  // useEffect(() => resetPage());
+
+  const filmsByGenre = (genre === Genre.ALL_GENRES)
+    ? allFilmList
+    : allFilmList.filter((film) => film.genre === genre);
 
   return (
     <>
@@ -76,7 +85,7 @@ export function Main({promo, resetCount}) {
             <GenreList />
           </ul>
 
-          <FilmList />
+          <FilmList filmList={filmsByGenre} />
         </section>
 
         <PageFooter />

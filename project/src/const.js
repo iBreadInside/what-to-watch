@@ -9,7 +9,6 @@ export const AppRoute = {
 
 export const FilmsShown = {
   MAIN: 8,
-  MY_LIST: 9,
   SIMILAR: 4,
 };
 
