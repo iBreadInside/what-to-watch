@@ -69,7 +69,7 @@ const films = [{
   runtime: 125,
   genre: 'Romance',
   released: 1993,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 5,
   name: 'Bohemian Rhapsody',
@@ -87,7 +87,7 @@ const films = [{
   runtime: 95,
   genre: 'Romance',
   released: 1988,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 6,
   name: 'Pulp Fiction',
@@ -105,7 +105,7 @@ const films = [{
   runtime: 90,
   genre: 'Crime',
   released: 1990,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 7,
   name: 'Macbeth',
@@ -123,7 +123,7 @@ const films = [{
   runtime: 100,
   genre: 'Romance',
   released: 1994,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 8,
   name: 'Mindhunter',
@@ -141,7 +141,7 @@ const films = [{
   runtime: 123,
   genre: 'Horror',
   released: 2003,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 17,
   name: 'The Grand Budapest Hotel',
@@ -159,7 +159,7 @@ const films = [{
   runtime: 99,
   genre: 'Dramas',
   released: 2014,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 18,
   name: 'What we do in the shadows',
@@ -213,7 +213,7 @@ const films = [{
   runtime: 125,
   genre: 'Romance',
   released: 1993,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 21,
   name: 'Bohemian Rhapsody',
@@ -231,7 +231,7 @@ const films = [{
   runtime: 95,
   genre: 'Romance',
   released: 1988,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 22,
   name: 'Pulp Fiction',
@@ -249,7 +249,7 @@ const films = [{
   runtime: 90,
   genre: 'Crime',
   released: 1990,
-  isFavorite: false,
+  isFavorite: true,
 },{
   id: 23,
   name: 'Macbeth',

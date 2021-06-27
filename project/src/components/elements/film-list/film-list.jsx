@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../film-card/film-card';
 import filmProp from '../../pages/film/film.prop';
-import {FilmsShown} from '../../../const';
 import {connect} from 'react-redux';
 
 const mapStateToProps = (state) => ({
@@ -12,17 +11,18 @@ const mapStateToProps = (state) => ({
 FilmList.propTypes = {
   filmList: PropTypes.arrayOf(filmProp),
   genre: PropTypes.string.isRequired,
+  listInitialLength: PropTypes.number.isRequired,
 };
 
-export function FilmList({filmList, genre}) {
-  const [filmsCount, setCount] = useState(FilmsShown.MAIN);
+export function FilmList({filmList, genre, listInitialLength}) {
+  const [filmsCount, setCount] = useState(listInitialLength);
 
   function handleBtnClick() {
-    setCount(filmsCount + FilmsShown.MAIN);
+    setCount(filmsCount + listInitialLength);
   }
 
   useEffect(() => {
-    setCount(FilmsShown.MAIN);
+    setCount(listInitialLength);
   }, [genre]);
 
   return (

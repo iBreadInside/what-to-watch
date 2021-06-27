@@ -38,7 +38,9 @@ export function Film({allFilmList, comments}) {
     released,
   } = currentFilm;
 
-  const similarFilms = allFilmList.filter((film) => film.genre === genre && film.id !== +params.id);
+  const similarFilms = allFilmList
+    .filter((film) => film.genre === genre && film.id !== +params.id)
+    .slice(0, FilmsShown.SIMILAR);
 
   return (
     <>
@@ -90,7 +92,7 @@ export function Film({allFilmList, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList filmList={similarFilms.slice(0, FilmsShown.SIMILAR)} />
+          <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
         </section>
 
         <PageFooter />

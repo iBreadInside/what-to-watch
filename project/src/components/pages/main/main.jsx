@@ -11,7 +11,7 @@ import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
 import {ActionCreator} from '../../../store/action';
 import PropTypes from 'prop-types';
-import {Genre} from '../../../const';
+import {FilmsShown, Genre} from '../../../const';
 
 const mapStateToProps = (state) => ({
   promo: state.promo,
@@ -85,7 +85,7 @@ export function Main({promo, allFilmList, genre, resetPage}) {
             <GenreList />
           </ul>
 
-          <FilmList filmList={filmsByGenre} />
+          <FilmList filmList={filmsByGenre} listInitialLength={FilmsShown.MAIN} />
         </section>
 
         <PageFooter />
