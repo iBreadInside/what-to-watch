@@ -67,7 +67,7 @@ export function Film({allFilmList, comments}) {
               </p>
 
               <div className="film-card__buttons">
-                <PlayBtn film={currentFilm} />
+                <PlayBtn film={currentFilm} listSize={FilmsShown.SIMILAR} />
                 <MyListBtn />
                 <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link>
               </div>
