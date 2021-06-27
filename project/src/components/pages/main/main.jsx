@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
@@ -10,18 +9,36 @@ import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
-import ShowMoreBtn from '../../elements/show-more-btn/show-more-btn';
+import {ActionCreator} from '../../../store/action';
+import PropTypes from 'prop-types';
+import {FilmsShown, Genre} from '../../../const';
 
 const mapStateToProps = (state) => ({
-  filmList: state.filmList,
+  promo: state.promo,
+  allFilmList: state.allFilmList,
+  genre: state.genre,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetPage() {
+    dispatch(ActionCreator.resetPage());
+  },
 });
 
 Main.propTypes = {
   promo: filmProp,
-  filmList: PropTypes.arrayOf(filmProp),
+  resetPage: PropTypes.func.isRequired,
+  allFilmList: PropTypes.arrayOf(filmProp),
+  genre: PropTypes.string.isRequired,
 };
 
-export function Main({promo, filmList}) {
+export function Main({promo, allFilmList, genre, resetPage}) {
+  useEffect(() => resetPage(), []);
+
+  const filmsByGenre = (genre === Genre.ALL_GENRES)
+    ? allFilmList
+    : allFilmList.filter((film) => film.genre === genre);
+
   return (
     <>
       <HiddenSVG />
@@ -68,9 +85,7 @@ export function Main({promo, filmList}) {
             <GenreList />
           </ul>
 
-          <FilmList films={filmList} />
-
-          <ShowMoreBtn films={filmList} />
+          <FilmList filmList={filmsByGenre} listInitialLength={FilmsShown.MAIN} />
         </section>
 
         <PageFooter />
@@ -79,4 +94,4 @@ export function Main({promo, filmList}) {
   );
 }
 
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

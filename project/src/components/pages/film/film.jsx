@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, useParams} from 'react-router-dom';
-import {FilmListLenght} from '../../../const';
 import filmProp from './film.prop';
 import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
@@ -12,16 +11,24 @@ import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
+import {connect} from 'react-redux';
+import {FilmsShown} from '../../../const';
+
+const mapStateToProps = (state) => ({
+  allFilmList: state.allFilmList,
+  comments: state.comments,
+});
 
 Film.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
+  allFilmList: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
 };
 
-export default function Film({films, comments}) {
+export function Film({allFilmList, comments}) {
   const params = useParams();
 
-  const [currentFilm] = films.filter((film) => film.id === +params.id);
+  const [currentFilm] = allFilmList.filter((film) => film.id === +params.id);
+
   const {
     id,
     name,
@@ -31,9 +38,9 @@ export default function Film({films, comments}) {
     released,
   } = currentFilm;
 
-  const similarFilms = films
-    .filter((film) => film.genre === currentFilm.genre && film.id !== currentFilm.id)
-    .slice(0, FilmListLenght.SIMILAR);
+  const similarFilms = allFilmList
+    .filter((film) => film.genre === genre && film.id !== currentFilm.id)
+    .slice(0, FilmsShown.SIMILAR);
 
   return (
     <>
@@ -62,7 +69,7 @@ export default function Film({films, comments}) {
               </p>
 
               <div className="film-card__buttons">
-                <PlayBtn film={currentFilm} />
+                <PlayBtn film={currentFilm} listSize={FilmsShown.SIMILAR} />
                 <MyListBtn />
                 <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link>
               </div>
@@ -85,7 +92,7 @@ export default function Film({films, comments}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms} />
+          <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
         </section>
 
         <PageFooter />
@@ -93,3 +100,5 @@ export default function Film({films, comments}) {
     </>
   );
 }
+
+export default connect(mapStateToProps)(Film);

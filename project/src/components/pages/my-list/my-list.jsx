@@ -6,12 +6,19 @@ import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../film/film.prop';
+import {connect} from 'react-redux';
+
+const mapStateToProps = (state) => ({
+  films: state.allFilmList,
+});
 
 MyList.propTypes = {
   films: PropTypes.arrayOf(filmProp),
 };
 
-export default function MyList({films}) {
+export function MyList({films}) {
+  const myFilms = films.filter((film) => film.isFavorite === true);
+
   return (
     <>
       <HiddenSVG />
@@ -28,7 +35,7 @@ export default function MyList({films}) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmList films={films} />
+          <FilmList filmList={myFilms} listInitialLength={myFilms.length} />
         </section>
 
         <PageFooter />
@@ -36,3 +43,5 @@ export default function MyList({films}) {
     </>
   );
 }
+
+export default connect(mapStateToProps)(MyList);

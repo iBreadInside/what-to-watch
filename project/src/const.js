@@ -7,9 +7,8 @@ export const AppRoute = {
   PLAYER:'/player/:id',
 };
 
-export const FilmListLenght = {
-  MAIN: 20,
-  MY_LIST: 9,
+export const FilmsShown = {
+  MAIN: 8,
   SIMILAR: 4,
 };
 
@@ -38,3 +37,4 @@ export const Genre = {
   SCI_FI: 'Sci-Fi',
   THRILLER: 'Thriller',
 };
+
