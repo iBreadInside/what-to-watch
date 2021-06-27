@@ -33,7 +33,7 @@ Main.propTypes = {
 };
 
 export function Main({promo, allFilmList, genre, resetPage}) {
-  useEffect(() => () => resetPage(), []);
+  useEffect(() => resetPage(), []);
 
   const filmsByGenre = (genre === Genre.ALL_GENRES)
     ? allFilmList

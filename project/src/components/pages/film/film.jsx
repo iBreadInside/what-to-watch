@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, useParams} from 'react-router-dom';
 import filmProp from './film.prop';
@@ -13,26 +13,18 @@ import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
 import {connect} from 'react-redux';
 import {FilmsShown} from '../../../const';
-import { ActionCreator } from '../../../store/action';
 
 const mapStateToProps = (state) => ({
   allFilmList: state.allFilmList,
   comments: state.comments,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  resetPage() {
-    dispatch(ActionCreator.resetPage());
-  },
-});
-
 Film.propTypes = {
   allFilmList: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
-  resetPage: PropTypes.func.isRequired,
 };
 
-export function Film({allFilmList, comments, resetPage}) {
+export function Film({allFilmList, comments}) {
   const params = useParams();
 
   const [currentFilm] = allFilmList.filter((film) => film.id === +params.id);
@@ -49,8 +41,6 @@ export function Film({allFilmList, comments, resetPage}) {
   const similarFilms = allFilmList
     .filter((film) => film.genre === genre && film.id !== currentFilm.id)
     .slice(0, FilmsShown.SIMILAR);
-
-  useEffect(() => () => resetPage(), []);
 
   return (
     <>
@@ -111,4 +101,4 @@ export function Film({allFilmList, comments, resetPage}) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Film);
+export default connect(mapStateToProps)(Film);
