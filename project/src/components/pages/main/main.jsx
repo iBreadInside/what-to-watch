@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
@@ -27,13 +27,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 Main.propTypes = {
   promo: filmProp,
-  // resetPage: PropTypes.func.isRequired,
+  resetPage: PropTypes.func.isRequired,
   allFilmList: PropTypes.arrayOf(filmProp),
   genre: PropTypes.string.isRequired,
 };
 
-export function Main({promo, allFilmList, genre}) {
-  // useEffect(() => () => resetPage());
+export function Main({promo, allFilmList, genre, resetPage}) {
+  useEffect(() => () => resetPage(), []);
 
   const filmsByGenre = (genre === Genre.ALL_GENRES)
     ? allFilmList
