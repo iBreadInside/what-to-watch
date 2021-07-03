@@ -4,6 +4,7 @@ export const ActionType = {
   RESET_PAGE: 'reset-page',
   LOAD_FILMS: 'data/load-films',
   ERROR: 'data/error',
+  SERVER_LOAD: 'data/server-load',
 };
 
 export const ActionCreator = {
@@ -25,5 +26,8 @@ export const ActionCreator = {
   error: (error) => ({
     type: ActionType.ERROR,
     payload: error,
+  }),
+  serverLoad: () => ({
+    type: ActionType.SERVER_LOAD,
   }),
 };

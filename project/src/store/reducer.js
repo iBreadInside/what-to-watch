@@ -11,6 +11,7 @@ const initialState = {
   comments: comments,
   promo: films[0],
   isPromoLoaded: false,
+  error: '',
 };
 
 export function reducer(state = initialState, action) {
@@ -37,6 +38,12 @@ export function reducer(state = initialState, action) {
         ...state,
         allFilmList: action.payload,
         isFilmsLoaded: true,
+      };
+    case ActionType.ERROR:
+      return {
+        ...state,
+        isFilmsLoaded: true,
+        error: action.payload,
       };
     default:
       return state;

@@ -3,9 +3,14 @@ import {APIRoute} from '../const';
 import {adaptToClient} from '../services/adaptors';
 
 export const fetchFilmList = () => async (dispatch, _getState, api) => {
-  const {data} = await api.get(APIRoute.FILMS);
-  const films = data.map((film) => adaptToClient(film));
-  dispatch(ActionCreator.loadFilms(films));
+  const response = await api.get(APIRoute.FILMS);
+
+  if (response.status === 200) {
+    const films = response.data.map((film) => adaptToClient(film));
+    dispatch(ActionCreator.loadFilms(films));
+  } else if (response.status >= 400) {
+    dispatch(ActionCreator.error(response.message));
+  }
 };
 
 // export const fetchFilmList = () => (dispatch, _getState, api) => (
