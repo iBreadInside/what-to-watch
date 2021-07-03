@@ -10,7 +10,7 @@ export function adaptToClient(film) {
       videoLink: film.video_link,
       previewVideoLink: film.preview_video_link,
       scoresCount: film.scores_count,
-      runTime: film.run_time,
+      runtime: film.run_time,
       isFavorite: film.is_favorite,
     },
   );
@@ -40,7 +40,7 @@ export function adaptToServer(film) {
       'video_link': film.videoLink,
       'preview_video_link': film.previewVideoLink,
       'scores_count': film.scoresCount,
-      'run_time': film.runTime,
+      'run_time': film.runtime,
       'is_favorite': film.isFavorite,
     },
   );
