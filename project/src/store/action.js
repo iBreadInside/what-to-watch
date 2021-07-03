@@ -1,10 +1,9 @@
-import {FilmsShown} from '../const';
-
 export const ActionType = {
   SET_FILTER: 'set-filter',
   SET_GENRE: 'set-genre',
-  SHOW_MORE_FILMS: 'show-more',
   RESET_PAGE: 'reset-page',
+  LOAD_FILMS: 'data/load-films',
+  ERROR: 'data/error',
 };
 
 export const ActionCreator = {
@@ -16,11 +15,15 @@ export const ActionCreator = {
     type: ActionType.SET_GENRE,
     payload: Genre,
   }),
-  showMoreFilms: () => ({
-    type: ActionType.SHOW_MORE_FILMS,
-    payload: FilmsShown.MAIN,
-  }),
   resetPage: () => ({
     type: ActionType.RESET_PAGE,
+  }),
+  loadFilms: (films) => ({
+    type: ActionType.LOAD_FILMS,
+    payload: films,
+  }),
+  error: (error) => ({
+    type: ActionType.ERROR,
+    payload: error,
   }),
 };
