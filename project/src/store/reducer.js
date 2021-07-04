@@ -6,9 +6,12 @@ import {ActionType} from './action';
 const initialState = {
   genre: Genre.ALL_GENRES,
   filterType: FilterType.ALL_GENRES,
-  allFilmList: films,
+  allFilmList: [],
+  isFilmsLoaded: false,
   comments: comments,
   promo: films[0],
+  isPromoLoaded: false,
+  error: '',
 };
 
 export function reducer(state = initialState, action) {
@@ -24,13 +27,24 @@ export function reducer(state = initialState, action) {
         genre: action.payload,
         filmsCount: initialState.filmsCount,
       };
-    case ActionType.RESET_PAGE: {
+    case ActionType.RESET_PAGE:
       return {
         ...state,
         genre: initialState.genre,
         filterType: initialState.filterType,
       };
-    }
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        allFilmList: action.payload,
+        isFilmsLoaded: true,
+      };
+    case ActionType.ERROR:
+      return {
+        ...state,
+        isFilmsLoaded: true,
+        error: action.payload,
+      };
     default:
       return state;
   }

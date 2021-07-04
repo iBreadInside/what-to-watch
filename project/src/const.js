@@ -7,6 +7,14 @@ export const AppRoute = {
   PLAYER:'/player/:id',
 };
 
+export const APIRoute = {
+  FILMS: '/films',
+  PROMO: '/promo',
+  FAVORITE: '/favorite',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export const FilmsShown = {
   MAIN: 8,
   SIMILAR: 4,
@@ -37,4 +45,3 @@ export const Genre = {
   SCI_FI: 'Sci-Fi',
   THRILLER: 'Thriller',
 };
-

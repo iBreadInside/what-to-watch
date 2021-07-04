@@ -11,13 +11,36 @@ import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import filmProp from '../pages/film/film.prop';
 import commentProp from '../elements/comment/comment.prop';
+import {connect} from 'react-redux';
+import LoadingScreen from '../elements/loading-screen/loading.screen';
+import ErrorScreen from '../elements/error-screen/error-screen';
+
+const mapStateToProps = (state) => ({
+  films: state.allFilmList,
+  isFilmsLoaded: state.isFilmsLoaded,
+  error: state.error,
+});
 
 App.propTypes = {
   films: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
+  isFilmsLoaded: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 };
 
-export default function App({films, comments}) {
+export function App({films, isFilmsLoaded, comments, error}) {
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  if (error.length > 0) {
+    return (
+      <ErrorScreen error={error} />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -49,3 +72,5 @@ export default function App({films, comments}) {
     </BrowserRouter>
   );
 }
+
+export default connect(mapStateToProps)(App);
