@@ -35,7 +35,7 @@ export function App({films, isFilmsLoaded, comments, error}) {
     );
   }
 
-  if (error.length > 0) {
+  if (!isFilmsLoaded && error.length > 0) {
     return (
       <ErrorScreen error={error} />
     );
