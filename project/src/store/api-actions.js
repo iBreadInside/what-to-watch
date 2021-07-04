@@ -23,7 +23,7 @@ export const checkAuth = () => async (dispatch, _getState, api) => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
     }
   } catch (error) {
-    dispatch(ActionCreator.error(error));
+    dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
   }
 };
 
