@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://7.react.pages.academy/wtw';
+const BASE_URL = 'https://7.react.pages.academy/wt';
 const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {

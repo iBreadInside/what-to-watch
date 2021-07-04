@@ -3,13 +3,15 @@ import {APIRoute} from '../const';
 import {adaptToClient} from '../services/adaptors';
 
 export const fetchFilmList = () => async (dispatch, _getState, api) => {
-  const response = await api.get(APIRoute.FILMS);
+  try {
+    const response = await api.get(APIRoute.FILMS);
 
-  if (response.status === 200) {
-    const films = response.data.map((film) => adaptToClient(film));
-    dispatch(ActionCreator.loadFilms(films));
-  } else if (response.status >= 400) {
-    dispatch(ActionCreator.error(response.message));
+    if (response.status === 200) {
+      const films = response.data.map((film) => adaptToClient(film));
+      dispatch(ActionCreator.loadFilms(films));
+    }
+  } catch (error) {
+    dispatch(ActionCreator.error(error.message));
   }
 };
 
@@ -52,5 +54,5 @@ export const fetchFilmList = () => async (dispatch, _getState, api) => {
 // export const logout = () => (dispatch, _getState, api) => (
 //   api.delete(APIRoute.LOGOUT)
 //     .then(() => localStorage.removeItem('token'))
-//     .then(() => dispatch(ActionCreator.LOGOUT))
+//     .then(() => dispatch(ActionCreator.LOGOUT)))
 // );
