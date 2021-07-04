@@ -1,4 +1,4 @@
-import {FilterType, Genre} from '../const';
+import {AuthorizationStatus, FilterType, Genre} from '../const';
 import comments from '../mocks/comments';
 import films from '../mocks/films';
 import {ActionType} from './action';
@@ -12,6 +12,7 @@ const initialState = {
   promo: films[0],
   isPromoLoaded: false,
   error: '',
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 export function reducer(state = initialState, action) {
@@ -44,6 +45,16 @@ export function reducer(state = initialState, action) {
         ...state,
         isFilmsLoaded: true,
         error: action.payload,
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default:
       return state;

@@ -4,7 +4,9 @@ export const ActionType = {
   RESET_PAGE: 'reset-page',
   LOAD_FILMS: 'data/load-films',
   ERROR: 'data/error',
-  SERVER_LOAD: 'data/server-load',
+  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
+  LOGOUT: 'logout',
+  REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
 export const ActionCreator = {
@@ -27,7 +29,15 @@ export const ActionCreator = {
     type: ActionType.ERROR,
     payload: error,
   }),
-  serverLoad: () => ({
-    type: ActionType.SERVER_LOAD,
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };

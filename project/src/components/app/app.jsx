@@ -14,11 +14,14 @@ import commentProp from '../elements/comment/comment.prop';
 import {connect} from 'react-redux';
 import LoadingScreen from '../elements/loading-screen/loading.screen';
 import ErrorScreen from '../elements/error-screen/error-screen';
+import {PrivateRoute} from '../elements/private-route/private-route';
+import browserHistory from '../../browser-history';
 
 const mapStateToProps = (state) => ({
   films: state.allFilmList,
   isFilmsLoaded: state.isFilmsLoaded,
   error: state.error,
+  authorizationStatus: state.authorizationStatus,
 });
 
 App.propTypes = {
@@ -26,9 +29,10 @@ App.propTypes = {
   comments: PropTypes.arrayOf(commentProp),
   isFilmsLoaded: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export function App({films, isFilmsLoaded, comments, error}) {
+export function App({films, isFilmsLoaded, comments, error, authorizationStatus}) {
   if (!isFilmsLoaded) {
     return (
       <LoadingScreen />
@@ -42,26 +46,34 @@ export function App({films, isFilmsLoaded, comments, error}) {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main />
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
-          <SignIn />
+          <SignIn authorizationStatus={authorizationStatus} />
         </Route>
-        <Route exact path={AppRoute.MY_LIST}>
-          <MyList films={films} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.MY_LIST}
+          authorizationStatus={authorizationStatus}
+          render={() => <MyList films={films} />}
+        >
+        </PrivateRoute>
         <Route exact path={AppRoute.FILM}>
           <Film
             films={films}
             comments={comments}
           />
         </Route>
-        <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview films={films} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.ADD_REVIEW}
+          authorizationStatus={authorizationStatus}
+          render={() => <AddReview films={films} />}
+        >
+        </PrivateRoute>
         <Route exact path={AppRoute.PLAYER}>
           <Player films={films} />
         </Route>

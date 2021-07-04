@@ -1,16 +1,53 @@
 import React from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {AppRoute, AuthorizationStatus} from '../../../const';
+import {logout} from '../../../store/api-actions';
 
-export default function UserBlock() {
-  return (
-    <ul className="user-block">
-      <li className="user-block__item">
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-        </div>
-      </li>
-      <li className="user-block__item">
-        <a className="user-block__link">Sign out</a>
-      </li>
-    </ul>
-  );
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLogOut() {
+    dispatch(logout());
+  },
+});
+
+UserBlock.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  onLogOut: PropTypes.func.isRequired,
+};
+
+export function UserBlock({authorizationStatus, onLogOut}) {
+  const history = useHistory();
+  const avatarURL = localStorage.getItem('avatar') ?? '';
+
+  function handleSignOut(evt) {
+    evt.preventDefault();
+
+    onLogOut();
+  }
+
+  return authorizationStatus === AuthorizationStatus.NO_AUTH ?
+    (
+      <div className="user-block">
+        <Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link>
+      </div>
+    ) :
+    (
+      <ul className="user-block">
+        <li className="user-block__item">
+          <div className="user-block__avatar" onClick={() => history.push(AppRoute.MY_LIST)}>
+            <img src={avatarURL !== '' ? avatarURL: 'img/avatar.jpg'} alt="User avatar" width="63" height="63" />
+          </div>
+        </li>
+        <li className="user-block__item">
+          <Link to={AppRoute.MAIN} className="user-block__link" onClick={handleSignOut}>Sign out</Link>
+        </li>
+      </ul>
+    );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserBlock);

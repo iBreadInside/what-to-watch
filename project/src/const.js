@@ -5,6 +5,7 @@ export const AppRoute = {
   FILM: '/films/:id',
   ADD_REVIEW: '/films/:id/review',
   PLAYER:'/player/:id',
+  NOT_FOUND: '/404',
 };
 
 export const APIRoute = {
@@ -44,4 +45,10 @@ export const Genre = {
   ROMANCE: 'Romance',
   SCI_FI: 'Sci-Fi',
   THRILLER: 'Thriller',
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
 };

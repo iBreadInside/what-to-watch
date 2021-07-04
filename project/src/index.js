@@ -8,19 +8,28 @@ import comments from './mocks/comments';
 import {reducer} from './store/reducer';
 import thunk from 'redux-thunk';
 import {createAPI} from './services/api';
-import {fetchFilmList} from './store/api-actions';
+import {checkAuth, fetchFilmList} from './store/api-actions';
+import {ActionCreator} from './store/action';
+import {AuthorizationStatus} from './const';
+import {redirect} from './store/middlewares';
 
 const api = createAPI(
-  () => store.dispatch(),
+  () => store.dispatch(
+    ActionCreator.requireAuthorization(
+      AuthorizationStatus.UNKNOWN,
+    ),
+  ),
 );
 
 const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
   ),
 );
 
+store.dispatch(checkAuth());
 store.dispatch(fetchFilmList());
 
 ReactDOM.render(
