@@ -30,7 +30,7 @@ export function UserBlock({authorizationStatus, onLogOut}) {
     onLogOut();
   }
 
-  return authorizationStatus === AuthorizationStatus.NO_AUTH ?
+  return authorizationStatus === !AuthorizationStatus.AUTH ?
     (
       <div className="user-block">
         <Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link>
