@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../pages/main/main';
 import NotFound from '../pages/not-found/not-found';
@@ -9,7 +9,7 @@ import MyList from '../pages/my-list/my-list';
 import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
-import filmProp from '../pages/film/film.prop';
+// import filmProp from '../pages/film/film.prop';
 import commentProp from '../elements/comment/comment.prop';
 import {connect} from 'react-redux';
 import LoadingScreen from '../elements/loading-screen/loading.screen';
@@ -20,19 +20,19 @@ import browserHistory from '../../browser-history';
 const mapStateToProps = (state) => ({
   films: state.allFilmList,
   isFilmsLoaded: state.isFilmsLoaded,
+  isPromoLoaded: state.isPromoLoaded,
   error: state.error,
   authorizationStatus: state.authorizationStatus,
 });
 
 App.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
   comments: PropTypes.arrayOf(commentProp),
   isFilmsLoaded: PropTypes.bool.isRequired,
   error: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-export function App({films, isFilmsLoaded, comments, error, authorizationStatus}) {
+export function App({isFilmsLoaded, comments, error, authorizationStatus}) {
   if (!isFilmsLoaded) {
     return (
       <LoadingScreen />
@@ -51,32 +51,33 @@ export function App({films, isFilmsLoaded, comments, error, authorizationStatus}
         <Route exact path={AppRoute.MAIN}>
           <Main />
         </Route>
+
         <Route exact path={AppRoute.SIGN_IN}>
-          <SignIn authorizationStatus={authorizationStatus} />
+          <SignIn />
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.MY_LIST}
+
+        <PrivateRoute exact path={AppRoute.MY_LIST}
           authorizationStatus={authorizationStatus}
-          render={() => <MyList films={films} />}
+          render={() => <MyList />}
         >
         </PrivateRoute>
+
         <Route exact path={AppRoute.FILM}>
           <Film
-            films={films}
             comments={comments}
           />
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.ADD_REVIEW}
+
+        <PrivateRoute exact path={AppRoute.ADD_REVIEW}
           authorizationStatus={authorizationStatus}
-          render={() => <AddReview films={films} />}
+          render={() => <AddReview />}
         >
         </PrivateRoute>
+
         <Route exact path={AppRoute.PLAYER}>
-          <Player films={films} />
+          <Player />
         </Route>
+
         <Route>
           <NotFound />
         </Route>

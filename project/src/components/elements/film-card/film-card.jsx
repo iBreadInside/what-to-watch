@@ -5,6 +5,7 @@ import VideoPlayer from '../../elements/video-player/video-player';
 import {ActionCreator} from '../../../store/action';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {APIRoute} from '../../../const';
 
 const mapDispatchToProps = (dispatch) => ({
   onNameClick(genre) {
@@ -45,7 +46,7 @@ export function FilmCard({film, onNameClick}) {
       <h3 className="small-film-card__title">
         <Link
           className="small-film-card__link"
-          to={`/films/${film.id}`}
+          to={`${APIRoute.FILMS}/${film.id}`}
           onClick={handleFilmClick}
         >
           {film.name}

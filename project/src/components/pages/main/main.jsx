@@ -11,31 +11,31 @@ import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
 import {ActionCreator} from '../../../store/action';
 import PropTypes from 'prop-types';
-import {FilmsShown, Genre} from '../../../const';
+import {FilmsShown, INITIAL_GENRE} from '../../../const';
 
 const mapStateToProps = (state) => ({
-  promo: state.promo,
+  promo: state.promoFilm,
   allFilmList: state.allFilmList,
-  genre: state.genre,
+  genre: state.currentGenre,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetPage() {
+  onPageLeave() {
     dispatch(ActionCreator.resetPage());
   },
 });
 
 Main.propTypes = {
   promo: filmProp,
-  resetPage: PropTypes.func.isRequired,
+  onPageLeave: PropTypes.func.isRequired,
   allFilmList: PropTypes.arrayOf(filmProp),
   genre: PropTypes.string.isRequired,
 };
 
-export function Main({promo, allFilmList, genre, resetPage}) {
-  useEffect(() => resetPage(), []);
+export function Main({promo, allFilmList, genre, onPageLeave}) {
+  useEffect(() => onPageLeave(), []);
 
-  const filmsByGenre = (genre === Genre.ALL_GENRES)
+  const filmsByGenre = (genre === INITIAL_GENRE)
     ? allFilmList
     : allFilmList.filter((film) => film.genre === genre);
 

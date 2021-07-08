@@ -7,6 +7,40 @@ import {AppRoute, AuthorizationStatus} from '../../../const';
 import {login} from '../../../store/api-actions';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import FormMessage from '../../elements/form-message/form-message';
+
+const validationRules = {
+  email: {
+    validate: (value) => value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i),
+    message: 'Please enter a valid email address',
+  },
+
+  password: {
+    validate: (value) => value.trim().length !== 0,
+    message: 'Password field cannot be empty',
+  },
+};
+
+function validateFields(formData) {
+  const errors = [];
+
+  Object.keys(formData).forEach((fieldName) => {
+    const fieldValidation = validationRules[fieldName];
+    const isValid = fieldValidation.validate(formData[fieldName]);
+
+    if (!isValid) {
+      errors.push({
+        field: fieldName,
+        message: fieldValidation.message,
+      });
+    }
+  });
+  return errors;
+}
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
@@ -20,27 +54,26 @@ SignIn.propTypes = {
 };
 
 export function SignIn({onSubmit, authorizationStatus}) {
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [formErrors, setFormErrors] = useState([]);
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return <Redirect to={AppRoute.MAIN} />;
-  }
-
   function handleSubmit(evt) {
-    evt.preventDefault();
-
-    onSubmit({
+    const formData = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    });
+    };
+
+    evt.preventDefault();
+    const errors = validateFields(formData);
+
+    (errors.length === 0) && onSubmit(formData);
+    setFormErrors(errors);
   }
 
-  function handlePasswordChange(evt) {
-    evt.target.value ?
-      setIsPasswordValid(evt.target.value.split('').some((character) => character !== ' ')) :
-      setIsPasswordValid(true);
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={AppRoute.MAIN} />;
   }
 
   return (
@@ -55,26 +88,29 @@ export function SignIn({onSubmit, authorizationStatus}) {
         </header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={isPasswordValid && handleSubmit}>
-            {!isPasswordValid
-              ? (<div className='sign-in__message'><p>Please enter a valid password</p></div>)
-              : ''}
+          <form
+            action="#"
+            className="sign-in__form"
+            onSubmit={handleSubmit}
+          >
+
+            {formErrors && <FormMessage formErrors={formErrors} />}
+
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input
                   ref={emailRef}
                   className="sign-in__input"
-                  type="email"
+                  type="text"
                   placeholder="Email address"
                   name="user-email"
                   id="user-email"
-                  required
                 />
                 <label
                   className="sign-in__label visually-hidden"
                   htmlFor="user-email"
                 >
-                    Email address
+                  Email address
                 </label>
               </div>
               <div className="sign-in__field">
@@ -85,14 +121,12 @@ export function SignIn({onSubmit, authorizationStatus}) {
                   placeholder="Password"
                   name="user-password"
                   id="user-password"
-                  required
-                  onChange={handlePasswordChange}
                 />
                 <label
                   className="sign-in__label visually-hidden"
                   htmlFor="user-password"
                 >
-                    Password
+                  Password
                 </label>
               </div>
             </div>
@@ -108,4 +142,4 @@ export function SignIn({onSubmit, authorizationStatus}) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
