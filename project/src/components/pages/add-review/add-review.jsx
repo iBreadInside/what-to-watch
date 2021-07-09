@@ -1,11 +1,12 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, Redirect, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../film/film.prop';
 import ReviewForm from '../../elements/review-form/review-form';
+import { AppRoute } from '../../../const';
 
 AddReview.propTypes = {
   films: PropTypes.arrayOf(filmProp),
@@ -13,13 +14,18 @@ AddReview.propTypes = {
 
 export default function AddReview({films}) {
   const params = useParams();
+  const currentFilm = films.filter((film) => film.id === +params.id);
+
+  if (!currentFilm) {
+    return <Redirect to={AppRoute.NOT_FOUND} />;
+  }
 
   const [{
     id,
     name,
     backgroundImage,
     posterImage,
-  }] = films.filter((film) => film.id === +params.id);
+  }] = currentFilm;
 
   return (
     <>

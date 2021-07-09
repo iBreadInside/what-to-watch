@@ -1,4 +1,4 @@
-export function adaptToClient(film) {
+export function adaptFilmToClient(film) {
   const adaptedEvent = Object.assign(
     {},
     film,

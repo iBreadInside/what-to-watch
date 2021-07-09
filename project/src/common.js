@@ -1,4 +1,4 @@
-import {Genre} from './const';
+// import {Genre} from './const';
 
 export function getReviewRating(rating) {
   return Number.isInteger(rating)
@@ -6,10 +6,10 @@ export function getReviewRating(rating) {
     : rating.toString().split('.').join();
 }
 
-export function getFilteredFilms(films, genre) {
-  if (genre === Genre.ALL_GENRES) {
-    return films;
-  }
+// export function getFilteredFilms(films, genre) {
+//   if (genre === Genre.ALL_GENRES) {
+//     return films;
+//   }
 
-  return films.filter((film) => film.genre === genre);
-}
+//   return films.filter((film) => film.genre === genre);
+// }

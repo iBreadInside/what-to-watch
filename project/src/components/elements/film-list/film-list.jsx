@@ -5,7 +5,7 @@ import filmProp from '../../pages/film/film.prop';
 import {connect} from 'react-redux';
 
 const mapStateToProps = (state) => ({
-  genre: state.genre,
+  genre: state.currentGenre,
 });
 
 FilmList.propTypes = {

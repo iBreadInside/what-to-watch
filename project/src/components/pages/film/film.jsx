@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link, useParams} from 'react-router-dom';
+import {Link, Redirect, useParams} from 'react-router-dom';
 import filmProp from './film.prop';
 import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
@@ -12,7 +12,7 @@ import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
 import {connect} from 'react-redux';
-import {FilmsShown} from '../../../const';
+import {AppRoute, FilmsShown} from '../../../const';
 
 const mapStateToProps = (state) => ({
   allFilmList: state.allFilmList,
@@ -26,8 +26,11 @@ Film.propTypes = {
 
 export function Film({allFilmList, comments}) {
   const params = useParams();
-
   const [currentFilm] = allFilmList.filter((film) => film.id === +params.id);
+
+  if (!currentFilm) {
+    return <Redirect to={AppRoute.NOT_FOUND} />;
+  }
 
   const {
     id,
@@ -89,12 +92,12 @@ export function Film({allFilmList, comments}) {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+        {similarFilms.length > 0 &&
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
 
-          <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
-        </section>
-
+            <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
+          </section>}
         <PageFooter />
       </div>
     </>

@@ -4,14 +4,19 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import comments from './mocks/comments';
 import {reducer} from './store/reducer';
 import thunk from 'redux-thunk';
 import {createAPI} from './services/api';
-import {fetchFilmList} from './store/api-actions';
+import {checkAuth, fetchFilmList, fetchPromoFilm} from './store/api-actions';
+import {ActionCreator} from './store/action';
+import {AuthorizationStatus} from './const';
 
 const api = createAPI(
-  () => store.dispatch(),
+  () => store.dispatch(
+    ActionCreator.requireAuthorization(
+      AuthorizationStatus.NO_AUTH,
+    ),
+  ),
 );
 
 const store = createStore(
@@ -21,14 +26,14 @@ const store = createStore(
   ),
 );
 
+store.dispatch(checkAuth());
 store.dispatch(fetchFilmList());
+store.dispatch(fetchPromoFilm());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        comments={comments}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.querySelector('#root'));

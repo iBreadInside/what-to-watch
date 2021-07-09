@@ -13,6 +13,8 @@ export const APIRoute = {
   FAVORITE: '/favorite',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  SIMILAR: '/similar',
+  REVIEWS: '/comments',
 };
 
 export const FilmsShown = {
@@ -33,15 +35,29 @@ export const FilterType = {
   THRILLERS: 'Thrillers',
 };
 
-export const Genre = {
-  ALL_GENRES: 'All genres',
-  COMEDY: 'Comedy',
-  CRIME: 'Crime',
-  DOCUMENTARY: 'Documentary',
-  DRAMA: 'Drama',
-  HORROR: 'Horror',
-  FAMILY: 'Kids & Family',
-  ROMANCE: 'Romance',
-  SCI_FI: 'Sci-Fi',
-  THRILLER: 'Thriller',
+// export const Genre = {
+//   ALL_GENRES: 'All genres',
+//   COMEDY: 'Comedy',
+//   CRIME: 'Crime',
+//   DOCUMENTARY: 'Documentary',
+//   DRAMA: 'Drama',
+//   HORROR: 'Horror',
+//   FAMILY: 'Kids & Family',
+//   ROMANCE: 'Romance',
+//   SCI_FI: 'Sci-Fi',
+//   THRILLER: 'Thriller',
+// };
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
 };
+
+export const ResponseCode = {
+  UNAUTHORIZED: 401,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+};
+
+export const INITIAL_GENRE = 'All genres';
