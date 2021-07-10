@@ -18,12 +18,10 @@ import {AppRoute} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
 
 const mapStateToProps = (state) => ({
-  // currentFilm: state.currentFilm,
   comments: state.comments,
 });
 
 Film.propTypes = {
-  // currentFilm: filmProp,
   comments: PropTypes.arrayOf(commentProp),
 };
 
@@ -53,10 +51,6 @@ export function Film({comments}) {
     backgroundImage,
     released,
   } = currentFilm;
-
-  // const similarFilms = allFilmList
-  //   .filter((film) => film.genre === genre && film.id !== currentFilm.id)
-  //   .slice(0, FilmsShown.SIMILAR);
 
   return (
     <>
@@ -99,7 +93,7 @@ export function Film({comments}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            {currentFilm && <Tabs film={currentFilm} comments={comments} />}
+            <Tabs film={currentFilm} comments={comments} />
           </div>
         </div>
       </section>
