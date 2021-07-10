@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {INITIAL_GENRE} from '../../../const';
-import {ActionCreator} from '../../../store/action';
+import {ActionCreator} from '../../../store/actions';
 import filmProp from '../../pages/film/film.prop';
 
 const getGenres = (films) => {

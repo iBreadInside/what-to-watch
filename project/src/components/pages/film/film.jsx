@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link, Redirect, useParams} from 'react-router-dom';
-// import filmProp from './film.prop';
-// import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -12,10 +10,10 @@ import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
 import {connect, useDispatch, useSelector} from 'react-redux';
-// import {AppRoute} from '../../../const';
 import {fetchFilmById} from '../../../store/api-actions';
 import {AppRoute} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import {ActionCreator} from '../../../store/actions';
 
 const mapStateToProps = (state) => ({
   comments: state.comments,
@@ -33,6 +31,8 @@ export function Film({comments}) {
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
+
+    return () => dispatch(ActionCreator.deleteCurrentFilm());
   }, [dispatch, params.id]);
 
   if (!currentFilm && !isFilmResponsed) {

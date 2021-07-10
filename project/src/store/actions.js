@@ -4,6 +4,7 @@ export const ActionType = {
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO: 'data/loadPromo',
   LOAD_FILM_BY_ID: 'data/loadFilmById',
+  DELETE_CURRENT_FILM: 'data/deleteCurrentFilm',
   CHECK_FILM_RESPONSE: 'data/checkFilmResponse',
   LOAD_FAVORITE: 'data/loadFavorites',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
@@ -30,6 +31,9 @@ export const ActionCreator = {
   loadFilmById: (film) => ({
     type: ActionType.LOAD_FILM_BY_ID,
     payload: film,
+  }),
+  deleteCurrentFilm: () => ({
+    type: ActionType.DELETE_CURRENT_FILM,
   }),
   checkFilmResponce: (bool) => ({
     type: ActionType.CHECK_FILM_RESPONSE,

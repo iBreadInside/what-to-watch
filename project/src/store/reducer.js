@@ -1,6 +1,6 @@
 import {AuthorizationStatus, INITIAL_GENRE} from '../const';
 import comments from '../mocks/comments';
-import {ActionType} from './action';
+import {ActionType} from './actions';
 
 const initialState = {
   currentGenre: INITIAL_GENRE,
@@ -9,7 +9,6 @@ const initialState = {
   promoFilm: null,
   currentFilm: null,
   isFilmsLoaded: false,
-  // isCurrentFilmLoaded: false,
   isCurrentFilmResponsed: false,
   isFavoriteLoaded: false,
   isPromoLoaded: false,
@@ -36,12 +35,17 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         currentFilm: action.payload,
-        // isCurrentFilmLoaded: true,
       };
     case ActionType.CHECK_FILM_RESPONSE:
       return {
         ...state,
         isCurrentFilmResponsed: action.payload,
+      };
+    case ActionType.DELETE_CURRENT_FILM:
+      return {
+        ...state,
+        currentFilm: null,
+        isCurrentFilmResponsed: false,
       };
     case ActionType.LOAD_FAVORITE:
       return {

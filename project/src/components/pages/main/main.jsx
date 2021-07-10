@@ -9,7 +9,7 @@ import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
 import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
-import {ActionCreator} from '../../../store/action';
+import {ActionCreator} from '../../../store/actions';
 import PropTypes from 'prop-types';
 import {FilmsShown, INITIAL_GENRE} from '../../../const';
 

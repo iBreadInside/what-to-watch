@@ -1,4 +1,4 @@
-import {ActionCreator} from './action';
+import {ActionCreator} from './actions';
 import {APIRoute, AppRoute, AuthorizationStatus, ResponseCode} from '../const';
 import {adaptFilmToClient} from '../services/adaptors';
 import browserHistory from '../browser-history';
