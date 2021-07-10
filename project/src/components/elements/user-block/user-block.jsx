@@ -8,12 +8,21 @@ import {logout} from '../../../store/api-actions';
 function renderUserBlockAuthorized (history, onLogout) {
   const userAvatar = localStorage.getItem('avatar');
 
+  function handleAvatarClick() {
+    history.push(`${AppRoute.MY_LIST}`);
+  }
+
+  function handleLogoutClick(evt) {
+    evt.preventDefault();
+    onLogout();
+  }
+
   return (
     <>
       <li className="user-block__item">
         <div
           className="user-block__avatar"
-          onClick={() => history.push(`${AppRoute.MY_LIST}`)}
+          onClick={handleAvatarClick}
         >
           <img src={userAvatar} alt="User avatar" width="63" height="63" />
         </div>
@@ -22,10 +31,7 @@ function renderUserBlockAuthorized (history, onLogout) {
 
         <Link
           className="user-block__link"
-          onClick={(evt) => {
-            evt.preventDefault();
-            onLogout();
-          }}
+          onClick={handleLogoutClick}
           to={AppRoute.MAIN}
         >
           Sign out

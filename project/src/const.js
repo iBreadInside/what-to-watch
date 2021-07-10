@@ -22,32 +22,6 @@ export const FilmsShown = {
   SIMILAR: 4,
 };
 
-export const FilterType = {
-  ALL_GENRES: 'All genres',
-  COMEDIES: 'Comedies',
-  CRIME: 'Crime',
-  DOCUMENTARY: 'Documentary',
-  DRAMAS: 'Dramas',
-  HORROR: 'Horror',
-  FAMILY: 'Kids & Family',
-  ROMANCE: 'Romance',
-  SCI_FI: 'Sci-Fi',
-  THRILLERS: 'Thrillers',
-};
-
-// export const Genre = {
-//   ALL_GENRES: 'All genres',
-//   COMEDY: 'Comedy',
-//   CRIME: 'Crime',
-//   DOCUMENTARY: 'Documentary',
-//   DRAMA: 'Drama',
-//   HORROR: 'Horror',
-//   FAMILY: 'Kids & Family',
-//   ROMANCE: 'Romance',
-//   SCI_FI: 'Sci-Fi',
-//   THRILLER: 'Thriller',
-// };
-
 export const AuthorizationStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
@@ -55,6 +29,7 @@ export const AuthorizationStatus = {
 };
 
 export const ResponseCode = {
+  OK: 200,
   UNAUTHORIZED: 401,
   BAD_REQUEST: 400,
   NOT_FOUND: 404,

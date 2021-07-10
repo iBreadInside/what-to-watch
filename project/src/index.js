@@ -17,6 +17,9 @@ const api = createAPI(
       AuthorizationStatus.NO_AUTH,
     ),
   ),
+  () => store.dispatch(
+    ActionCreator.showError(),
+  ),
 );
 
 const store = createStore(

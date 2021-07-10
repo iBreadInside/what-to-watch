@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
