@@ -3,6 +3,8 @@ export const ActionType = {
   RESET_PAGE: 'main/resetPage',
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO: 'data/loadPromo',
+  LOAD_FILM_BY_ID: 'data/loadFilmById',
+  CHECK_FILM_RESPONSE: 'data/checkFilmResponse',
   LOAD_FAVORITE: 'data/loadFavorites',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
@@ -24,6 +26,14 @@ export const ActionCreator = {
   loadPromo: (film) => ({
     type: ActionType.LOAD_PROMO,
     payload: film,
+  }),
+  loadFilmById: (film) => ({
+    type: ActionType.LOAD_FILM_BY_ID,
+    payload: film,
+  }),
+  checkFilmResponce: (bool) => ({
+    type: ActionType.CHECK_FILM_RESPONSE,
+    payload: bool,
   }),
   loadFavorite: (films) => ({
     type: ActionType.LOAD_FAVORITE,

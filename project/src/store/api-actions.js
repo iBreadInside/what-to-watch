@@ -77,7 +77,21 @@ export const logout = () => async (dispatch, _getState, api) => {
     localStorage.removeItem('avatar');
     dispatch(ActionCreator.logout());
   } catch (error) {
-    dispatch(ActionCreator.showError(error));
+    dispatch(ActionCreator.showError(error.message));
+  }
+};
+
+export const fetchFilmById = (filmId) => async (dispatch, _getState, api) => {
+  try {
+    const response = await api.get(`${APIRoute.FILMS}/${filmId}`);
+
+    if (response.status === ResponseCode.OK) {
+      dispatch(ActionCreator.loadFilmById(adaptFilmToClient(response.data)));
+    }
+
+    dispatch(ActionCreator.checkFilmResponce(true));
+  } catch (error) {
+    dispatch(ActionCreator.showError(error.message));
   }
 };
 

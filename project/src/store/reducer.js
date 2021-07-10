@@ -7,7 +7,10 @@ const initialState = {
   allFilmList: [],
   favoriteFilms: [],
   promoFilm: {},
+  currentFilm: {},
   isFilmsLoaded: false,
+  // isCurrentFilmLoaded: false,
+  isCurrentFilmResponsed: false,
   isFavoriteLoaded: false,
   isPromoLoaded: false,
   comments: comments,
@@ -28,6 +31,17 @@ export function reducer(state = initialState, action) {
         ...state,
         promoFilm: action.payload,
         isPromoLoaded: true,
+      };
+    case ActionType.LOAD_FILM_BY_ID:
+      return {
+        ...state,
+        currentFilm: action.payload,
+        // isCurrentFilmLoaded: true,
+      };
+    case ActionType.CHECK_FILM_RESPONSE:
+      return {
+        ...state,
+        isCurrentFilmResponsed: action.payload,
       };
     case ActionType.LOAD_FAVORITE:
       return {

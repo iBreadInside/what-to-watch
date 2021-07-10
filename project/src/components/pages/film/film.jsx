@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link, Redirect, useParams} from 'react-router-dom';
-import filmProp from './film.prop';
-import FilmList from '../../elements/film-list/film-list';
+// import filmProp from './film.prop';
+// import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -11,24 +11,37 @@ import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
-import {connect} from 'react-redux';
-import {AppRoute, FilmsShown} from '../../../const';
+import {connect, useDispatch, useSelector} from 'react-redux';
+// import {AppRoute} from '../../../const';
+import {fetchFilmById} from '../../../store/api-actions';
+import {AppRoute} from '../../../const';
+import LoadingScreen from '../../elements/loading-screen/loading.screen';
 
 const mapStateToProps = (state) => ({
-  allFilmList: state.allFilmList,
+  // currentFilm: state.currentFilm,
   comments: state.comments,
 });
 
 Film.propTypes = {
-  allFilmList: PropTypes.arrayOf(filmProp),
+  // currentFilm: filmProp,
   comments: PropTypes.arrayOf(commentProp),
 };
 
-export function Film({allFilmList, comments}) {
+export function Film({comments}) {
   const params = useParams();
-  const [currentFilm] = allFilmList.filter((film) => film.id === +params.id);
+  const dispatch = useDispatch();
+  const currentFilm = useSelector((state) => state.currentFilm);
+  const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
 
-  if (!currentFilm) {
+  useEffect(() => {
+    dispatch(fetchFilmById(params.id));
+  }, [dispatch, params.id]);
+
+  if (!currentFilm && !isFilmResponsed) {
+    return <LoadingScreen />;
+  }
+
+  if (!currentFilm && isFilmResponsed) {
     return <Redirect to={AppRoute.NOT_FOUND} />;
   }
 
@@ -41,9 +54,9 @@ export function Film({allFilmList, comments}) {
     released,
   } = currentFilm;
 
-  const similarFilms = allFilmList
-    .filter((film) => film.genre === genre && film.id !== currentFilm.id)
-    .slice(0, FilmsShown.SIMILAR);
+  // const similarFilms = allFilmList
+  //   .filter((film) => film.genre === genre && film.id !== currentFilm.id)
+  //   .slice(0, FilmsShown.SIMILAR);
 
   return (
     <>
@@ -72,7 +85,7 @@ export function Film({allFilmList, comments}) {
               </p>
 
               <div className="film-card__buttons">
-                <PlayBtn film={currentFilm} listSize={FilmsShown.SIMILAR} />
+                <PlayBtn film={currentFilm} />
                 <MyListBtn />
                 <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link>
               </div>
@@ -86,18 +99,18 @@ export function Film({allFilmList, comments}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <Tabs film={currentFilm} comments={comments} />
+            {currentFilm && <Tabs film={currentFilm} comments={comments} />}
           </div>
         </div>
       </section>
 
       <div className="page-content">
-        {similarFilms.length > 0 &&
+        {/* {similarFilms.length > 0 &&
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
             <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
-          </section>}
+          </section>} */}
         <PageFooter />
       </div>
     </>
