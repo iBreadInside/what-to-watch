@@ -124,9 +124,3 @@ export const fetchReviews = (filmId) => async (dispatch, _getState, api) => {
     dispatch(ActionCreator.showError(error.message));
   }
 };
-
-// export const fetchReviewList = () => (dispatch, _getState, api) => (
-//   api.get(APIRoute.REVIEWS)
-//     .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
-//     .catch((error) => dispatch(ActionCreator.showError(error.message)))
-// );

@@ -16,6 +16,7 @@ export const APIRoute = {
   LOGOUT: '/logout',
   SIMILAR: '/similar',
   REVIEWS: '/comments',
+  ADD_REVIEW: '/review',
 };
 
 export const FilmsShown = {

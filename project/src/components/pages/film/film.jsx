@@ -9,7 +9,7 @@ import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById, fetchReviews, fetchSimilarFilms} from '../../../store/api-actions';
-import {AppRoute, FilmsShown} from '../../../const';
+import {APIRoute, AppRoute, AuthorizationStatus, FilmsShown} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
 import {ActionCreator} from '../../../store/actions';
 import FilmList from '../../elements/film-list/film-list';
@@ -21,6 +21,7 @@ export default function Film() {
   const similarFilms = useSelector((state) => state.similarFilms);
   const reviews = useSelector((state) => state.currentReviews);
   const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
+  const authStatus = useSelector((state) => state.authorizationStatus);
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
@@ -76,7 +77,13 @@ export default function Film() {
               <div className="film-card__buttons">
                 <PlayBtn film={currentFilm} />
                 <MyListBtn />
-                <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link>
+                {authStatus === AuthorizationStatus.AUTH &&
+                <Link
+                  className="btn film-card__button"
+                  to={`${APIRoute.FILMS}/${id}${APIRoute.ADD_REVIEW}`}
+                >
+                  Add review
+                </Link>}
               </div>
             </div>
           </div>
