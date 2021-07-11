@@ -3,9 +3,10 @@ export const ActionType = {
   RESET_PAGE: 'main/resetPage',
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO: 'data/loadPromo',
-  LOAD_FILM_BY_ID: 'data/loadFilmById',
-  DELETE_CURRENT_FILM: 'data/deleteCurrentFilm',
-  CHECK_FILM_RESPONSE: 'data/checkFilmResponse',
+  LOAD_FILM_BY_ID: 'film/loadFilmById',
+  LOAD_SIMILAR_FILMS: 'film/loadSimilar',
+  DELETE_CURRENT_FILM_DATA: 'film/deleteCurrentFilm',
+  CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
   LOAD_FAVORITE: 'data/loadFavorites',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
@@ -32,8 +33,12 @@ export const ActionCreator = {
     type: ActionType.LOAD_FILM_BY_ID,
     payload: film,
   }),
-  deleteCurrentFilm: () => ({
-    type: ActionType.DELETE_CURRENT_FILM,
+  loadSimilarFilms: (films) => ({
+    type: ActionType.LOAD_SIMILAR_FILMS,
+    payload: films,
+  }),
+  deleteCurrentFilmData: () => ({
+    type: ActionType.DELETE_CURRENT_FILM_DATA,
   }),
   checkFilmResponce: (bool) => ({
     type: ActionType.CHECK_FILM_RESPONSE,

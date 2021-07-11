@@ -10,10 +10,11 @@ import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import commentProp from '../../elements/comment/comment.prop';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {fetchFilmById} from '../../../store/api-actions';
-import {AppRoute} from '../../../const';
+import {fetchFilmById, fetchSimilarFilms} from '../../../store/api-actions';
+import {AppRoute, FilmsShown} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
 import {ActionCreator} from '../../../store/actions';
+import FilmList from '../../elements/film-list/film-list';
 
 const mapStateToProps = (state) => ({
   comments: state.comments,
@@ -27,12 +28,14 @@ export function Film({comments}) {
   const params = useParams();
   const dispatch = useDispatch();
   const currentFilm = useSelector((state) => state.currentFilm);
+  const similarFilms = useSelector((state) => state.similarFilms);
   const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
+    dispatch(fetchSimilarFilms(params.id));
 
-    return () => dispatch(ActionCreator.deleteCurrentFilm());
+    return () => dispatch(ActionCreator.deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
   if (!currentFilm && !isFilmResponsed) {
@@ -99,12 +102,15 @@ export function Film({comments}) {
       </section>
 
       <div className="page-content">
-        {/* {similarFilms.length > 0 &&
+        {similarFilms.length > 0 &&
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
-            <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
-          </section>} */}
+            <FilmList
+              filmList={similarFilms}
+              listInitialLength={FilmsShown.SIMILAR}
+            />
+          </section>}
         <PageFooter />
       </div>
     </>

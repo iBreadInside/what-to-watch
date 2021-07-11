@@ -5,10 +5,11 @@ import {ActionType} from './actions';
 const initialState = {
   currentGenre: INITIAL_GENRE,
   allFilmList: [],
+  isFilmsLoaded: false,
   favoriteFilms: [],
   promoFilm: null,
   currentFilm: null,
-  isFilmsLoaded: false,
+  similarFilms: [],
   isCurrentFilmResponsed: false,
   isFavoriteLoaded: false,
   isPromoLoaded: false,
@@ -41,10 +42,16 @@ export function reducer(state = initialState, action) {
         ...state,
         isCurrentFilmResponsed: action.payload,
       };
-    case ActionType.DELETE_CURRENT_FILM:
+    case ActionType.LOAD_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: action.payload,
+      };
+    case ActionType.DELETE_CURRENT_FILM_DATA:
       return {
         ...state,
         currentFilm: null,
+        similarFilms: [],
         isCurrentFilmResponsed: false,
       };
     case ActionType.LOAD_FAVORITE:

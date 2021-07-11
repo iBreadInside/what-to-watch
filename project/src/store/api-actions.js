@@ -3,12 +3,16 @@ import {APIRoute, AppRoute, AuthorizationStatus, ResponseCode} from '../const';
 import {adaptFilmToClient} from '../services/adaptors';
 import browserHistory from '../browser-history';
 
+function adaptFilms(films) {
+  return films.map((film) => adaptFilmToClient(film));
+}
+
 export const fetchFilmList = () => async (dispatch, _getState, api) => {
   try {
     const response = await api.get(APIRoute.FILMS);
 
     if (response.status === ResponseCode.OK) {
-      const films = response.data.map((film) => adaptFilmToClient(film));
+      const films = adaptFilms(response.data);
       dispatch(ActionCreator.loadFilms(films));
     }
   } catch (error) {
@@ -33,8 +37,8 @@ export const fetchFavoriteFilms = () => async (dispatch, _getState, api) => {
     const response = await api.get(APIRoute.FAVORITE);
 
     if (response.status === ResponseCode.OK) {
-      const films = response.data.map((film) => adaptFilmToClient(film));
-      dispatch(ActionCreator.loadFavorite(films));
+      const favoriteFilms = adaptFilms(response.data);
+      dispatch(ActionCreator.loadFavorite(favoriteFilms));
     }
   } catch (error) {
     dispatch(ActionCreator.showError(error.message));
@@ -90,6 +94,20 @@ export const fetchFilmById = (filmId) => async (dispatch, _getState, api) => {
     }
 
     dispatch(ActionCreator.checkFilmResponce(true));
+  } catch (error) {
+    dispatch(ActionCreator.showError(error.message));
+  }
+};
+
+export const fetchSimilarFilms = (filmId) => async (dispatch, _getState, api) => {
+  try {
+    const response = await api.get(`${APIRoute.FILMS}/${filmId}${APIRoute.SIMILAR}`);
+
+    if (response.status === ResponseCode.OK) {
+      const similarFilms = adaptFilms(response.data);
+      const filteredFilms = similarFilms.filter((film) => film.id !== +filmId);
+      dispatch(ActionCreator.loadSimilarFilms(filteredFilms));
+    }
   } catch (error) {
     dispatch(ActionCreator.showError(error.message));
   }
