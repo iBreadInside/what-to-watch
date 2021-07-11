@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {ResponseCode} from '../const';
+import browserHistory from '../browser-history';
+import {AppRoute, ResponseCode} from '../const';
 
 const BASE_URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -26,6 +27,10 @@ export const createAPI = (onUnauthorized, onBadRequest) => {
 
     if (response.status === ResponseCode.BAD_REQUEST) {
       onBadRequest(message);
+    }
+
+    if (response.status === ResponseCode.NOT_FOUND) {
+      browserHistory.push(AppRoute.NOT_FOUND);
     }
 
     throw err;

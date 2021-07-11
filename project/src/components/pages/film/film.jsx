@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Link, Redirect, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -9,7 +9,7 @@ import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById, fetchReviews, fetchSimilarFilms} from '../../../store/api-actions';
-import {APIRoute, AppRoute, AuthorizationStatus, FilmsShown} from '../../../const';
+import {APIRoute, AuthorizationStatus, FilmsShown} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
 import {ActionCreator} from '../../../store/actions';
 import FilmList from '../../elements/film-list/film-list';
@@ -25,8 +25,10 @@ export default function Film() {
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
-    dispatch(fetchSimilarFilms(params.id));
-    dispatch(fetchReviews(params.id));
+    if (isFilmResponsed === true) {
+      dispatch(fetchReviews(params.id));
+      dispatch(fetchSimilarFilms(params.id));
+    }
 
     return () => dispatch(ActionCreator.deleteCurrentFilmData());
   }, [dispatch, params.id]);
@@ -35,9 +37,9 @@ export default function Film() {
     return <LoadingScreen />;
   }
 
-  if (!currentFilm && isFilmResponsed) {
-    return <Redirect to={AppRoute.NOT_FOUND} />;
-  }
+  // if (!currentFilm && isFilmResponsed) {
+  //   return <Redirect to={AppRoute.NOT_FOUND} />;
+  // }
 
   const {
     id,
