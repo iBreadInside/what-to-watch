@@ -10,6 +10,7 @@ const initialState = {
   promoFilm: null,
   currentFilm: null,
   similarFilms: [],
+  currentReviews: [],
   isCurrentFilmResponsed: false,
   isFavoriteLoaded: false,
   isPromoLoaded: false,
@@ -47,11 +48,17 @@ export function reducer(state = initialState, action) {
         ...state,
         similarFilms: action.payload,
       };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        currentReviews: action.payload,
+      };
     case ActionType.DELETE_CURRENT_FILM_DATA:
       return {
         ...state,
         currentFilm: null,
         similarFilms: [],
+        currentReviews: [],
         isCurrentFilmResponsed: false,
       };
     case ActionType.LOAD_FAVORITE:

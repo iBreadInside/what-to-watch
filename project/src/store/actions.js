@@ -5,6 +5,7 @@ export const ActionType = {
   LOAD_PROMO: 'data/loadPromo',
   LOAD_FILM_BY_ID: 'film/loadFilmById',
   LOAD_SIMILAR_FILMS: 'film/loadSimilar',
+  LOAD_REVIEWS: 'review/loadReviews',
   DELETE_CURRENT_FILM_DATA: 'film/deleteCurrentFilm',
   CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
   LOAD_FAVORITE: 'data/loadFavorites',
@@ -36,6 +37,10 @@ export const ActionCreator = {
   loadSimilarFilms: (films) => ({
     type: ActionType.LOAD_SIMILAR_FILMS,
     payload: films,
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
   }),
   deleteCurrentFilmData: () => ({
     type: ActionType.DELETE_CURRENT_FILM_DATA,

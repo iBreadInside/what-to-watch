@@ -113,6 +113,18 @@ export const fetchSimilarFilms = (filmId) => async (dispatch, _getState, api) =>
   }
 };
 
+export const fetchReviews = (filmId) => async (dispatch, _getState, api) => {
+  try {
+    const response = await api.get(`${APIRoute.REVIEWS}/${filmId}`);
+
+    if (response.status === ResponseCode.OK) {
+      dispatch(ActionCreator.loadReviews(response.data));
+    }
+  } catch (error) {
+    dispatch(ActionCreator.showError(error.message));
+  }
+};
+
 // export const fetchReviewList = () => (dispatch, _getState, api) => (
 //   api.get(APIRoute.REVIEWS)
 //     .then(({data}) => dispatch(ActionCreator.loadReviews(data)))

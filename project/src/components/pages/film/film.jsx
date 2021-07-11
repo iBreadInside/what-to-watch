@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {Link, Redirect, useParams} from 'react-router-dom';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
@@ -8,32 +7,25 @@ import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
-import commentProp from '../../elements/comment/comment.prop';
-import {connect, useDispatch, useSelector} from 'react-redux';
-import {fetchFilmById, fetchSimilarFilms} from '../../../store/api-actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFilmById, fetchReviews, fetchSimilarFilms} from '../../../store/api-actions';
 import {AppRoute, FilmsShown} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
 import {ActionCreator} from '../../../store/actions';
 import FilmList from '../../elements/film-list/film-list';
 
-const mapStateToProps = (state) => ({
-  comments: state.comments,
-});
-
-Film.propTypes = {
-  comments: PropTypes.arrayOf(commentProp),
-};
-
-export function Film({comments}) {
+export default function Film() {
   const params = useParams();
   const dispatch = useDispatch();
   const currentFilm = useSelector((state) => state.currentFilm);
   const similarFilms = useSelector((state) => state.similarFilms);
+  const reviews = useSelector((state) => state.currentReviews);
   const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
     dispatch(fetchSimilarFilms(params.id));
+    dispatch(fetchReviews(params.id));
 
     return () => dispatch(ActionCreator.deleteCurrentFilmData());
   }, [dispatch, params.id]);
@@ -96,7 +88,7 @@ export function Film({comments}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <Tabs film={currentFilm} comments={comments} />
+            <Tabs film={currentFilm} comments={reviews} />
           </div>
         </div>
       </section>
@@ -116,5 +108,3 @@ export function Film({comments}) {
     </>
   );
 }
-
-export default connect(mapStateToProps)(Film);
