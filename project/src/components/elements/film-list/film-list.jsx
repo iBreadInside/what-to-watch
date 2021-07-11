@@ -43,5 +43,3 @@ export default function FilmList({filmList, listInitialLength}) {
     </>
   );
 }
-
-// export default connect(mapStateToProps)(FilmList);

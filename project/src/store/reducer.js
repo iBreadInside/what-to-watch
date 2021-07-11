@@ -1,5 +1,4 @@
 import {AuthorizationStatus, INITIAL_GENRE} from '../const';
-import comments from '../mocks/comments';
 import {ActionType} from './actions';
 
 const initialState = {
@@ -7,16 +6,16 @@ const initialState = {
   allFilmList: [],
   isFilmsLoaded: false,
   favoriteFilms: [],
+  isFavoriteLoaded: false,
   promoFilm: null,
+  isPromoLoaded: false,
   currentFilm: null,
   similarFilms: [],
   currentReviews: [],
+  isPostReviewError: false,
   isCurrentFilmResponsed: false,
-  isFavoriteLoaded: false,
-  isPromoLoaded: false,
-  comments: comments,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  error: '',
+  error: null,
 };
 
 export function reducer(state = initialState, action) {
@@ -52,6 +51,11 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         currentReviews: action.payload,
+      };
+    case ActionType.SHOW_REVIEW_ERROR:
+      return {
+        ...state,
+        isPostReviewError: action.payload,
       };
     case ActionType.DELETE_CURRENT_FILM_DATA:
       return {

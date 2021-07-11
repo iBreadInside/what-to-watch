@@ -30,8 +30,8 @@ const store = createStore(
 );
 
 store.dispatch(checkAuth());
-store.dispatch(fetchFilmList());
 store.dispatch(fetchPromoFilm());
+store.dispatch(fetchFilmList());
 
 ReactDOM.render(
   <React.StrictMode>

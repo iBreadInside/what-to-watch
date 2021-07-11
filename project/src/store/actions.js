@@ -6,6 +6,7 @@ export const ActionType = {
   LOAD_FILM_BY_ID: 'film/loadFilmById',
   LOAD_SIMILAR_FILMS: 'film/loadSimilar',
   LOAD_REVIEWS: 'review/loadReviews',
+  SHOW_REVIEW_ERROR: 'review/showError',
   DELETE_CURRENT_FILM_DATA: 'film/deleteCurrentFilm',
   CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
   LOAD_FAVORITE: 'data/loadFavorites',
@@ -41,6 +42,10 @@ export const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
+  }),
+  showReviewError: (bool) => ({
+    type: ActionType.SHOW_REVIEW_ERROR,
+    payload: bool,
   }),
   deleteCurrentFilmData: () => ({
     type: ActionType.DELETE_CURRENT_FILM_DATA,

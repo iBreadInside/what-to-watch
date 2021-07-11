@@ -70,7 +70,7 @@ export const login = ({email, password}) => async (dispatch, _getState, api) => 
       browserHistory.push(AppRoute.MAIN);
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error));
+    dispatch(ActionCreator.showError(error.message));
   }
 };
 
@@ -122,5 +122,17 @@ export const fetchReviews = (filmId) => async (dispatch, _getState, api) => {
     }
   } catch (error) {
     dispatch(ActionCreator.showError(error.message));
+  }
+};
+
+export const postComment = (filmId, {rating, comment}) => async (dispatch, _getState, api) => {
+  try {
+    const response = await api.post(`${APIRoute.REVIEWS}/${filmId}`, {rating, comment});
+
+    if (response.status === ResponseCode.OK) {
+      browserHistory.goBack();
+    }
+  } catch {
+    dispatch(ActionCreator.showReviewError(true));
   }
 };

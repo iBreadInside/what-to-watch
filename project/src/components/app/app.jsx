@@ -9,8 +9,6 @@ import MyList from '../pages/my-list/my-list';
 import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
-// import filmProp from '../pages/film/film.prop';
-import commentProp from '../elements/comment/comment.prop';
 import {connect} from 'react-redux';
 import LoadingScreen from '../elements/loading-screen/loading.screen';
 import ErrorScreen from '../elements/error-screen/error-screen';
@@ -26,20 +24,20 @@ const mapStateToProps = (state) => ({
 });
 
 App.propTypes = {
-  comments: PropTypes.arrayOf(commentProp),
   isFilmsLoaded: PropTypes.bool.isRequired,
+  isPromoLoaded: PropTypes.bool.isRequired,
   error: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-export function App({isFilmsLoaded, comments, error, authorizationStatus}) {
-  if (!isFilmsLoaded) {
+export function App({isFilmsLoaded, isPromoLoaded, error, authorizationStatus}) {
+  if (!isFilmsLoaded || !isPromoLoaded) {
     return (
       <LoadingScreen />
     );
   }
 
-  if (error.length > 0) {
+  if (error) {
     return (
       <ErrorScreen error={error} />
     );
@@ -63,9 +61,7 @@ export function App({isFilmsLoaded, comments, error, authorizationStatus}) {
         </PrivateRoute>
 
         <Route exact path={AppRoute.FILM}>
-          <Film
-            comments={comments}
-          />
+          <Film />
         </Route>
 
         <PrivateRoute exact path={AppRoute.ADD_REVIEW}
