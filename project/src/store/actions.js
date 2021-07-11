@@ -43,7 +43,7 @@ export const ActionCreator = {
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
   }),
-  showReviewError: (bool) => ({
+  setBadRequest: (bool) => ({
     type: ActionType.SHOW_REVIEW_ERROR,
     payload: bool,
   }),

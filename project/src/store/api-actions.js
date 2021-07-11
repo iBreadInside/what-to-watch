@@ -132,7 +132,9 @@ export const postComment = (filmId, {rating, comment}) => async (dispatch, _getS
     if (response.status === ResponseCode.OK) {
       browserHistory.goBack();
     }
-  } catch {
-    dispatch(ActionCreator.showReviewError(true));
+  } catch (error) {
+    dispatch(ActionCreator.showError(error.message));
+
+    // dispatch(ActionCreator.showReviewError(true));
   }
 };

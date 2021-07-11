@@ -12,7 +12,7 @@ const initialState = {
   currentFilm: null,
   similarFilms: [],
   currentReviews: [],
-  isPostReviewError: false,
+  isBadRequest: false,
   isCurrentFilmResponsed: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   error: null,
@@ -55,7 +55,7 @@ export function reducer(state = initialState, action) {
     case ActionType.SHOW_REVIEW_ERROR:
       return {
         ...state,
-        isPostReviewError: action.payload,
+        isBadRequest: action.payload,
       };
     case ActionType.DELETE_CURRENT_FILM_DATA:
       return {

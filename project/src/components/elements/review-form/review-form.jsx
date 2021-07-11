@@ -16,20 +16,20 @@ export default function ReviewForm() {
   const [comment, setComment] = useState('');
   const [isSending, setIsSending] = useState(false);
   const dispatch = useDispatch();
-  const isPostReviewError = useSelector((state) => state.isPostReviewError);
-  useEffect(() => () => dispatch(ActionCreator.showReviewError(false)), [dispatch, params.id]);
+  const isPostReviewError = useSelector((state) => state.isBadRequest);
+  useEffect(() => () => dispatch(ActionCreator.setBadRequest(false)), [dispatch, params.id]);
 
   const ratingChangeHandler = (evt) => {
     setRating(evt.target.value);
     if (isPostReviewError) {
-      dispatch(ActionCreator.showReviewError(false));
+      dispatch(ActionCreator.setBadRequest(false));
     }
   };
 
   const commentChangeHandler = (evt) => {
     setComment(evt.target.value);
     if (isPostReviewError) {
-      dispatch(ActionCreator.showReviewError(false));
+      dispatch(ActionCreator.setBadRequest(false));
     }
   };
 
@@ -89,7 +89,7 @@ export default function ReviewForm() {
           <button
             className="add-review__btn"
             type="submit"
-            disabled={comment.length < CommentLength.MIN}
+            disabled={comment.length < CommentLength.MIN || !rating}
           >
             Post
           </button>

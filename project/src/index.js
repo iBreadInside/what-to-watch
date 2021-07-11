@@ -18,7 +18,7 @@ const api = createAPI(
     ),
   ),
   () => store.dispatch(
-    ActionCreator.showError(),
+    ActionCreator.setBadRequest(true),
   ),
 );
 
