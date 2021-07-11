@@ -27,33 +27,3 @@ export function adaptFilmToClient(film) {
 
   return adaptedEvent;
 }
-
-export function adaptToServer(film) {
-  const adaptedEvent = Object.assign(
-    {},
-    film,
-    {
-      'poster_image': film.posterImage,
-      'preview_image': film.previewImage,
-      'background_image': film.backgroundImage,
-      'background_color': film.backgroundColor,
-      'video_link': film.videoLink,
-      'preview_video_link': film.previewVideoLink,
-      'scores_count': film.scoresCount,
-      'run_time': film.runtime,
-      'is_favorite': film.isFavorite,
-    },
-  );
-
-  delete adaptedEvent.posterImage;
-  delete adaptedEvent.previewImage;
-  delete adaptedEvent.backgroundImage;
-  delete adaptedEvent.backgroundColor;
-  delete adaptedEvent.videoLink;
-  delete adaptedEvent.previewVideoLink;
-  delete adaptedEvent.scoresCount;
-  delete adaptedEvent.runTime;
-  delete adaptedEvent.isFavorite;
-
-  return adaptedEvent;
-}

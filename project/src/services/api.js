@@ -21,16 +21,18 @@ export const createAPI = (onUnauthorized, onBadRequest) => {
   const onFail = (err) => {
     const {response, message} = err;
 
-    if (response.status === ResponseCode.UNAUTHORIZED) {
-      onUnauthorized();
-    }
-
-    if (response.status === ResponseCode.BAD_REQUEST) {
-      onBadRequest(message);
-    }
-
-    if (response.status === ResponseCode.NOT_FOUND) {
-      browserHistory.push(AppRoute.NOT_FOUND);
+    switch (response.status) {
+      case ResponseCode.UNAUTHORIZED:
+        onUnauthorized();
+        break;
+      case ResponseCode.BAD_REQUEST:
+        onBadRequest(message);
+        break;
+      case ResponseCode.NOT_FOUND:
+        browserHistory.push(AppRoute.NOT_FOUND);
+        break;
+      default:
+        return err;
     }
 
     throw err;

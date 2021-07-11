@@ -12,23 +12,23 @@ const CommentLength = {
 
 export default function ReviewForm() {
   const params = useParams();
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState(null);
   const [comment, setComment] = useState('');
   const [isSending, setIsSending] = useState(false);
   const dispatch = useDispatch();
   const isPostReviewError = useSelector((state) => state.isPostReviewError);
-  useEffect(() => () => dispatch(ActionCreator.showReviewError(false)), [params.id]);
+  useEffect(() => () => dispatch(ActionCreator.showReviewError(false)), [dispatch, params.id]);
 
   const ratingChangeHandler = (evt) => {
     setRating(evt.target.value);
-    if (isPostReviewError === true) {
+    if (isPostReviewError) {
       dispatch(ActionCreator.showReviewError(false));
     }
   };
 
   const commentChangeHandler = (evt) => {
     setComment(evt.target.value);
-    if (isPostReviewError === true) {
+    if (isPostReviewError) {
       dispatch(ActionCreator.showReviewError(false));
     }
   };
