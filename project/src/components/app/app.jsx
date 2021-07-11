@@ -74,50 +74,6 @@ export function App({isFilmsLoaded, isPromoLoaded, error, authorizationStatus}) 
       <LoadingScreen />
     );
   }
-
-  // if (error) {
-  //   return (
-  //     <ErrorScreen error={error} />
-  //   );
-  // }
-
-  // return (
-  //   <BrowserRouter history={browserHistory}>
-  //     <Switch>
-  //       <Route exact path={AppRoute.MAIN}>
-  //         <Main />
-  //       </Route>
-
-  //       <Route exact path={AppRoute.SIGN_IN}>
-  //         <SignIn />
-  //       </Route>
-
-  //       <PrivateRoute exact path={AppRoute.MY_LIST}
-  //         authorizationStatus={authorizationStatus}
-  //         render={() => <MyList />}
-  //       >
-  //       </PrivateRoute>
-
-  //       <Route exact path={AppRoute.FILM}>
-  //         <Film />
-  //       </Route>
-
-  //       <PrivateRoute exact path={AppRoute.ADD_REVIEW}
-  //         authorizationStatus={authorizationStatus}
-  //         render={() => <AddReview />}
-  //       >
-  //       </PrivateRoute>
-
-  //       <Route exact path={AppRoute.PLAYER}>
-  //         <Player />
-  //       </Route>
-
-  //       <Route>
-  //         <NotFound />
-  //       </Route>
-  //     </Switch>
-  //   </BrowserRouter>
-  // );
 }
 
 export default connect(mapStateToProps)(App);
