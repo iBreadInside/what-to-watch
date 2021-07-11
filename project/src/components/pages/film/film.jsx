@@ -37,10 +37,6 @@ export default function Film() {
     return <LoadingScreen />;
   }
 
-  // if (!currentFilm && isFilmResponsed) {
-  //   return <Redirect to={AppRoute.NOT_FOUND} />;
-  // }
-
   const {
     id,
     name,
