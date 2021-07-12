@@ -3,6 +3,12 @@ export const ActionType = {
   RESET_PAGE: 'main/resetPage',
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO: 'data/loadPromo',
+  LOAD_FILM_BY_ID: 'film/loadFilmById',
+  LOAD_SIMILAR_FILMS: 'film/loadSimilar',
+  LOAD_REVIEWS: 'review/loadReviews',
+  SHOW_REVIEW_ERROR: 'review/showError',
+  DELETE_CURRENT_FILM_DATA: 'film/deleteCurrentFilm',
+  CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
   LOAD_FAVORITE: 'data/loadFavorites',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
@@ -24,6 +30,29 @@ export const ActionCreator = {
   loadPromo: (film) => ({
     type: ActionType.LOAD_PROMO,
     payload: film,
+  }),
+  loadFilmById: (film) => ({
+    type: ActionType.LOAD_FILM_BY_ID,
+    payload: film,
+  }),
+  loadSimilarFilms: (films) => ({
+    type: ActionType.LOAD_SIMILAR_FILMS,
+    payload: films,
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
+  }),
+  setBadRequest: (bool) => ({
+    type: ActionType.SHOW_REVIEW_ERROR,
+    payload: bool,
+  }),
+  deleteCurrentFilmData: () => ({
+    type: ActionType.DELETE_CURRENT_FILM_DATA,
+  }),
+  checkFilmResponce: (bool) => ({
+    type: ActionType.CHECK_FILM_RESPONSE,
+    payload: bool,
   }),
   loadFavorite: (films) => ({
     type: ActionType.LOAD_FAVORITE,

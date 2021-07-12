@@ -1,31 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Link, Redirect, useParams} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
-import filmProp from '../film/film.prop';
 import ReviewForm from '../../elements/review-form/review-form';
-import { AppRoute } from '../../../const';
+import {APIRoute, AppRoute} from '../../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFilmById} from '../../../store/api-actions';
+import {ActionCreator} from '../../../store/actions';
+import LoadingScreen from '../../elements/loading-screen/loading.screen';
 
-AddReview.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
-};
-
-export default function AddReview({films}) {
+export default function AddReview() {
   const params = useParams();
-  const currentFilm = films.filter((film) => film.id === +params.id);
+  const dispatch = useDispatch();
+  const currentFilm = useSelector((state) => state.currentFilm);
+  const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
 
-  if (!currentFilm) {
+  useEffect(() => {
+    dispatch(fetchFilmById(params.id));
+    return () => dispatch(ActionCreator.deleteCurrentFilmData());
+  }, [dispatch, params.id]);
+
+  if (!currentFilm && !isFilmResponsed) {
+    return <LoadingScreen />;
+  }
+
+  if (!currentFilm && isFilmResponsed) {
     return <Redirect to={AppRoute.NOT_FOUND} />;
   }
 
-  const [{
+  const {
     id,
     name,
     backgroundImage,
     posterImage,
-  }] = currentFilm;
+  } = currentFilm;
 
   return (
     <>
@@ -45,7 +54,7 @@ export default function AddReview({films}) {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
+                  <Link to={`${APIRoute.FILMS}/${id}`} className="breadcrumbs__link">{name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>

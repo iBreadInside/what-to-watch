@@ -1,18 +1,21 @@
 import {AuthorizationStatus, INITIAL_GENRE} from '../const';
-import comments from '../mocks/comments';
-import {ActionType} from './action';
+import {ActionType} from './actions';
 
 const initialState = {
   currentGenre: INITIAL_GENRE,
   allFilmList: [],
-  favoriteFilms: [],
-  promoFilm: {},
   isFilmsLoaded: false,
+  favoriteFilms: [],
   isFavoriteLoaded: false,
+  promoFilm: null,
   isPromoLoaded: false,
-  comments: comments,
+  currentFilm: null,
+  similarFilms: [],
+  currentReviews: [],
+  isBadRequest: false,
+  isCurrentFilmResponsed: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  error: '',
+  error: null,
 };
 
 export function reducer(state = initialState, action) {
@@ -28,6 +31,39 @@ export function reducer(state = initialState, action) {
         ...state,
         promoFilm: action.payload,
         isPromoLoaded: true,
+      };
+    case ActionType.LOAD_FILM_BY_ID:
+      return {
+        ...state,
+        currentFilm: action.payload,
+      };
+    case ActionType.CHECK_FILM_RESPONSE:
+      return {
+        ...state,
+        isCurrentFilmResponsed: action.payload,
+      };
+    case ActionType.LOAD_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: action.payload,
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        currentReviews: action.payload,
+      };
+    case ActionType.SHOW_REVIEW_ERROR:
+      return {
+        ...state,
+        isBadRequest: action.payload,
+      };
+    case ActionType.DELETE_CURRENT_FILM_DATA:
+      return {
+        ...state,
+        currentFilm: null,
+        similarFilms: [],
+        currentReviews: [],
+        isCurrentFilmResponsed: false,
       };
     case ActionType.LOAD_FAVORITE:
       return {

@@ -1,8 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Link, Redirect, useParams} from 'react-router-dom';
-import filmProp from './film.prop';
-import FilmList from '../../elements/film-list/film-list';
+import React, {useEffect} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -10,26 +7,34 @@ import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import UserBlock from '../../elements/user-block/user-block';
 import Tabs from '../../elements/tabs/tabs';
-import commentProp from '../../elements/comment/comment.prop';
-import {connect} from 'react-redux';
-import {AppRoute, FilmsShown} from '../../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFilmById, fetchReviews, fetchSimilarFilms} from '../../../store/api-actions';
+import {APIRoute, AuthorizationStatus, FilmsShown} from '../../../const';
+import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import {ActionCreator} from '../../../store/actions';
+import FilmList from '../../elements/film-list/film-list';
 
-const mapStateToProps = (state) => ({
-  allFilmList: state.allFilmList,
-  comments: state.comments,
-});
-
-Film.propTypes = {
-  allFilmList: PropTypes.arrayOf(filmProp),
-  comments: PropTypes.arrayOf(commentProp),
-};
-
-export function Film({allFilmList, comments}) {
+export default function Film() {
   const params = useParams();
-  const [currentFilm] = allFilmList.filter((film) => film.id === +params.id);
+  const dispatch = useDispatch();
+  const currentFilm = useSelector((state) => state.currentFilm);
+  const similarFilms = useSelector((state) => state.similarFilms);
+  const reviews = useSelector((state) => state.currentReviews);
+  const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
+  const authStatus = useSelector((state) => state.authorizationStatus);
 
-  if (!currentFilm) {
-    return <Redirect to={AppRoute.NOT_FOUND} />;
+  useEffect(() => {
+    dispatch(fetchFilmById(params.id));
+    if (isFilmResponsed === true) {
+      dispatch(fetchReviews(params.id));
+      dispatch(fetchSimilarFilms(params.id));
+    }
+
+    return () => dispatch(ActionCreator.deleteCurrentFilmData());
+  }, [dispatch, params.id]);
+
+  if (!currentFilm && !isFilmResponsed) {
+    return <LoadingScreen />;
   }
 
   const {
@@ -40,10 +45,6 @@ export function Film({allFilmList, comments}) {
     backgroundImage,
     released,
   } = currentFilm;
-
-  const similarFilms = allFilmList
-    .filter((film) => film.genre === genre && film.id !== currentFilm.id)
-    .slice(0, FilmsShown.SIMILAR);
 
   return (
     <>
@@ -72,9 +73,15 @@ export function Film({allFilmList, comments}) {
               </p>
 
               <div className="film-card__buttons">
-                <PlayBtn film={currentFilm} listSize={FilmsShown.SIMILAR} />
+                <PlayBtn film={currentFilm} />
                 <MyListBtn />
-                <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link>
+                {authStatus === AuthorizationStatus.AUTH &&
+                <Link
+                  className="btn film-card__button"
+                  to={`${APIRoute.FILMS}/${id}${APIRoute.ADD_REVIEW}`}
+                >
+                  Add review
+                </Link>}
               </div>
             </div>
           </div>
@@ -86,7 +93,7 @@ export function Film({allFilmList, comments}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <Tabs film={currentFilm} comments={comments} />
+            <Tabs film={currentFilm} comments={reviews} />
           </div>
         </div>
       </section>
@@ -96,12 +103,13 @@ export function Film({allFilmList, comments}) {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
-            <FilmList filmList={similarFilms} listInitialLength={FilmsShown.SIMILAR} />
+            <FilmList
+              filmList={similarFilms}
+              listInitialLength={FilmsShown.SIMILAR}
+            />
           </section>}
         <PageFooter />
       </div>
     </>
   );
 }
-
-export default connect(mapStateToProps)(Film);

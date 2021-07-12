@@ -2,23 +2,23 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import filmProp from '../../pages/film/film.prop';
 import VideoPlayer from '../../elements/video-player/video-player';
-import {ActionCreator} from '../../../store/action';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+// import {ActionCreator} from '../../../store/action';
+// import {connect} from 'react-redux';
+// import PropTypes from 'prop-types';
 import {APIRoute} from '../../../const';
 
-const mapDispatchToProps = (dispatch) => ({
-  onNameClick(genre) {
-    dispatch(ActionCreator.setGenre(genre));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onNameClick(genre) {
+//     dispatch(ActionCreator.setGenre(genre));
+//   },
+// });
 
 FilmCard.propTypes = {
   film: filmProp,
-  onNameClick: PropTypes.func.isRequired,
+  // onNameClick: PropTypes.func.isRequired,
 };
 
-export function FilmCard({film, onNameClick}) {
+export default function FilmCard({film}) {
   const [isActive, setActive] = useState(false);
 
   function handleFilmCardEnter() {
@@ -29,9 +29,9 @@ export function FilmCard({film, onNameClick}) {
     setActive(false);
   }
 
-  function handleFilmClick() {
-    onNameClick(film.genre);
-  }
+  // function handleFilmClick() {
+  //   onNameClick(film.genre);
+  // }
 
   return (
     <article
@@ -47,7 +47,7 @@ export function FilmCard({film, onNameClick}) {
         <Link
           className="small-film-card__link"
           to={`${APIRoute.FILMS}/${film.id}`}
-          onClick={handleFilmClick}
+          // onClick={handleFilmClick}
         >
           {film.name}
         </Link>
@@ -56,4 +56,4 @@ export function FilmCard({film, onNameClick}) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(FilmCard);
+// export default connect(null, mapDispatchToProps)(FilmCard);

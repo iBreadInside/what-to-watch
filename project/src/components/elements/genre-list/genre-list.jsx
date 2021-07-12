@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {INITIAL_GENRE} from '../../../const';
-import {ActionCreator} from '../../../store/action';
+import {ActionCreator} from '../../../store/actions';
 import filmProp from '../../pages/film/film.prop';
 
 const getGenres = (films) => {
@@ -32,27 +32,31 @@ GenreList.propTypes = {
 export function GenreList({filmList, currentGenre, onGenreChange}) {
   const genres = [INITIAL_GENRE, ...getGenres(filmList)];
 
+  function renderGenreItem(genreName) {
+    function handleGenreChange(evt) {
+      evt.preventDefault();
+      onGenreChange(genreName);
+    }
+
+    return (
+      <li
+        className={`catalog__genres-item ${currentGenre === genreName ? 'catalog__genres-item--active' : ''}`}
+        key={genreName}
+      >
+        <a
+          href="link/href"
+          className="catalog__genres-link"
+          onClick={handleGenreChange}
+        >
+          {genreName}
+        </a>
+      </li>
+    );
+  }
+
   return (
     <ul className="catalog__genres-list">
-
-      {genres.map((genre) => (
-        <li
-          className={`catalog__genres-item ${currentGenre === genre ? 'catalog__genres-item--active' : ''}`}
-          key={genre}
-        >
-          <a
-            href="link/href"
-            className="catalog__genres-link"
-            onClick={(evt) => {
-              evt.preventDefault();
-              onGenreChange(genre);
-            }}
-          >
-            {genre}
-          </a>
-        </li>
-      ))}
-
+      {genres.map(renderGenreItem)}
     </ul>
   );
 }
