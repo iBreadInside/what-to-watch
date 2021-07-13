@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -7,32 +7,27 @@ import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
-import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
-import {ActionCreator} from '../../../store/actions';
 import PropTypes from 'prop-types';
 import {FilmsShown, INITIAL_GENRE} from '../../../const';
-
-const mapStateToProps = (state) => ({
-  promo: state.promoFilm,
-  allFilmList: state.allFilmList,
-  genre: state.currentGenre,
-});
+import {getAllFilms, getCurrentGenre, getPromoFilm} from '../../../store/main/selectors';
+import {resetMainPage} from '../../../store/actions';
 
 const mapDispatchToProps = (dispatch) => ({
   onPageLeave() {
-    dispatch(ActionCreator.resetPage());
+    dispatch(resetMainPage);
   },
 });
 
 Main.propTypes = {
-  promo: filmProp,
   onPageLeave: PropTypes.func.isRequired,
-  allFilmList: PropTypes.arrayOf(filmProp),
-  genre: PropTypes.string.isRequired,
 };
 
-export function Main({promo, allFilmList, genre, onPageLeave}) {
+export function Main({onPageLeave}) {
+  const genre = useSelector(getCurrentGenre);
+  const allFilmList = useSelector(getAllFilms);
+  const promo = useSelector(getPromoFilm);
+
   useEffect(() => onPageLeave(), []);
 
   const filmsByGenre = (genre === INITIAL_GENRE)
@@ -94,4 +89,4 @@ export function Main({promo, allFilmList, genre, onPageLeave}) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(null, mapDispatchToProps)(Main);

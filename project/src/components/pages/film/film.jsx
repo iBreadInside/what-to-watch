@@ -11,26 +11,25 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById, fetchReviews, fetchSimilarFilms} from '../../../store/api-actions';
 import {APIRoute, AuthorizationStatus, FilmsShown} from '../../../const';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
-import {ActionCreator} from '../../../store/actions';
 import FilmList from '../../elements/film-list/film-list';
+import {deleteCurrentFilmData} from '../../../store/actions';
+import {getFilm, getIsFilmResponce, getSimilarFilms} from '../../../store/film/selectors';
+import {getAuthStatus} from '../../../store/user/selectors';
 
 export default function Film() {
   const params = useParams();
   const dispatch = useDispatch();
-  const currentFilm = useSelector((state) => state.currentFilm);
-  const similarFilms = useSelector((state) => state.similarFilms);
-  const reviews = useSelector((state) => state.currentReviews);
-  const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
-  const authStatus = useSelector((state) => state.authorizationStatus);
+  const currentFilm = useSelector(getFilm);
+  const similarFilms = useSelector(getSimilarFilms);
+  const isFilmResponsed = useSelector(getIsFilmResponce);
+  const authStatus = useSelector(getAuthStatus);
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
-    if (isFilmResponsed === true) {
-      dispatch(fetchReviews(params.id));
-      dispatch(fetchSimilarFilms(params.id));
-    }
+    dispatch(fetchReviews(params.id));
+    dispatch(fetchSimilarFilms(params.id));
 
-    return () => dispatch(ActionCreator.deleteCurrentFilmData());
+    return () => dispatch(deleteCurrentFilmData);
   }, [dispatch, params.id]);
 
   if (!currentFilm && !isFilmResponsed) {
@@ -93,7 +92,7 @@ export default function Film() {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <Tabs film={currentFilm} comments={reviews} />
+            <Tabs film={currentFilm}/>
           </div>
         </div>
       </section>

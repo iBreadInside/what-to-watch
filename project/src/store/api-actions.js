@@ -1,22 +1,34 @@
-import {ActionCreator} from './actions';
 import {APIRoute, AppRoute, AuthorizationStatus, ResponseCode} from '../const';
 import {adaptFilmToClient} from '../services/adaptors';
 import browserHistory from '../browser-history';
+import {
+  loadFavoriteFilms,
+  loadFilmById,
+  loadFilms,
+  loadPromo,
+  loadReviews,
+  loadSimilarFilms,
+  makeLogout,
+  requireAuthorization,
+  setFilmResponce,
+  setUnexpectedError
+} from './actions';
 
 function adaptFilms(films) {
   return films.map((film) => adaptFilmToClient(film));
 }
 
+// === Main ===
 export const fetchFilmList = () => async (dispatch, _getState, api) => {
   try {
     const response = await api.get(APIRoute.FILMS);
 
     if (response.status === ResponseCode.OK) {
       const films = adaptFilms(response.data);
-      dispatch(ActionCreator.loadFilms(films));
+      dispatch(loadFilms(films));
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
@@ -25,36 +37,39 @@ export const fetchPromoFilm = () => async (dispatch, _getState, api) => {
     const response = await api.get(APIRoute.PROMO);
 
     if (response.status === ResponseCode.OK) {
-      dispatch(ActionCreator.loadPromo(adaptFilmToClient(response.data)));
+      dispatch(loadPromo(adaptFilmToClient(response.data)));
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
+
+// === My List ===
 export const fetchFavoriteFilms = () => async (dispatch, _getState, api) => {
   try {
     const response = await api.get(APIRoute.FAVORITE);
 
     if (response.status === ResponseCode.OK) {
       const favoriteFilms = adaptFilms(response.data);
-      dispatch(ActionCreator.loadFavorite(favoriteFilms));
+      dispatch(loadFavoriteFilms(favoriteFilms));
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
+// === User Data ===
 export const checkAuth = () => async (dispatch, _getState, api) => {
   try {
     const response = await api.get(APIRoute.LOGIN);
 
     if (response.status === ResponseCode.OK) {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
     }
   } catch (error) {
     if (error.response.status !== ResponseCode.UNAUTHORIZED) {
-      dispatch(ActionCreator.showError(error.message));
+      dispatch(setUnexpectedError(error.message));
     }
   }
 };
@@ -66,11 +81,11 @@ export const login = ({email, password}) => async (dispatch, _getState, api) => 
     if (response.status === ResponseCode.OK) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('avatar', response.data.avatar_url);
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
       browserHistory.push(AppRoute.MAIN);
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
@@ -79,23 +94,24 @@ export const logout = () => async (dispatch, _getState, api) => {
     await api.delete(APIRoute.LOGOUT);
     localStorage.removeItem('token');
     localStorage.removeItem('avatar');
-    dispatch(ActionCreator.logout());
+    dispatch(makeLogout());
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
+// === Film Data ===
 export const fetchFilmById = (filmId) => async (dispatch, _getState, api) => {
   try {
     const response = await api.get(`${APIRoute.FILMS}/${filmId}`);
 
     if (response.status === ResponseCode.OK) {
-      dispatch(ActionCreator.loadFilmById(adaptFilmToClient(response.data)));
+      dispatch(loadFilmById(adaptFilmToClient(response.data)));
     }
 
-    dispatch(ActionCreator.checkFilmResponce(true));
+    dispatch(setFilmResponce(true));
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
@@ -106,10 +122,10 @@ export const fetchSimilarFilms = (filmId) => async (dispatch, _getState, api) =>
     if (response.status === ResponseCode.OK) {
       const similarFilms = adaptFilms(response.data);
       const filteredFilms = similarFilms.filter((film) => film.id !== +filmId);
-      dispatch(ActionCreator.loadSimilarFilms(filteredFilms));
+      dispatch(loadSimilarFilms(filteredFilms));
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
@@ -118,10 +134,10 @@ export const fetchReviews = (filmId) => async (dispatch, _getState, api) => {
     const response = await api.get(`${APIRoute.REVIEWS}/${filmId}`);
 
     if (response.status === ResponseCode.OK) {
-      dispatch(ActionCreator.loadReviews(response.data));
+      dispatch(loadReviews(response.data));
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
+    dispatch(setUnexpectedError(error.message));
   }
 };
 
@@ -133,8 +149,6 @@ export const postComment = (filmId, {rating, comment}) => async (dispatch, _getS
       browserHistory.goBack();
     }
   } catch (error) {
-    dispatch(ActionCreator.showError(error.message));
-
-    // dispatch(ActionCreator.showReviewError(true));
+    dispatch(setUnexpectedError(error.message));
   }
 };

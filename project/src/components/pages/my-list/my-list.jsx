@@ -1,23 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect} from 'react';
 import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import UserBlock from '../../elements/user-block/user-block';
-import filmProp from '../film/film.prop';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFavoriteFilms} from '../../../store/api-actions';
+import {getFavorites} from '../../../store/my-list/selectors';
 
-const mapStateToProps = (state) => ({
-  films: state.allFilmList,
-});
+export default function MyList() {
+  const dispatch = useDispatch();
+  const myFilms = useSelector(getFavorites);
 
-MyList.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
-};
-
-export function MyList({films}) {
-  const myFilms = films.filter((film) => film.isFavorite === true);
+  useEffect(() => {
+    dispatch(fetchFavoriteFilms);
+  }, [dispatch, myFilms]);
 
   return (
     <>
@@ -43,5 +40,3 @@ export function MyList({films}) {
     </>
   );
 }
-
-export default connect(mapStateToProps)(MyList);

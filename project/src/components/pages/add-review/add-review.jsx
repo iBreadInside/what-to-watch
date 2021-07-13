@@ -7,18 +7,19 @@ import ReviewForm from '../../elements/review-form/review-form';
 import {APIRoute, AppRoute} from '../../../const';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById} from '../../../store/api-actions';
-import {ActionCreator} from '../../../store/actions';
+import {deleteCurrentFilmData} from '../../../store/actions';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import {getFilm, getIsFilmResponce} from '../../../store/film/selectors';
 
 export default function AddReview() {
   const params = useParams();
   const dispatch = useDispatch();
-  const currentFilm = useSelector((state) => state.currentFilm);
-  const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
+  const currentFilm = useSelector(getFilm);
+  const isFilmResponsed = useSelector(getIsFilmResponce);
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
-    return () => dispatch(ActionCreator.deleteCurrentFilmData());
+    return () => dispatch(deleteCurrentFilmData);
   }, [dispatch, params.id]);
 
   if (!currentFilm && !isFilmResponsed) {
