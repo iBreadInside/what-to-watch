@@ -15,10 +15,14 @@ export default function Reviews() {
       </div>
     );
   }
+
   return (
-    <div className="film-card__reviews film-card__row">
-      {showCommentsColumn(sortedComments.slice(0, rowCount))}
-      {showCommentsColumn(sortedComments.slice(rowCount))}
-    </div>
+    comments.length > 0
+      ?
+      <div className="film-card__reviews film-card__row">
+        {showCommentsColumn(sortedComments.slice(0, rowCount))}
+        {showCommentsColumn(sortedComments.slice(rowCount))}
+      </div>
+      : <p>There is no reviews yet</p>
   );
 }

@@ -33,6 +33,7 @@ export const filmData = createReducer(
       .addCase(deleteCurrentFilmData, (state) => {
         state.currentFilm = null;
         state.isCurrentFilmResponsed = false;
+        state.isBadRequest = false;
         state.similarFilms = [];
         state.currentReviews = [];
       });
