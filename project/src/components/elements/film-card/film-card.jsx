@@ -2,20 +2,10 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import filmProp from '../../pages/film/film.prop';
 import VideoPlayer from '../../elements/video-player/video-player';
-// import {ActionCreator} from '../../../store/action';
-// import {connect} from 'react-redux';
-// import PropTypes from 'prop-types';
 import {APIRoute} from '../../../const';
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onNameClick(genre) {
-//     dispatch(ActionCreator.setGenre(genre));
-//   },
-// });
 
 FilmCard.propTypes = {
   film: filmProp,
-  // onNameClick: PropTypes.func.isRequired,
 };
 
 export default function FilmCard({film}) {
@@ -28,10 +18,6 @@ export default function FilmCard({film}) {
   function handleFilmCardLeave() {
     setActive(false);
   }
-
-  // function handleFilmClick() {
-  //   onNameClick(film.genre);
-  // }
 
   return (
     <article
@@ -47,7 +33,6 @@ export default function FilmCard({film}) {
         <Link
           className="small-film-card__link"
           to={`${APIRoute.FILMS}/${film.id}`}
-          // onClick={handleFilmClick}
         >
           {film.name}
         </Link>
@@ -55,5 +40,3 @@ export default function FilmCard({film}) {
     </article>
   );
 }
-
-// export default connect(null, mapDispatchToProps)(FilmCard);

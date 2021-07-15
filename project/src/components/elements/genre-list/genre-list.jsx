@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect, useSelector} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {INITIAL_GENRE} from '../../../const';
 import {setGenre} from '../../../store/actions';
 import {getAllFilms, getCurrentGenre} from '../../../store/main/selectors';
@@ -12,17 +11,8 @@ const getGenres = (films) => {
   return uniqueGenres;
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onGenreChange(genre) {
-    dispatch(setGenre(genre));
-  },
-});
-
-GenreList.propTypes = {
-  onGenreChange: PropTypes.func.isRequired,
-};
-
-export function GenreList({onGenreChange}) {
+export default function GenreList() {
+  const dispatch = useDispatch();
   const filmList = useSelector(getAllFilms);
   const currentGenre = useSelector(getCurrentGenre);
   const genres = [INITIAL_GENRE, ...getGenres(filmList)];
@@ -30,7 +20,7 @@ export function GenreList({onGenreChange}) {
   function renderGenreItem(genreName) {
     function handleGenreChange(evt) {
       evt.preventDefault();
-      onGenreChange(genreName);
+      dispatch(setGenre(genreName));
     }
 
     return (
@@ -56,4 +46,3 @@ export function GenreList({onGenreChange}) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(GenreList);

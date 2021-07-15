@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import filmProp from '../../pages/film/film.prop';
 
 const PLAYER_TIMEOUT = 1000;
+const PlayerSize = {
+  WIDTH: 280,
+  HEIGHT: 175,
+};
 
 VideoPlayer.propTypes = {
   film: filmProp,
@@ -24,7 +28,7 @@ export default function VideoPlayer({film, isActive}) {
 
   return (
     isActive
-      ? <video src={film.previewVideoLink} ref={videoRef} width={280} height={175} poster={film.previewImage} muted />
-      : <img src={film.previewImage} alt={film.name} width={280} height={175} />
+      ? <video src={film.previewVideoLink} ref={videoRef} width={PlayerSize.WIDTH} height={PlayerSize.HEIGHT} poster={film.previewImage} muted />
+      : <img src={film.previewImage} alt={film.name} width={PlayerSize.WIDTH} height={PlayerSize.HEIGHT} />
   );
 }

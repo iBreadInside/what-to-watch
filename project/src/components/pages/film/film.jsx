@@ -90,7 +90,7 @@ export default function Film() {
           <div className="film-card__info">
             <FilmPoster film={currentFilm} posterType={PosterType.BIG} />
 
-            <Tabs film={currentFilm}/>
+            <Tabs />
           </div>
         </div>
       </section>

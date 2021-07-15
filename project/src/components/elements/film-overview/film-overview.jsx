@@ -1,6 +1,7 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {getReviewRating} from '../../../common';
-import filmProp from '../../pages/film/film.prop';
+import {getFilm} from '../../../store/film/selectors';
 
 const FILM_GRADES = [
   ['Bad', [0, 3]],
@@ -10,11 +11,8 @@ const FILM_GRADES = [
   ['Awesome', [10, Infinity]],
 ];
 
-Overview.propTypes = {
-  film: filmProp,
-};
-
-export default function Overview({film}) {
+export default function Overview() {
+  const film = useSelector(getFilm);
   const {
     rating,
     scoresCount,

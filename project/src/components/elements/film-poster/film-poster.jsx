@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {PosterSize, PosterType} from '../../../const';
+import {PosterType} from '../../../const';
 import filmProp from '../../pages/film/film.prop';
+
+const PosterSize = {
+  WIDTH: '218',
+  HEIGHT: '327',
+};
 
 FilmPoster.propTypes = {
   film: filmProp,

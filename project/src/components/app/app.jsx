@@ -33,7 +33,6 @@ export default function App() {
           </Route>
 
           <PrivateRoute exact path={AppRoute.MY_LIST}
-            // authorizationStatus={authorizationStatus}
             render={() => <MyList />}
           >
           </PrivateRoute>
@@ -43,7 +42,6 @@ export default function App() {
           </Route>
 
           <PrivateRoute exact path={AppRoute.ADD_REVIEW}
-            // authorizationStatus={authorizationStatus}
             render={() => <AddReview />}
           >
           </PrivateRoute>
