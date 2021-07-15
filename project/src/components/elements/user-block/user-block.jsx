@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect, useSelector} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 import {logout} from '../../../store/api-actions';
-import { getAuthStatus } from '../../../store/user/selectors';
+import {getAuthStatus} from '../../../store/user/selectors';
 
 function renderUserBlockAuthorized (history, onLogout) {
   const userAvatar = localStorage.getItem('avatar');
