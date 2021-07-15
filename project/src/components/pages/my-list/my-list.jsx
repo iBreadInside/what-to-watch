@@ -13,8 +13,8 @@ export default function MyList() {
   const myFilms = useSelector(getFavorites);
 
   useEffect(() => {
-    dispatch(fetchFavoriteFilms);
-  }, [dispatch, myFilms]);
+    dispatch(fetchFavoriteFilms());
+  }, [dispatch]);
 
   return (
     <>

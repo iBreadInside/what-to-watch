@@ -18,7 +18,7 @@ export default function Player() {
   useEffect(() => {
     dispatch(fetchFilmById(+params.id));
 
-    return () => dispatch(deleteCurrentFilmData);
+    return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
   function handleExitBtn() {

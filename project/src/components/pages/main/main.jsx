@@ -20,7 +20,7 @@ export default function Main() {
   const promo = useSelector(getPromoFilm);
 
   useEffect(() => {
-    dispatch(resetMainPage);
+    dispatch(resetMainPage());
   }, [dispatch]);
 
   const filmsByGenre = (currentGenre === INITIAL_GENRE)

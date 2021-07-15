@@ -30,7 +30,7 @@ export default function Film() {
     dispatch(fetchReviews(params.id));
     dispatch(fetchSimilarFilms(params.id));
 
-    return () => dispatch(deleteCurrentFilmData);
+    return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
   if (!currentFilm && !isFilmResponsed) {
