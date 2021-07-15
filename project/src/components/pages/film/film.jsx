@@ -15,7 +15,7 @@ import FilmList from '../../elements/film-list/film-list';
 import {deleteCurrentFilmData} from '../../../store/actions';
 import {getFilm, getIsFilmResponce, getSimilarFilms} from '../../../store/film/selectors';
 import {getAuthStatus} from '../../../store/user/selectors';
-import { FilmPoster } from '../../elements/film-poster/film-poster';
+import {FilmPoster} from '../../elements/film-poster/film-poster';
 
 export default function Film() {
   const params = useParams();

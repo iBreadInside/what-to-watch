@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {connect, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -8,28 +8,20 @@ import PlayBtn from '../../elements/play-btn/play-btn';
 import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
 import GenreList from '../../elements/genre-list/genre-list';
-import PropTypes from 'prop-types';
 import {FilmsShown, INITIAL_GENRE} from '../../../const';
 import {getAllFilms, getCurrentGenre, getPromoFilm} from '../../../store/main/selectors';
 import {resetMainPage} from '../../../store/actions';
 import {FilmPoster} from '../../elements/film-poster/film-poster';
 
-const mapDispatchToProps = (dispatch) => ({
-  onPageLeave() {
-    dispatch(resetMainPage);
-  },
-});
-
-Main.propTypes = {
-  onPageLeave: PropTypes.func.isRequired,
-};
-
-export function Main({onPageLeave}) {
+export default function Main() {
+  const dispatch = useDispatch();
   const currentGenre = useSelector(getCurrentGenre);
   const allFilmList = useSelector(getAllFilms);
   const promo = useSelector(getPromoFilm);
 
-  useEffect(() => onPageLeave(), []);
+  useEffect(() => {
+    dispatch(resetMainPage);
+  }, [dispatch]);
 
   const filmsByGenre = (currentGenre === INITIAL_GENRE)
     ? allFilmList
@@ -95,4 +87,3 @@ export function Main({onPageLeave}) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(Main);
