@@ -1,5 +1,6 @@
 import React from 'react';
-import filmProp from '../../pages/film/film.prop';
+import {useSelector} from 'react-redux';
+import {getFilm} from '../../../store/film/selectors';
 
 function getHours(time) {
   return Math.trunc(time / 60);
@@ -9,11 +10,8 @@ function getMinutes(time) {
   return time % 60;
 }
 
-Details.propTypes = {
-  film: filmProp,
-};
-
-export default function Details({film}) {
+export default function Details() {
+  const film = useSelector(getFilm);
   const {
     director,
     starring,

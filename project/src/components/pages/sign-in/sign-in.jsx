@@ -1,13 +1,13 @@
 import React, {useRef, useState} from 'react';
-import PropTypes from 'prop-types';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 import {login} from '../../../store/api-actions';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import FormMessage from '../../elements/form-message/form-message';
+import {getAuthStatus} from '../../../store/user/selectors';
 
 const validationRules = {
   email: {
@@ -38,22 +38,9 @@ function validateFields(formData) {
   return errors;
 }
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-export function SignIn({onSubmit, authorizationStatus}) {
+export default function SignIn() {
+  const dispatch = useDispatch();
+  const authorizationStatus = useSelector(getAuthStatus);
   const [formErrors, setFormErrors] = useState([]);
 
   const emailRef = useRef();
@@ -68,7 +55,7 @@ export function SignIn({onSubmit, authorizationStatus}) {
     evt.preventDefault();
     const errors = validateFields(formData);
 
-    (errors.length === 0) && onSubmit(formData);
+    (errors.length === 0) && dispatch(login(formData));
     setFormErrors(errors);
   }
 
@@ -142,4 +129,3 @@ export function SignIn({onSubmit, authorizationStatus}) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import FilmList from '../../elements/film-list/film-list';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import MyListBtn from '../../elements/my-list-btn/my-list-btn';
@@ -7,44 +7,39 @@ import PageFooter from '../../elements/page-footer/page-footer';
 import PlayBtn from '../../elements/play-btn/play-btn';
 import Logo from '../../elements/logo/logo';
 import UserBlock from '../../elements/user-block/user-block';
-import filmProp from '../../pages/film/film.prop';
 import GenreList from '../../elements/genre-list/genre-list';
-import {ActionCreator} from '../../../store/actions';
-import PropTypes from 'prop-types';
 import {FilmsShown, INITIAL_GENRE} from '../../../const';
+import {getAllFilms, getCurrentGenre, getPromoFilm} from '../../../store/main/selectors';
+import {resetMainPage} from '../../../store/actions';
+import {FilmPoster} from '../../elements/film-poster/film-poster';
 
-const mapStateToProps = (state) => ({
-  promo: state.promoFilm,
-  allFilmList: state.allFilmList,
-  genre: state.currentGenre,
-});
+export default function Main() {
+  const dispatch = useDispatch();
+  const currentGenre = useSelector(getCurrentGenre);
+  const allFilmList = useSelector(getAllFilms);
+  const promo = useSelector(getPromoFilm);
 
-const mapDispatchToProps = (dispatch) => ({
-  onPageLeave() {
-    dispatch(ActionCreator.resetPage());
-  },
-});
+  useEffect(() => {
+    dispatch(resetMainPage());
+  }, [dispatch]);
 
-Main.propTypes = {
-  promo: filmProp,
-  onPageLeave: PropTypes.func.isRequired,
-  allFilmList: PropTypes.arrayOf(filmProp),
-  genre: PropTypes.string.isRequired,
-};
-
-export function Main({promo, allFilmList, genre, onPageLeave}) {
-  useEffect(() => onPageLeave(), []);
-
-  const filmsByGenre = (genre === INITIAL_GENRE)
+  const filmsByGenre = (currentGenre === INITIAL_GENRE)
     ? allFilmList
-    : allFilmList.filter((film) => film.genre === genre);
+    : allFilmList.filter((film) => film.genre === currentGenre);
+
+  const {
+    backgroundImage,
+    name,
+    genre,
+    released,
+  } = promo;
 
   return (
     <>
       <HiddenSVG />
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={promo.backgroundImage} alt={promo.name} />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -57,15 +52,13 @@ export function Main({promo, allFilmList, genre, onPageLeave}) {
 
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <div className="film-card__poster">
-              <img src={promo.posterImage} alt={promo.name} width="218" height="327" />
-            </div>
+            <FilmPoster film={promo} />
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promo.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promo.genre}</span>
-                <span className="film-card__year">{promo.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -94,4 +87,3 @@ export function Main({promo, allFilmList, genre, onPageLeave}) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);

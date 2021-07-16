@@ -1,19 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
-import filmProp from '../film/film.prop';
 import {AppRoute} from '../../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFilmById} from '../../../store/api-actions';
+import {deleteCurrentFilmData} from '../../../store/actions';
+import {getFilm, getIsFilmResponce} from '../../../store/film/selectors';
+import LoadingScreen from '../../elements/loading-screen/loading.screen';
 
-Player.propTypes = {
-  films: PropTypes.arrayOf(filmProp),
-};
-
-export default function Player({films}) {
+export default function Player() {
   const params = useParams();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const watchingFilm = useSelector(getFilm);
+  const isFilmResponsed = useSelector(getIsFilmResponce);
 
-  const [watchingFilm] = films.filter((film) => film.id === +params.id);
+  useEffect(() => {
+    dispatch(fetchFilmById(+params.id));
+
+    return () => dispatch(deleteCurrentFilmData());
+  }, [dispatch, params.id]);
 
   function handleExitBtn() {
     if (history.action !== 'POP') {
@@ -21,6 +27,10 @@ export default function Player({films}) {
     }
 
     history.push(AppRoute.MAIN);
+  }
+
+  if (!watchingFilm && !isFilmResponsed) {
+    return <LoadingScreen />;
   }
 
   return (

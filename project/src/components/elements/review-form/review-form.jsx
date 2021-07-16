@@ -2,7 +2,8 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {postComment} from '../../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import {ActionCreator} from '../../../store/actions';
+import {setBadRequest} from '../../../store/actions';
+import {getIsBadRequest} from '../../../store/errors/selectors';
 
 const STARS_COUNT = 10;
 const CommentLength = {
@@ -16,20 +17,21 @@ export default function ReviewForm() {
   const [comment, setComment] = useState('');
   const [isSending, setIsSending] = useState(false);
   const dispatch = useDispatch();
-  const isPostReviewError = useSelector((state) => state.isBadRequest);
-  useEffect(() => () => dispatch(ActionCreator.setBadRequest(false)), [dispatch, params.id]);
+  const isPostReviewError = useSelector(getIsBadRequest);
+
+  useEffect(() => () => dispatch(setBadRequest(false)), [dispatch, params.id]);
 
   const ratingChangeHandler = (evt) => {
     setRating(evt.target.value);
     if (isPostReviewError) {
-      dispatch(ActionCreator.setBadRequest(false));
+      dispatch(setBadRequest(false));
     }
   };
 
   const commentChangeHandler = (evt) => {
     setComment(evt.target.value);
     if (isPostReviewError) {
-      dispatch(ActionCreator.setBadRequest(false));
+      dispatch(setBadRequest(false));
     }
   };
 

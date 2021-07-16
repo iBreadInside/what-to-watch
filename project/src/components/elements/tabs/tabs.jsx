@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
 import Overview from '../../elements/film-overview/film-overview';
 import Details from '../../elements/film-details/film-details';
 import Reviews from '../../elements/film-reviews/film-reviews';
-import filmProp from '../../pages/film/film.prop';
-import commentProp from '../comment/comment.prop';
 
 const TabType = {
   OVERVIEW: 'Overview',
@@ -12,23 +9,18 @@ const TabType = {
   REVIEWS: 'Reviews',
 };
 
-function getTabByType(type, film, comments) {
+function getTabByType(type) {
   switch (type) {
     case TabType.DETAILS:
-      return <Details film={film} />;
+      return <Details />;
     case TabType.REVIEWS:
-      return <Reviews comments={comments} />;
+      return <Reviews />;
     default:
-      return <Overview film={film} />;
+      return <Overview />;
   }
 }
 
-Tabs.propTypes = {
-  film: filmProp,
-  comments: PropTypes.arrayOf(commentProp),
-};
-
-export default function Tabs({film, comments}) {
+export default function Tabs() {
   const [activeTab, setActiveTab] = useState(TabType.OVERVIEW);
 
   const tabList = Object.entries(TabType).map(([, value]) => (
@@ -53,7 +45,7 @@ export default function Tabs({film, comments}) {
     setActiveTab(TabType.OVERVIEW);
   }
 
-  useEffect(setDefaultTab, [film]);
+  useEffect(setDefaultTab, []);
 
   return (
     <div className="film-card__desc">
@@ -63,7 +55,7 @@ export default function Tabs({film, comments}) {
         </ul>
       </nav>
 
-      {getTabByType(activeTab, film, comments)}
+      {getTabByType(activeTab)}
 
     </div>
   );

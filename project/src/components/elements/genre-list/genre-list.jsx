@@ -1,9 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {INITIAL_GENRE} from '../../../const';
-import {ActionCreator} from '../../../store/actions';
-import filmProp from '../../pages/film/film.prop';
+import {setGenre} from '../../../store/actions';
+import {getAllFilms, getCurrentGenre} from '../../../store/main/selectors';
 
 const getGenres = (films) => {
   const allGenres = films.map((film) => film.genre);
@@ -12,30 +11,16 @@ const getGenres = (films) => {
   return uniqueGenres;
 };
 
-const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-  filmList: state.allFilmList,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onGenreChange(genre) {
-    dispatch(ActionCreator.setGenre(genre));
-  },
-});
-
-GenreList.propTypes = {
-  filmList: PropTypes.arrayOf(filmProp),
-  currentGenre: PropTypes.string.isRequired,
-  onGenreChange: PropTypes.func.isRequired,
-};
-
-export function GenreList({filmList, currentGenre, onGenreChange}) {
+export default function GenreList() {
+  const dispatch = useDispatch();
+  const filmList = useSelector(getAllFilms);
+  const currentGenre = useSelector(getCurrentGenre);
   const genres = [INITIAL_GENRE, ...getGenres(filmList)];
 
   function renderGenreItem(genreName) {
     function handleGenreChange(evt) {
       evt.preventDefault();
-      onGenreChange(genreName);
+      dispatch(setGenre(genreName));
     }
 
     return (
@@ -61,4 +46,3 @@ export function GenreList({filmList, currentGenre, onGenreChange}) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenreList);

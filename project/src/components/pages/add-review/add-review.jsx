@@ -4,21 +4,23 @@ import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import UserBlock from '../../elements/user-block/user-block';
 import ReviewForm from '../../elements/review-form/review-form';
-import {APIRoute, AppRoute} from '../../../const';
+import {APIRoute, AppRoute, PosterType} from '../../../const';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById} from '../../../store/api-actions';
-import {ActionCreator} from '../../../store/actions';
+import {deleteCurrentFilmData} from '../../../store/actions';
 import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import {getFilm, getIsFilmResponce} from '../../../store/film/selectors';
+import {FilmPoster} from '../../elements/film-poster/film-poster';
 
 export default function AddReview() {
   const params = useParams();
   const dispatch = useDispatch();
-  const currentFilm = useSelector((state) => state.currentFilm);
-  const isFilmResponsed = useSelector((state) => state.isCurrentFilmResponsed);
+  const currentFilm = useSelector(getFilm);
+  const isFilmResponsed = useSelector(getIsFilmResponce);
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
-    return () => dispatch(ActionCreator.deleteCurrentFilmData());
+    return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
   if (!currentFilm && !isFilmResponsed) {
@@ -33,7 +35,6 @@ export default function AddReview() {
     id,
     name,
     backgroundImage,
-    posterImage,
   } = currentFilm;
 
   return (
@@ -65,9 +66,7 @@ export default function AddReview() {
             <UserBlock />
           </header>
 
-          <div className="film-card__poster film-card__poster--small">
-            <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
-          </div>
+          <FilmPoster film={currentFilm} posterType={PosterType.SMALL} />
         </div>
 
         <div className="add-review">

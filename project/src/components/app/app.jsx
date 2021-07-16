@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Main from '../pages/main/main';
@@ -9,28 +8,18 @@ import MyList from '../pages/my-list/my-list';
 import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import LoadingScreen from '../elements/loading-screen/loading.screen';
-// import ErrorScreen from '../elements/error-screen/error-screen';
-import {PrivateRoute} from '../elements/private-route/private-route';
 import browserHistory from '../../browser-history';
+import {getIsfilmsLoaded, getIsPromoLoaded} from '../../store/main/selectors';
+import {getAuthStatus} from '../../store/user/selectors';
+import PrivateRoute from '../elements/private-route/private-route';
 
-const mapStateToProps = (state) => ({
-  // films: state.allFilmList,
-  isFilmsLoaded: state.isFilmsLoaded,
-  isPromoLoaded: state.isPromoLoaded,
-  error: state.error,
-  authorizationStatus: state.authorizationStatus,
-});
+export default function App() {
+  const isFilmsLoaded = useSelector(getIsfilmsLoaded);
+  const isPromoLoaded = useSelector(getIsPromoLoaded);
+  const authorizationStatus = useSelector(getAuthStatus);
 
-App.propTypes = {
-  isFilmsLoaded: PropTypes.bool.isRequired,
-  isPromoLoaded: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-export function App({isFilmsLoaded, isPromoLoaded, error, authorizationStatus}) {
   if (isFilmsLoaded && isPromoLoaded && authorizationStatus !== AuthorizationStatus.UNKNOWN) {
     return (
       <BrowserRouter history={browserHistory}>
@@ -44,7 +33,6 @@ export function App({isFilmsLoaded, isPromoLoaded, error, authorizationStatus}) 
           </Route>
 
           <PrivateRoute exact path={AppRoute.MY_LIST}
-            authorizationStatus={authorizationStatus}
             render={() => <MyList />}
           >
           </PrivateRoute>
@@ -54,7 +42,6 @@ export function App({isFilmsLoaded, isPromoLoaded, error, authorizationStatus}) 
           </Route>
 
           <PrivateRoute exact path={AppRoute.ADD_REVIEW}
-            authorizationStatus={authorizationStatus}
             render={() => <AddReview />}
           >
           </PrivateRoute>
@@ -75,5 +62,3 @@ export function App({isFilmsLoaded, isPromoLoaded, error, authorizationStatus}) 
     );
   }
 }
-
-export default connect(mapStateToProps)(App);

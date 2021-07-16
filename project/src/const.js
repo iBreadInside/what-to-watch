@@ -38,3 +38,8 @@ export const ResponseCode = {
 };
 
 export const INITIAL_GENRE = 'All genres';
+
+export const PosterType = {
+  BIG: 'BIG',
+  SMALL: 'SMALL',
+};

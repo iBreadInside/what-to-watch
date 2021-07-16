@@ -1,72 +1,116 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   SET_GENRE: 'main/setGenre',
   RESET_PAGE: 'main/resetPage',
-  LOAD_FILMS: 'data/loadFilms',
-  LOAD_PROMO: 'data/loadPromo',
+  LOAD_FILMS: 'main/loadFilms',
+  LOAD_PROMO: 'main/loadPromo',
+
   LOAD_FILM_BY_ID: 'film/loadFilmById',
   LOAD_SIMILAR_FILMS: 'film/loadSimilar',
-  LOAD_REVIEWS: 'review/loadReviews',
-  SHOW_REVIEW_ERROR: 'review/showError',
+  LOAD_REVIEWS: 'film/loadReviews',
   DELETE_CURRENT_FILM_DATA: 'film/deleteCurrentFilm',
   CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
-  LOAD_FAVORITE: 'data/loadFavorites',
+
+  LOAD_FAVORITE: 'myList/loadFavorites',
+
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
-  SHOW_ERROR: 'showError',
+
+  SET_BAD_REQUEST: 'error/setBadRequest',
+  SET_UNEXPECTED_ERROR: 'error/setError',
 };
 
-export const ActionCreator = {
-  setGenre: (genre) => ({
-    type: ActionType.SET_GENRE,
+// === Main Page ===
+export const loadFilms = createAction(
+  ActionType.LOAD_FILMS,
+  (fllms) => ({
+    payload: fllms,
+  }),
+);
+
+export const loadPromo = createAction(
+  ActionType.LOAD_PROMO,
+  (promo) => ({
+    payload: promo,
+  }),
+);
+
+export const setGenre = createAction(
+  ActionType.SET_GENRE,
+  (genre) => ({
     payload: genre,
   }),
-  resetPage: () => ({
-    type: ActionType.RESET_PAGE,
-  }),
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
-    payload: films,
-  }),
-  loadPromo: (film) => ({
-    type: ActionType.LOAD_PROMO,
-    payload: film,
-  }),
-  loadFilmById: (film) => ({
-    type: ActionType.LOAD_FILM_BY_ID,
-    payload: film,
-  }),
-  loadSimilarFilms: (films) => ({
-    type: ActionType.LOAD_SIMILAR_FILMS,
-    payload: films,
-  }),
-  loadReviews: (reviews) => ({
-    type: ActionType.LOAD_REVIEWS,
-    payload: reviews,
-  }),
-  setBadRequest: (bool) => ({
-    type: ActionType.SHOW_REVIEW_ERROR,
-    payload: bool,
-  }),
-  deleteCurrentFilmData: () => ({
-    type: ActionType.DELETE_CURRENT_FILM_DATA,
-  }),
-  checkFilmResponce: (bool) => ({
-    type: ActionType.CHECK_FILM_RESPONSE,
-    payload: bool,
-  }),
-  loadFavorite: (films) => ({
-    type: ActionType.LOAD_FAVORITE,
-    payload: films,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
+);
+
+export const resetMainPage = createAction(
+  ActionType.RESET_PAGE,
+);
+
+// === User Data ===
+export const requireAuthorization = createAction(
+  ActionType.REQUIRED_AUTHORIZATION,
+  (status) => ({
     payload: status,
   }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
+);
+
+export const makeLogout = createAction(
+  ActionType.LOGOUT,
+);
+
+// === Film Page ===
+export const loadFilmById = createAction(
+  ActionType.LOAD_FILM_BY_ID,
+  (film) => ({
+    payload: film,
   }),
-  showError: (err) => ({
-    type: ActionType.SHOW_ERROR,
-    payload: err,
+);
+
+export const loadSimilarFilms = createAction(
+  ActionType.LOAD_SIMILAR_FILMS,
+  (similarFilms) => ({
+    payload: similarFilms,
   }),
-};
+);
+
+export const loadReviews = createAction(
+  ActionType.LOAD_REVIEWS,
+  (reviews) => ({
+    payload: reviews,
+  }),
+);
+
+export const setFilmResponce = createAction(
+  ActionType.CHECK_FILM_RESPONSE,
+  (bool) => ({
+    payload: bool,
+  }),
+);
+
+export const deleteCurrentFilmData = createAction(
+  ActionType.DELETE_CURRENT_FILM_DATA,
+);
+
+// === My List Page ===
+export const loadFavoriteFilms = createAction(
+  ActionType.LOAD_FAVORITE,
+  (favoriteFilms) => ({
+    payload: favoriteFilms,
+  }),
+);
+
+// === Errors ===
+export const setBadRequest = createAction(
+  ActionType.SET_BAD_REQUEST,
+  (bool) => ({
+    payload: bool,
+  }),
+);
+
+export const setUnexpectedError = createAction(
+  ActionType.SET_UNEXPECTED_ERROR,
+  (bool) => ({
+    payload: bool,
+  }),
+);

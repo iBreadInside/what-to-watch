@@ -1,15 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
+import {getReviews} from '../../../store/film/selectors';
 import Comment from '../comment/comment';
-import commentProp from '../comment/comment.prop';
 
-Reviews.propTypes = {
-  comments: PropTypes.arrayOf(commentProp),
-};
-
-export default function Reviews({comments}) {
+export default function Reviews() {
+  const comments = useSelector(getReviews);
   const rowCount = Math.ceil(comments.length / 2);
-  const sortedComments = comments.sort((a, b) => b.rating - a.rating);
+  const sortedComments = comments.slice().sort((a, b) => b.rating - a.rating);
 
   function showCommentsColumn(columnComments) {
     return (
@@ -18,10 +15,14 @@ export default function Reviews({comments}) {
       </div>
     );
   }
+
   return (
-    <div className="film-card__reviews film-card__row">
-      {showCommentsColumn(sortedComments.slice(0, rowCount))}
-      {showCommentsColumn(sortedComments.slice(rowCount))}
-    </div>
+    comments.length > 0
+      ?
+      <div className="film-card__reviews film-card__row">
+        {showCommentsColumn(sortedComments.slice(0, rowCount))}
+        {showCommentsColumn(sortedComments.slice(rowCount))}
+      </div>
+      : <p>There is no reviews yet</p>
   );
 }

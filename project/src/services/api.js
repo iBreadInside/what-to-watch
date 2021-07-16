@@ -32,10 +32,8 @@ export const createAPI = (onUnauthorized, onBadRequest) => {
         browserHistory.push(AppRoute.NOT_FOUND);
         break;
       default:
-        return err;
+        throw err;
     }
-
-    throw err;
   };
 
   api.interceptors.response.use(onSuccess, onFail);
