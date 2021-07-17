@@ -29,7 +29,7 @@ export default function Player() {
     history.push(AppRoute.MAIN);
   }
 
-  if (!watchingFilm && !isFilmResponsed) {
+  if (!isFilmResponsed) {
     return <LoadingScreen />;
   }
 

@@ -33,7 +33,7 @@ export default function Film() {
     return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
-  if (!currentFilm && !isFilmResponsed) {
+  if (!isFilmResponsed) {
     return <LoadingScreen />;
   }
 

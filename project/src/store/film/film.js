@@ -1,6 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
-  setFilmResponce,
   deleteCurrentFilmData,
   loadFilmById,
   loadReviews,
@@ -20,8 +19,6 @@ export const filmData = createReducer(
     builder
       .addCase(loadFilmById, (state, action) => {
         state.currentFilm = action.payload;
-      })
-      .addCase(setFilmResponce, (state, action) => {
         state.isCurrentFilmResponsed = action.payload;
       })
       .addCase(loadSimilarFilms, (state, action) => {

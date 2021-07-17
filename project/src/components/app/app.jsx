@@ -14,11 +14,14 @@ import browserHistory from '../../browser-history';
 import {getIsfilmsLoaded, getIsPromoLoaded} from '../../store/main/selectors';
 import {getAuthStatus} from '../../store/user/selectors';
 import PrivateRoute from '../elements/private-route/private-route';
+import {getIsUnexpectedError} from '../../store/errors/selectors';
+import ErrorScreen from '../elements/error-screen/error-screen';
 
 export default function App() {
   const isFilmsLoaded = useSelector(getIsfilmsLoaded);
   const isPromoLoaded = useSelector(getIsPromoLoaded);
   const authorizationStatus = useSelector(getAuthStatus);
+  const isError = useSelector(getIsUnexpectedError);
 
   if (isFilmsLoaded && isPromoLoaded && authorizationStatus !== AuthorizationStatus.UNKNOWN) {
     return (
@@ -58,7 +61,9 @@ export default function App() {
     );
   } else {
     return (
-      <LoadingScreen />
+      isError
+        ? <ErrorScreen />
+        : <LoadingScreen />
     );
   }
 }
