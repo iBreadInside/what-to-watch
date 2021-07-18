@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import FilmList from '../../elements/film-list/film-list';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
@@ -7,6 +6,7 @@ import UserBlock from '../../elements/user-block/user-block';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFavoriteFilms} from '../../../store/api-actions';
 import {getFavorites} from '../../../store/my-list/selectors';
+import FilmCard from '../../elements/film-card/film-card';
 
 export default function MyList() {
   const dispatch = useDispatch();
@@ -31,8 +31,11 @@ export default function MyList() {
 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <FilmList filmList={myFilms} listInitialLength={myFilms.length} />
+          <div className="catalog__films-list">
+            {myFilms.length !== 0
+              ? myFilms.map((film) => <FilmCard key={film.id} film={film} />)
+              : <p>Sorry, there is no films of that genre :(</p>}
+          </div>
         </section>
 
         <PageFooter />

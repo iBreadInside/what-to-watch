@@ -60,7 +60,6 @@ export const fetchPromoFilm = () => async (dispatch, _getState, api) => {
   }
 };
 
-
 // === My List ===
 export const fetchFavoriteFilms = () => async (dispatch, _getState, api) => {
   try {
@@ -69,6 +68,20 @@ export const fetchFavoriteFilms = () => async (dispatch, _getState, api) => {
     if (response.status === ResponseCode.OK) {
       const favoriteFilms = adaptFilms(response.data);
       dispatch(loadFavoriteFilms(favoriteFilms));
+    }
+  } catch {
+    new Error();
+  }
+};
+
+export const toggleFavorite = (id, isPromo, status) => async (dispatch, _getState, api) => {
+  try {
+    const response = await api.post(`${APIRoute.FAVORITE}/${id}/${status}`);
+
+    if (response.status === ResponseCode.OK) {
+      isPromo
+        ? dispatch(loadPromo(adaptFilmToClient(response.data)))
+        : dispatch(loadFilmById(adaptFilmToClient(response.data)));
     }
   } catch {
     new Error();
@@ -121,9 +134,9 @@ export const fetchFilmById = (filmId) => async (dispatch, _getState, api) => {
 
     if (response.status === ResponseCode.OK) {
       dispatch(loadFilmById(adaptFilmToClient(response.data)));
+      dispatch(setFilmResponce(true));
     }
 
-    dispatch(setFilmResponce(true));
   } catch {
     new Error();
   }

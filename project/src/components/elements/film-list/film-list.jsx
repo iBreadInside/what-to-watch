@@ -7,7 +7,7 @@ import {getCurrentGenre} from '../../../store/main/selectors';
 
 FilmList.propTypes = {
   filmList: PropTypes.arrayOf(filmProp),
-  listInitialLength: PropTypes.number.isRequired,
+  listInitialLength: PropTypes.number,
 };
 
 export default function FilmList({filmList, listInitialLength}) {
