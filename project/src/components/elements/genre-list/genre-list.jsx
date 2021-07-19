@@ -4,9 +4,11 @@ import {INITIAL_GENRE} from '../../../const';
 import {setGenre} from '../../../store/actions';
 import {getAllFilms, getCurrentGenre} from '../../../store/main/selectors';
 
+const MAX_GENRES = 9;
+
 const getGenres = (films) => {
   const allGenres = films.map((film) => film.genre);
-  const uniqueGenres = [...new Set(allGenres)];
+  const uniqueGenres = [...new Set(allGenres)].slice(0, MAX_GENRES);
 
   return uniqueGenres;
 };

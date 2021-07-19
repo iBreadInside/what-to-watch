@@ -14,13 +14,24 @@ import browserHistory from '../../browser-history';
 import {getIsfilmsLoaded, getIsPromoLoaded} from '../../store/main/selectors';
 import {getAuthStatus} from '../../store/user/selectors';
 import PrivateRoute from '../elements/private-route/private-route';
+import {getIsUnexpectedError} from '../../store/errors/selectors';
+import ErrorScreen from '../elements/error-screen/error-screen';
 
 export default function App() {
   const isFilmsLoaded = useSelector(getIsfilmsLoaded);
   const isPromoLoaded = useSelector(getIsPromoLoaded);
   const authorizationStatus = useSelector(getAuthStatus);
+  const isError = useSelector(getIsUnexpectedError);
 
-  if (isFilmsLoaded && isPromoLoaded && authorizationStatus !== AuthorizationStatus.UNKNOWN) {
+  if (isError) {
+    return (
+      <ErrorScreen />
+    );
+  } else if (!isFilmsLoaded || !isPromoLoaded || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+    return (
+      <LoadingScreen />
+    );
+  } else {
     return (
       <BrowserRouter history={browserHistory}>
         <Switch>
@@ -56,9 +67,49 @@ export default function App() {
         </Switch>
       </BrowserRouter>
     );
-  } else {
-    return (
-      <LoadingScreen />
-    );
   }
+
+  // if (isFilmsLoaded && isPromoLoaded && authorizationStatus !== AuthorizationStatus.UNKNOWN) {
+  //   return (
+  //     <BrowserRouter history={browserHistory}>
+  //       <Switch>
+  //         <Route exact path={AppRoute.MAIN}>
+  //           <Main />
+  //         </Route>
+
+  //         <Route exact path={AppRoute.SIGN_IN}>
+  //           <SignIn />
+  //         </Route>
+
+  //         <PrivateRoute exact path={AppRoute.MY_LIST}
+  //           render={() => <MyList />}
+  //         >
+  //         </PrivateRoute>
+
+  //         <Route exact path={AppRoute.FILM}>
+  //           <Film />
+  //         </Route>
+
+  //         <PrivateRoute exact path={AppRoute.ADD_REVIEW}
+  //           render={() => <AddReview />}
+  //         >
+  //         </PrivateRoute>
+
+  //         <Route exact path={AppRoute.PLAYER}>
+  //           <Player />
+  //         </Route>
+
+  //         <Route>
+  //           <NotFound />
+  //         </Route>
+  //       </Switch>
+  //     </BrowserRouter>
+  //   );
+  // } else {
+  //   return (
+  //     isError
+  //       ? <ErrorScreen />
+  //       : <LoadingScreen />
+  //   );
+  // }
 }

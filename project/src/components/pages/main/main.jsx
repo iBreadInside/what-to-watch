@@ -13,6 +13,8 @@ import {getAllFilms, getCurrentGenre, getPromoFilm} from '../../../store/main/se
 import {resetMainPage} from '../../../store/actions';
 import {FilmPoster} from '../../elements/film-poster/film-poster';
 
+const IS_PROMO = true;
+
 export default function Main() {
   const dispatch = useDispatch();
   const currentGenre = useSelector(getCurrentGenre);
@@ -63,7 +65,7 @@ export default function Main() {
 
               <div className="film-card__buttons">
                 <PlayBtn film={promo}/>
-                <MyListBtn />
+                <MyListBtn film={promo} isPromo={IS_PROMO} />
               </div>
             </div>
           </div>

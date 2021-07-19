@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-ErrorScreen.propTypes = {
-  error: PropTypes.string.isRequired,
-};
-
-export default function ErrorScreen({error}) {
+export default function ErrorScreen() {
   return (
-    <p style={{ marginTop: '150px', textAlign: 'center' }}>{error}</p>
+    <p style={{ marginTop: '150px', textAlign: 'center' }}>
+      Oops! Something get wrong. Please, try again.
+    </p>
   );
 }

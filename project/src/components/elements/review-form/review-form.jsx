@@ -76,6 +76,8 @@ export default function ReviewForm() {
         </div>
       </div>
 
+      {isPostReviewError && <p>Oops! Something get wrong :(</p>}
+
       <div className="add-review__text">
         <textarea
           className="add-review__textarea"
@@ -96,7 +98,6 @@ export default function ReviewForm() {
             Post
           </button>
         </div>
-        {isPostReviewError && <p>Oops! Something get wrong :(</p>}
 
       </div>
     </form>

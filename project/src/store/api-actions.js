@@ -10,13 +10,29 @@ import {
   loadSimilarFilms,
   makeLogout,
   requireAuthorization,
-  setFilmResponce,
-  setUnexpectedError
+  setFilmResponce
 } from './actions';
 
 function adaptFilms(films) {
   return films.map((film) => adaptFilmToClient(film));
 }
+
+// function getOnErrorDispatch(err, dispatch) {
+//   switch (err.status) {
+//     case ResponseCode.UNAUTHORIZED:
+//       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+//       break;
+//     case ResponseCode.BAD_REQUEST:
+//       dispatch(setBadRequest(true));
+//       break;
+//     case ResponseCode.NOT_FOUND:
+//       browserHistory.push(AppRoute.NOT_FOUND);
+//       break;
+//     default:
+//       dispatch(setUnexpectedError(true));
+//       break;
+//   }
+// }
 
 // === Main ===
 export const fetchFilmList = () => async (dispatch, _getState, api) => {
@@ -28,7 +44,7 @@ export const fetchFilmList = () => async (dispatch, _getState, api) => {
       dispatch(loadFilms(films));
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -40,10 +56,9 @@ export const fetchPromoFilm = () => async (dispatch, _getState, api) => {
       dispatch(loadPromo(adaptFilmToClient(response.data)));
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
-
 
 // === My List ===
 export const fetchFavoriteFilms = () => async (dispatch, _getState, api) => {
@@ -55,7 +70,21 @@ export const fetchFavoriteFilms = () => async (dispatch, _getState, api) => {
       dispatch(loadFavoriteFilms(favoriteFilms));
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
+  }
+};
+
+export const toggleFavorite = (id, isPromo, status) => async (dispatch, _getState, api) => {
+  try {
+    const response = await api.post(`${APIRoute.FAVORITE}/${id}/${status}`);
+
+    if (response.status === ResponseCode.OK) {
+      isPromo
+        ? dispatch(loadPromo(adaptFilmToClient(response.data)))
+        : dispatch(loadFilmById(adaptFilmToClient(response.data)));
+    }
+  } catch {
+    new Error();
   }
 };
 
@@ -68,7 +97,7 @@ export const checkAuth = () => async (dispatch, _getState, api) => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -83,7 +112,7 @@ export const login = ({email, password}) => async (dispatch, _getState, api) => 
       browserHistory.push(AppRoute.MAIN);
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -94,7 +123,7 @@ export const logout = () => async (dispatch, _getState, api) => {
     localStorage.removeItem('avatar');
     dispatch(makeLogout());
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -105,11 +134,11 @@ export const fetchFilmById = (filmId) => async (dispatch, _getState, api) => {
 
     if (response.status === ResponseCode.OK) {
       dispatch(loadFilmById(adaptFilmToClient(response.data)));
+      dispatch(setFilmResponce(true));
     }
 
-    dispatch(setFilmResponce(true));
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -123,7 +152,7 @@ export const fetchSimilarFilms = (filmId) => async (dispatch, _getState, api) =>
       dispatch(loadSimilarFilms(filteredFilms));
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -135,7 +164,7 @@ export const fetchReviews = (filmId) => async (dispatch, _getState, api) => {
       dispatch(loadReviews(response.data));
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };
 
@@ -147,6 +176,6 @@ export const postComment = (filmId, {rating, comment}) => async (dispatch, _getS
       browserHistory.goBack();
     }
   } catch {
-    dispatch(setUnexpectedError(true));
+    new Error();
   }
 };

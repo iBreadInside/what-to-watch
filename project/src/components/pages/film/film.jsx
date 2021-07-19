@@ -33,7 +33,7 @@ export default function Film() {
     return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
-  if (!currentFilm && !isFilmResponsed) {
+  if (!isFilmResponsed) {
     return <LoadingScreen />;
   }
 
@@ -73,7 +73,7 @@ export default function Film() {
 
               <div className="film-card__buttons">
                 <PlayBtn film={currentFilm} />
-                <MyListBtn />
+                <MyListBtn film={currentFilm} />
                 {authStatus === AuthorizationStatus.AUTH &&
                 <Link
                   className="btn film-card__button"

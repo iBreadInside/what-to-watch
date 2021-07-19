@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import App from './components/app/app';
 import {createAPI} from './services/api';
 import {checkAuth, fetchFilmList, fetchPromoFilm} from './store/api-actions';
-import {requireAuthorization, setBadRequest} from './store/actions';
+import {requireAuthorization, setBadRequest, setUnexpectedError} from './store/actions';
 import {AuthorizationStatus} from './const';
 import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from './store/root-reducer';
@@ -12,6 +12,7 @@ import rootReducer from './store/root-reducer';
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
   () => store.dispatch(setBadRequest(true)),
+  () => store.dispatch(setUnexpectedError(true)),
 );
 
 const store = configureStore({

@@ -13,6 +13,7 @@ export const ActionType = {
   CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
 
   LOAD_FAVORITE: 'myList/loadFavorites',
+  TOGGLE_FAVORITE_STATUS: 'myList/toggleStatus',
 
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
