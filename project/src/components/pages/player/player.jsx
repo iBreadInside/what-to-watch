@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById} from '../../../store/api-actions';
 import {deleteCurrentFilmData} from '../../../store/actions';
 import {getFilm, getIsFilmResponce} from '../../../store/film/selectors';
-import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import LoadingScreen from '../../elements/loading-screen/loading-screen';
 
 const MAX_PROGRESS = 100;
 
