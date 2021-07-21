@@ -8,7 +8,7 @@ import {APIRoute, AppRoute, PosterType} from '../../../const';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById} from '../../../store/api-actions';
 import {deleteCurrentFilmData} from '../../../store/actions';
-import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import LoadingScreen from '../../elements/loading-screen/loading-screen';
 import {getFilm, getIsFilmResponce} from '../../../store/film/selectors';
 import {FilmPoster} from '../../elements/film-poster/film-poster';
 
@@ -20,6 +20,7 @@ export default function AddReview() {
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
+
     return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 

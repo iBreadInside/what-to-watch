@@ -10,7 +10,7 @@ import Tabs from '../../elements/tabs/tabs';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchFilmById, fetchReviews, fetchSimilarFilms} from '../../../store/api-actions';
 import {APIRoute, AuthorizationStatus, FilmsShown, PosterType} from '../../../const';
-import LoadingScreen from '../../elements/loading-screen/loading.screen';
+import LoadingScreen from '../../elements/loading-screen/loading-screen';
 import FilmList from '../../elements/film-list/film-list';
 import {deleteCurrentFilmData} from '../../../store/actions';
 import {getFilm, getIsFilmResponce, getSimilarFilms} from '../../../store/film/selectors';

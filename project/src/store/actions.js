@@ -11,6 +11,7 @@ export const ActionType = {
   LOAD_REVIEWS: 'film/loadReviews',
   DELETE_CURRENT_FILM_DATA: 'film/deleteCurrentFilm',
   CHECK_FILM_RESPONSE: 'film/checkFilmResponse',
+  SET_REVIEW_SENDING_STATUS: 'film/sendReviewSendingStatus',
 
   LOAD_FAVORITE: 'myList/loadFavorites',
   TOGGLE_FAVORITE_STATUS: 'myList/toggleStatus',
@@ -91,6 +92,13 @@ export const setFilmResponce = createAction(
 
 export const deleteCurrentFilmData = createAction(
   ActionType.DELETE_CURRENT_FILM_DATA,
+);
+
+export const setReviewSendingStatus = createAction(
+  ActionType.SET_REVIEW_SENDING_STATUS,
+  (bool) => ({
+    payload: bool,
+  }),
 );
 
 // === My List Page ===

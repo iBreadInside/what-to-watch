@@ -9,7 +9,7 @@ import Film from '../pages/film/film';
 import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import {useSelector} from 'react-redux';
-import LoadingScreen from '../elements/loading-screen/loading.screen';
+import LoadingScreen from '../elements/loading-screen/loading-screen';
 import browserHistory from '../../browser-history';
 import {getIsfilmsLoaded, getIsPromoLoaded} from '../../store/main/selectors';
 import {getAuthStatus} from '../../store/user/selectors';
@@ -68,48 +68,4 @@ export default function App() {
       </BrowserRouter>
     );
   }
-
-  // if (isFilmsLoaded && isPromoLoaded && authorizationStatus !== AuthorizationStatus.UNKNOWN) {
-  //   return (
-  //     <BrowserRouter history={browserHistory}>
-  //       <Switch>
-  //         <Route exact path={AppRoute.MAIN}>
-  //           <Main />
-  //         </Route>
-
-  //         <Route exact path={AppRoute.SIGN_IN}>
-  //           <SignIn />
-  //         </Route>
-
-  //         <PrivateRoute exact path={AppRoute.MY_LIST}
-  //           render={() => <MyList />}
-  //         >
-  //         </PrivateRoute>
-
-  //         <Route exact path={AppRoute.FILM}>
-  //           <Film />
-  //         </Route>
-
-  //         <PrivateRoute exact path={AppRoute.ADD_REVIEW}
-  //           render={() => <AddReview />}
-  //         >
-  //         </PrivateRoute>
-
-  //         <Route exact path={AppRoute.PLAYER}>
-  //           <Player />
-  //         </Route>
-
-  //         <Route>
-  //           <NotFound />
-  //         </Route>
-  //       </Switch>
-  //     </BrowserRouter>
-  //   );
-  // } else {
-  //   return (
-  //     isError
-  //       ? <ErrorScreen />
-  //       : <LoadingScreen />
-  //   );
-  // }
 }
