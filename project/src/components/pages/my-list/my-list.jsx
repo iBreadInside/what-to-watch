@@ -34,7 +34,7 @@ export default function MyList() {
           <div className="catalog__films-list">
             {myFilms.length !== 0
               ? myFilms.map((film) => <FilmCard key={film.id} film={film} />)
-              : <p>Sorry, there is no films of that genre :(</p>}
+              : <p>Sorry, there is no films yet :(</p>}
           </div>
         </section>
 

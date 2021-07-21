@@ -20,6 +20,7 @@ export default function AddReview() {
 
   useEffect(() => {
     dispatch(fetchFilmById(params.id));
+
     return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 

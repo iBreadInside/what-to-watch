@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Logo from '../../elements/logo/logo';
 import HiddenSVG from '../../elements/hidden-svg/hidden-svg';
 import PageFooter from '../../elements/page-footer/page-footer';
@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import FormMessage from '../../elements/form-message/form-message';
 import {getAuthStatus} from '../../../store/user/selectors';
+import {setBadRequest} from '../../../store/actions';
 
 const validationRules = {
   email: {
@@ -45,6 +46,9 @@ export default function SignIn() {
 
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  useEffect(() => () => dispatch(setBadRequest(false)), [dispatch]);
+
 
   function handleSubmit(evt) {
     const formData = {

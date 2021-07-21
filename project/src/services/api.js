@@ -27,7 +27,7 @@ export const createAPI = (onUnauthorized, onBadRequest, onUnexpectedError) => {
         break;
       case ResponseCode.BAD_REQUEST:
         onBadRequest();
-        break;
+        throw err;
       case ResponseCode.NOT_FOUND:
         browserHistory.push(AppRoute.NOT_FOUND);
         break;

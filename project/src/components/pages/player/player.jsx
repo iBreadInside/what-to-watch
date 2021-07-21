@@ -10,7 +10,7 @@ import LoadingScreen from '../../elements/loading-screen/loading.screen';
 
 const MAX_PROGRESS = 100;
 
-const ticker = (cb, ms = 1000, count = Infinity) => {
+function ticker(cb, ms = 1000, count = Infinity) {
   let tickCount = 0;
   let cancelled = false;
 
@@ -34,13 +34,13 @@ const ticker = (cb, ms = 1000, count = Infinity) => {
   let id = setTimeout(tick, ms);
 
   return cancelTicker;
-};
+}
 
-const formatTime = (minutes) => {
+function formatTime(minutes) {
   const date = new Date(minutes * 1000);
 
   return date.toISOString().substr(11, 8);
-};
+}
 
 export default function Player() {
   const params = useParams();

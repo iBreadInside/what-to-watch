@@ -1,15 +1,19 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import { setBadRequest } from '../../../store/actions';
 import {getIsBadRequest} from '../../../store/errors/selectors';
 import {getReviews} from '../../../store/film/selectors';
 import Comment from '../comment/comment';
 import ErrorScreen from '../error-screen/error-screen';
 
 export default function Reviews() {
+  const dispatch = useDispatch();
   const comments = useSelector(getReviews);
   const isBadRequest = useSelector(getIsBadRequest);
   const rowCount = Math.ceil(comments.length / 2);
   const sortedComments = comments.slice().sort((a, b) => b.rating - a.rating);
+
+  useEffect(() => () => dispatch(setBadRequest(false)), [dispatch]);
 
   function showCommentsColumn(columnComments) {
     return (
