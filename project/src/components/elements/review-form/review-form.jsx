@@ -2,8 +2,9 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {postComment} from '../../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import {setBadRequest} from '../../../store/actions';
+import {setBadRequest, setReviewSendingStatus} from '../../../store/actions';
 import {getIsBadRequest} from '../../../store/errors/selectors';
+import {getReviewSendingStatus} from '../../../store/film/selectors';
 
 const STARS_COUNT = 10;
 const CommentLength = {
@@ -15,25 +16,25 @@ export default function ReviewForm() {
   const params = useParams();
   const [rating, setRating] = useState(null);
   const [comment, setComment] = useState('');
-  const [isSending, setIsSending] = useState(false);
   const dispatch = useDispatch();
   const isPostReviewError = useSelector(getIsBadRequest);
+  const isSending = useSelector(getReviewSendingStatus);
 
   useEffect(() => () => dispatch(setBadRequest(false)), [dispatch, params.id]);
 
-  const ratingChangeHandler = (evt) => {
+  function handleRatingChange(evt) {
     setRating(evt.target.value);
     if (isPostReviewError) {
       dispatch(setBadRequest(false));
     }
-  };
+  }
 
-  const commentChangeHandler = (evt) => {
+  function handleCommentChange(evt) {
     setComment(evt.target.value);
     if (isPostReviewError) {
       dispatch(setBadRequest(false));
     }
-  };
+  }
 
   const inputs = [...Array(STARS_COUNT)].map((_, index) => {
     const id = STARS_COUNT - index;
@@ -46,7 +47,8 @@ export default function ReviewForm() {
           type="radio"
           name="rating"
           value={id}
-          onChange={ratingChangeHandler}
+          onChange={handleRatingChange}
+          disabled={isSending}
         />
         <label
           className="rating__label"
@@ -57,12 +59,11 @@ export default function ReviewForm() {
     );
   });
 
-  const handleSubmit = (evt) => {
+  function handleSubmit(evt) {
     evt.preventDefault();
-    setIsSending(true);
+    dispatch(setReviewSendingStatus(true));
     dispatch(postComment(params.id, {rating, comment}));
-    setIsSending(false);
-  };
+  }
 
   return (
     <form
@@ -84,16 +85,17 @@ export default function ReviewForm() {
           name="review-text"
           id="review-text"
           placeholder="Review text"
-          onChange={commentChangeHandler}
+          onChange={handleCommentChange}
           value={comment}
           maxLength={CommentLength.MAX}
+          disabled={isSending}
         >
         </textarea>
         <div className="add-review__submit">
           <button
             className="add-review__btn"
             type="submit"
-            disabled={comment.length < CommentLength.MIN || !rating}
+            disabled={comment.length < CommentLength.MIN || !rating || isSending}
           >
             Post
           </button>

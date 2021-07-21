@@ -3,7 +3,8 @@ import {
   deleteCurrentFilmData,
   loadFilmById,
   loadReviews,
-  loadSimilarFilms
+  loadSimilarFilms,
+  setReviewSendingStatus
 } from '../actions';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   isCurrentFilmResponsed: false,
   similarFilms: [],
   currentReviews: [],
+  isReviewSending: false,
 };
 
 export const filmData = createReducer(
@@ -33,6 +35,9 @@ export const filmData = createReducer(
         state.isBadRequest = false;
         state.similarFilms = [];
         state.currentReviews = [];
+      })
+      .addCase(setReviewSendingStatus, (state, action) => {
+        state.isReviewSending = action.payload;
       });
   },
 );

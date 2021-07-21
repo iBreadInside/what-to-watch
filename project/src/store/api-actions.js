@@ -10,29 +10,13 @@ import {
   loadSimilarFilms,
   makeLogout,
   requireAuthorization,
-  setFilmResponce
+  setFilmResponce,
+  setReviewSendingStatus
 } from './actions';
 
 function adaptFilms(films) {
   return films.map((film) => adaptFilmToClient(film));
 }
-
-// function getOnErrorDispatch(err, dispatch) {
-//   switch (err.status) {
-//     case ResponseCode.UNAUTHORIZED:
-//       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
-//       break;
-//     case ResponseCode.BAD_REQUEST:
-//       dispatch(setBadRequest(true));
-//       break;
-//     case ResponseCode.NOT_FOUND:
-//       browserHistory.push(AppRoute.NOT_FOUND);
-//       break;
-//     default:
-//       dispatch(setUnexpectedError(true));
-//       break;
-//   }
-// }
 
 // === Main ===
 export const fetchFilmList = () => async (dispatch, _getState, api) => {
@@ -136,7 +120,6 @@ export const fetchFilmById = (filmId) => async (dispatch, _getState, api) => {
       dispatch(loadFilmById(adaptFilmToClient(response.data)));
       dispatch(setFilmResponce(true));
     }
-
   } catch {
     new Error();
   }
@@ -175,7 +158,9 @@ export const postComment = (filmId, {rating, comment}) => async (dispatch, _getS
     if (response.status === ResponseCode.OK) {
       browserHistory.goBack();
     }
-  } catch {
-    new Error();
+  } catch (error) {
+    if (error.response.status === ResponseCode.BAD_REQUEST) {
+      dispatch(setReviewSendingStatus(false));
+    }
   }
 };
