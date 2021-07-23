@@ -77,7 +77,7 @@ export default function Player() {
     };
   }, [isPlaying]);
 
-  function handleExitBtn() {
+  function handleExitBtnClick() {
     if (history.action !== 'POP') {
       return history.goBack();
     }
@@ -138,7 +138,7 @@ export default function Player() {
         <button
           type="button"
           className="player__exit"
-          onClick={handleExitBtn}
+          onClick={handleExitBtnClick}
         >
           Exit
         </button>
