@@ -158,9 +158,7 @@ export const postComment = (filmId, {rating, comment}) => async (dispatch, _getS
     if (response.status === ResponseCode.OK) {
       browserHistory.goBack();
     }
-  } catch (error) {
-    if (error.response.status === ResponseCode.BAD_REQUEST) {
-      dispatch(setReviewSendingStatus(false));
-    }
+  } catch {
+    dispatch(setReviewSendingStatus(false));
   }
 };

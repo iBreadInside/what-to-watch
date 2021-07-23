@@ -59,7 +59,7 @@ export default function AddReview() {
                   <Link to={`${APIRoute.FILMS}/${id}`} className="breadcrumbs__link">{name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link">Add review</a>
+                  <a href className="breadcrumbs__link">Add review</a>
                 </li>
               </ul>
             </nav>
