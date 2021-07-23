@@ -17,7 +17,7 @@ export default function MyListBtn({film, isPromo}) {
   const history = useHistory();
   const authStatus = useSelector(getAuthStatus);
 
-  function handleBtn() {
+  function handleBtnClick() {
     if (authStatus !== AuthorizationStatus.AUTH) {
       history.push(AppRoute.SIGN_IN);
       return;
@@ -30,7 +30,7 @@ export default function MyListBtn({film, isPromo}) {
     <button
       className="btn btn--list film-card__button"
       type="button"
-      onClick={handleBtn}
+      onClick={handleBtnClick}
     >
       {film.isFavorite
         ?
