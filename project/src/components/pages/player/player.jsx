@@ -63,7 +63,7 @@ export default function Player() {
     if (videoRef.current && videoRef.current.readyState === 4) {
       setTime(videoRef.current.duration);
     }
-  }, [videoRef.current]);
+  }, []);
 
   useEffect(() => {
     if (!isPlaying) {

@@ -20,7 +20,7 @@ export default function FilmList({filmList, listInitialLength}) {
 
   useEffect(() => {
     setCount(listInitialLength);
-  }, [currentFilter]);
+  }, [currentFilter, listInitialLength]);
 
   return (
     <>
