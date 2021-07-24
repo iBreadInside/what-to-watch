@@ -25,9 +25,11 @@ export default function FilmCard({film}) {
       onMouseEnter={handleFilmCardEnter}
       onMouseLeave={handleFilmCardLeave}
     >
-      <div className="small-film-card__image">
+      <Link
+        to={`${APIRoute.FILMS}/${film.id}`}
+      >
         <VideoPlayer film={film} isActive={isActive} />
-      </div>
+      </Link>
 
       <h3 className="small-film-card__title">
         <Link
