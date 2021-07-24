@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { setBadRequest } from '../../../store/actions';
+import {setBadRequest} from '../../../store/actions';
 import {getIsBadRequest} from '../../../store/errors/selectors';
 import {getReviews} from '../../../store/film/selectors';
 import Comment from '../comment/comment';
@@ -11,7 +11,6 @@ export default function Reviews() {
   const comments = useSelector(getReviews);
   const isBadRequest = useSelector(getIsBadRequest);
   const rowCount = Math.ceil(comments.length / 2);
-  const sortedComments = comments.slice().sort((a, b) => b.rating - a.rating);
 
   useEffect(() => () => dispatch(setBadRequest(false)), [dispatch]);
 
@@ -30,8 +29,8 @@ export default function Reviews() {
       comments.length > 0
         ?
         <div className="film-card__reviews film-card__row">
-          {showCommentsColumn(sortedComments.slice(0, rowCount))}
-          {showCommentsColumn(sortedComments.slice(rowCount))}
+          {showCommentsColumn(comments.slice(0, rowCount))}
+          {showCommentsColumn(comments.slice(rowCount))}
         </div>
         : <p>There is no reviews yet</p>
     );
