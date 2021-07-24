@@ -3,10 +3,6 @@ import commentProp from './comment.prop';
 import dayjs from 'dayjs';
 import {getReviewRating} from '../../../common';
 
-Comment.propTypes = {
-  review: commentProp,
-};
-
 export default function Comment({review}) {
   const {
     comment,
@@ -33,3 +29,7 @@ export default function Comment({review}) {
     </div>
   );
 }
+
+Comment.propTypes = {
+  review: commentProp,
+};

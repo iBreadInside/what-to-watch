@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../../const';
 
-Logo.propTypes = {
-  isLight: PropTypes.bool,
-};
-
 export default function Logo({isLight}) {
   return (
     <div className="logo">
@@ -27,3 +23,7 @@ export default function Logo({isLight}) {
     </div>
   );
 }
+
+Logo.propTypes = {
+  isLight: PropTypes.bool,
+};

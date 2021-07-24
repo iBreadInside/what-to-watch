@@ -2,10 +2,6 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 import filmProp from '../../pages/film/film.prop';
 
-PlayBtn.propTypes = {
-  film: filmProp,
-};
-
 export default function PlayBtn({film}) {
   const history = useHistory();
 
@@ -29,3 +25,7 @@ export default function PlayBtn({film}) {
     </button>
   );
 }
+
+PlayBtn.propTypes = {
+  film: filmProp,
+};
