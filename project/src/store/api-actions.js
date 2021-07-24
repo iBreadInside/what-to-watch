@@ -11,7 +11,8 @@ import {
   makeLogout,
   requireAuthorization,
   setFilmResponce,
-  setReviewSendingStatus
+  setReviewSendingStatus,
+  setUnexpectedError
 } from './actions';
 
 function adaptFilms(films) {
@@ -28,7 +29,7 @@ export const fetchFilmList = () => async (dispatch, _getState, api) => {
       dispatch(loadFilms(films));
     }
   } catch {
-    new Error();
+    dispatch(setUnexpectedError(true));
   }
 };
 
@@ -40,7 +41,7 @@ export const fetchPromoFilm = () => async (dispatch, _getState, api) => {
       dispatch(loadPromo(adaptFilmToClient(response.data)));
     }
   } catch {
-    new Error();
+    dispatch(setUnexpectedError(true));
   }
 };
 

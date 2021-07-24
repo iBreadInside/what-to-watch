@@ -1,3 +1,5 @@
+export const REQUEST_TIMEOUT = 5000;
+
 export const AppRoute = {
   MAIN: '/',
   SIGN_IN: '/login',
