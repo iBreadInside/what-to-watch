@@ -5,11 +5,6 @@ import filmProp from '../../pages/film/film.prop';
 import {useSelector} from 'react-redux';
 import {getCurrentGenre} from '../../../store/main/selectors';
 
-FilmList.propTypes = {
-  filmList: PropTypes.arrayOf(filmProp),
-  listInitialLength: PropTypes.number,
-};
-
 export default function FilmList({filmList, listInitialLength}) {
   const currentFilter = useSelector(getCurrentGenre);
   const [filmsCount, setCount] = useState(listInitialLength);
@@ -44,3 +39,8 @@ export default function FilmList({filmList, listInitialLength}) {
     </>
   );
 }
+
+FilmList.propTypes = {
+  filmList: PropTypes.arrayOf(filmProp),
+  listInitialLength: PropTypes.number,
+};

@@ -7,40 +7,19 @@ import {fetchFilmById} from '../../../store/api-actions';
 import {deleteCurrentFilmData} from '../../../store/actions';
 import {getFilm, getIsFilmResponce} from '../../../store/film/selectors';
 import LoadingScreen from '../../elements/loading-screen/loading-screen';
+import Spinner from '../../elements/spinner/spinner';
 
 const MAX_PROGRESS = 100;
 
-function ticker(cb, ms = 1000, count = Infinity) {
-  let tickCount = 0;
-  let cancelled = false;
+const getTimeVideo = (duration, currentTime) => {
+  const elapsedTime = Math.floor(duration - currentTime);
 
-  const tick = () => {
-    tickCount += 1;
+  const hours = String(Math.floor(elapsedTime / 60 / 60)).padStart(2, '0');
+  const minutes = String(Math.floor(elapsedTime / 60) - (hours * 60)).padStart(2, '0');
+  const seconds = String(elapsedTime % 60).padStart(2, '0');
 
-    if (tickCount === count || cancelled) {
-      clearTimeout(id);
-      return;
-    }
-
-    cb();
-
-    id = setTimeout(tick, ms);
-  };
-
-  const cancelTicker = () => {
-    cancelled = true;
-  };
-
-  let id = setTimeout(tick, ms);
-
-  return cancelTicker;
-}
-
-function formatTime(minutes) {
-  const date = new Date(minutes * 1000);
-
-  return date.toISOString().substr(11, 8);
-}
+  return elapsedTime > 3600 ? `${hours}:${minutes}:${seconds}`: `${minutes}:${seconds}`;
+};
 
 export default function Player() {
   const params = useParams();
@@ -48,10 +27,15 @@ export default function Player() {
   const dispatch = useDispatch();
   const watchingFilm = useSelector(getFilm);
   const isFilmResponsed = useSelector(getIsFilmResponce);
-  const videoRef = useRef();
+
+  const videoRef = useRef(null);
+  const progressBarRef = useRef(null);
+  const togglerRef = useRef(null);
+
   const [isPlaying, setPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [time, setTime] = useState(0);
+  const [playerElapsedTime, setPlayerElapsedTime] = useState('00:00');
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(fetchFilmById(+params.id));
@@ -59,23 +43,11 @@ export default function Player() {
     return () => dispatch(deleteCurrentFilmData());
   }, [dispatch, params.id]);
 
-  useEffect(() => {
-    if (videoRef.current && videoRef.current.readyState === 4) {
-      setTime(videoRef.current.duration);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isPlaying) {
-      return;
-    }
-
-    const clearTicker = ticker(handleTick);
-
-    return () => {
-      clearTicker();
-    };
-  }, [isPlaying]);
+  function handleDataLoaded() {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 1000);
+  }
 
   function handleExitBtnClick() {
     if (history.action !== 'POP') {
@@ -85,7 +57,7 @@ export default function Player() {
     history.push(AppRoute.MAIN);
   }
 
-  const handlePlayToggle = () => {
+  function handlePlayToggle() {
     if (!isPlaying) {
       videoRef.current.play();
     } else {
@@ -93,19 +65,13 @@ export default function Player() {
     }
 
     setPlaying((prev) => !prev);
-  };
+  }
 
-  const handleFullScreenClick = () => {
+  function handleFullScreenClick() {
     videoRef.current.requestFullscreen();
-  };
+  }
 
-  const handleTick = () => {
-    if (videoRef.current && videoRef.current.readyState === 4) {
-      setProgress((videoRef.current.currentTime * 100) / videoRef.current.duration);
-    }
-  };
-
-  const handleProgressClick = (evt) => {
+  function handleProgressClick(evt) {
     if (videoRef.current && videoRef.current.readyState === 4) {
       const progressWidth = evt.target.offsetWidth;
       const togglerWidth = evt.target.parentElement.querySelector('.player__toggler').offsetWidth;
@@ -115,7 +81,16 @@ export default function Player() {
       setProgress(progressPosition);
       videoRef.current.currentTime = (progressPosition * videoRef.current.duration) / 100;
     }
-  };
+  }
+
+  function handleProgressBarUpdate() {
+    const video = videoRef.current;
+    const videoCurrentTime = videoRef.current.currentTime;
+    const videoDuration = videoRef.current.duration;
+    progressBarRef.current.value = video ? ((videoCurrentTime / videoDuration) * 100) : 0;
+    togglerRef.current.style.left = `${video ? ((videoCurrentTime / videoDuration) * 100) : 0}%`;
+    setPlayerElapsedTime(getTimeVideo(videoDuration, videoCurrentTime));
+  }
 
   if (!isFilmResponsed) {
     return <LoadingScreen />;
@@ -126,12 +101,15 @@ export default function Player() {
       <HiddenSVG />
 
       <div className="player">
+        {!isLoaded && <Spinner />}
         <video
           src={watchingFilm.videoLink}
           className="player__video"
           poster={watchingFilm.backgroundImage}
           autoPlay={isPlaying}
           ref={videoRef}
+          onLoadedData={handleDataLoaded}
+          onTimeUpdate={handleProgressBarUpdate}
         >
         </video>
 
@@ -148,6 +126,7 @@ export default function Player() {
             <div className="player__time">
               <progress
                 className="player__progress"
+                ref={progressBarRef}
                 value={progress}
                 max={MAX_PROGRESS}
                 onClick={handleProgressClick}
@@ -156,12 +135,13 @@ export default function Player() {
               <div
                 className="player__toggler"
                 style={{left: `${progress}%`}}
+                ref={togglerRef}
               >
                 Toggler
               </div>
             </div>
             <div className="player__time-value">
-              {time && formatTime(time - (videoRef.current?.currentTime ?? 0))}
+              {playerElapsedTime}
             </div>
           </div>
 

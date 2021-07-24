@@ -5,12 +5,6 @@ import {useSelector} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 import {getAuthStatus} from '../../../store/user/selectors';
 
-PrivateRoute.propTypes = {
-  exact: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
-};
-
 export default function PrivateRoute({render, path, exact}) {
   const authorizationStatus = useSelector(getAuthStatus);
 
@@ -26,3 +20,9 @@ export default function PrivateRoute({render, path, exact}) {
     />
   );
 }
+
+PrivateRoute.propTypes = {
+  exact: PropTypes.bool.isRequired,
+  path: PropTypes.string.isRequired,
+  render: PropTypes.func.isRequired,
+};

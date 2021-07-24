@@ -4,10 +4,6 @@ import filmProp from '../../pages/film/film.prop';
 import VideoPlayer from '../../elements/video-player/video-player';
 import {APIRoute} from '../../../const';
 
-FilmCard.propTypes = {
-  film: filmProp,
-};
-
 export default function FilmCard({film}) {
   const [isActive, setActive] = useState(false);
 
@@ -25,9 +21,11 @@ export default function FilmCard({film}) {
       onMouseEnter={handleFilmCardEnter}
       onMouseLeave={handleFilmCardLeave}
     >
-      <div className="small-film-card__image">
+      <Link
+        to={`${APIRoute.FILMS}/${film.id}`}
+      >
         <VideoPlayer film={film} isActive={isActive} />
-      </div>
+      </Link>
 
       <h3 className="small-film-card__title">
         <Link
@@ -40,3 +38,7 @@ export default function FilmCard({film}) {
     </article>
   );
 }
+
+FilmCard.propTypes = {
+  film: filmProp,
+};

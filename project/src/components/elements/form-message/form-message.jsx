@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes, {shape} from 'prop-types';
 
-FormMessage.propTypes = {
-  formErrors: PropTypes.arrayOf(shape({
-    field: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-  })),
-};
-
 export default function FormMessage({formErrors}) {
   return (
     <div className='sign-in__message'>
@@ -18,3 +11,9 @@ export default function FormMessage({formErrors}) {
   );
 }
 
+FormMessage.propTypes = {
+  formErrors: PropTypes.arrayOf(shape({
+    field: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+  })),
+};

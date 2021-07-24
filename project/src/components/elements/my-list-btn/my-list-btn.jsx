@@ -7,11 +7,6 @@ import {getAuthStatus} from '../../../store/user/selectors';
 import {useHistory} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 
-MyListBtn.propTypes = {
-  film: filmProp,
-  isPromo: PropTypes.bool,
-};
-
 export default function MyListBtn({film, isPromo}) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,3 +41,8 @@ export default function MyListBtn({film, isPromo}) {
 
   );
 }
+
+MyListBtn.propTypes = {
+  film: filmProp,
+  isPromo: PropTypes.bool,
+};

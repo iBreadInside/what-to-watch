@@ -8,11 +8,6 @@ const PlayerSize = {
   HEIGHT: 175,
 };
 
-VideoPlayer.propTypes = {
-  film: filmProp,
-  isActive: PropTypes.bool.isRequired,
-};
-
 export default function VideoPlayer({film, isActive}) {
   const videoRef = useRef();
 
@@ -32,3 +27,8 @@ export default function VideoPlayer({film, isActive}) {
       : <img src={film.previewImage} alt={film.name} width={PlayerSize.WIDTH} height={PlayerSize.HEIGHT} />
   );
 }
+
+VideoPlayer.propTypes = {
+  film: filmProp,
+  isActive: PropTypes.bool.isRequired,
+};

@@ -49,7 +49,6 @@ export default function SignIn() {
 
   useEffect(() => () => dispatch(setBadRequest(false)), [dispatch]);
 
-
   function handleSubmit(evt) {
     const formData = {
       email: emailRef.current.value,

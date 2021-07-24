@@ -69,7 +69,6 @@ export default function ReviewForm() {
     <form
       className="add-review__form"
       onSubmit={handleSubmit}
-      disabled={isSending}
     >
       <div className="rating">
         <div className="rating__stars">

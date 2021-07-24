@@ -8,11 +8,6 @@ const PosterSize = {
   HEIGHT: '327',
 };
 
-FilmPoster.propTypes = {
-  film: filmProp,
-  posterType: PropTypes.string,
-};
-
 export function FilmPoster({film, posterType}) {
 
   function getAdditionalClass() {
@@ -36,3 +31,8 @@ export function FilmPoster({film, posterType}) {
     </div>
   );
 }
+
+FilmPoster.propTypes = {
+  film: filmProp,
+  posterType: PropTypes.string,
+};
